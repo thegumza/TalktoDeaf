@@ -17,8 +17,8 @@ public interface ApiService {
     @GET("/vocabulary_detail.php")
     void getVocabularyDetailByIdWithCallback(@Query("voc_name") String voc_name,Callback<List<VocabularyDetail>> callback);
 
-    @GET("/vocabulary.php")
-    void getVocabularyByMethodWithCallback(Callback<List<Vocabulary>> callback);
+    @GET("/vocabulary_by_category.php")
+    void getVocabularyByMethodWithCallback(@Query("cat_name")String cat_name,Callback<List<Vocabulary>> callback);
 
     @GET("/category.php")
     void getCategoryByMethodWithCallback(Callback<List<Category>> callback);

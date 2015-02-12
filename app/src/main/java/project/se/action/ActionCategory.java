@@ -29,6 +29,7 @@ import retrofit.converter.GsonConverter;
 
 public class ActionCategory extends ActionBarActivity {
     ListView listCategory;
+    public static String cat_name;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +38,8 @@ public class ActionCategory extends ActionBarActivity {
         listCategory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Category catName = (Category) parent.getItemAtPosition(position);
+                cat_name = catName.getCat_name();
                 Intent detail = new Intent(ActionCategory.this, ActionVocabulary.class);
                 startActivity(detail);
             }

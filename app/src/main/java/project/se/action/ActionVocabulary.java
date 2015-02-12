@@ -28,6 +28,7 @@ import retrofit.converter.GsonConverter;
 public class ActionVocabulary extends ActionBarActivity {
     private ListView listView;
     public static String voc_name;
+    public static String cat_name=ActionCategory.cat_name;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,8 +37,8 @@ public class ActionVocabulary extends ActionBarActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Vocabulary  vocname = (Vocabulary) parent.getItemAtPosition(position);
-                voc_name = vocname.getVoc_name();
+                Vocabulary  vocName = (Vocabulary) parent.getItemAtPosition(position);
+                voc_name = vocName.getVoc_name();
                 Intent vocDetail = new Intent(ActionVocabulary.this, ActionVocabularyDetail.class);
                 startActivity(vocDetail);
             }
@@ -49,7 +50,7 @@ public class ActionVocabulary extends ActionBarActivity {
                 .setConverter(new GsonConverter(builder.create()))
                 .build();
         ApiService retrofit = restAdapter.create(ApiService.class);
-        retrofit.getVocabularyByMethodWithCallback(new Callback<List<Vocabulary>>() {
+        retrofit.getVocabularyByMethodWithCallback(cat_name,new Callback<List<Vocabulary>>() {
             @Override
             public void success(List<Vocabulary> voc, Response response) {
                 // accecss the items from you shop list here
