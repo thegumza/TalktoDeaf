@@ -1,40 +1,120 @@
 package project.se.action;
 
-import android.support.v7.app.ActionBarActivity;
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.support.v7.app.ActionBarActivity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
 
+import com.cengalabs.flatui.views.FlatTextView;
+import com.google.gson.GsonBuilder;
+
+import java.util.List;
+
+import project.se.model.Vocabulary;
+import project.se.rest.ApiService;
 import project.se.talktodeaf.R;
+import retrofit.Callback;
+import retrofit.RestAdapter;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+import retrofit.converter.GsonConverter;
 
 public class ActionVocabulary extends ActionBarActivity {
-
+    private ListView listView;
+    public static String voc_name;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_action_vocabulary);
+        listView = (ListView)findViewById(R.id.listView);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Vocabulary  vocname = (Vocabulary) parent.getItemAtPosition(position);
+                voc_name = vocname.getVoc_name();
+                Intent vocDetail = new Intent(ActionVocabulary.this, ActionVocabularyDetail.class);
+                startActivity(vocDetail);
+            }
+        });
+        GsonBuilder builder = new GsonBuilder();
+        RestAdapter restAdapter = new RestAdapter.Builder()
+                .setLogLevel(RestAdapter.LogLevel.FULL)
+                .setEndpoint("http://talktodeafphp-talktodeaf.rhcloud.com")
+                .setConverter(new GsonConverter(builder.create()))
+                .build();
+        ApiService retrofit = restAdapter.create(ApiService.class);
+        retrofit.getVocabularyByMethodWithCallback(new Callback<List<Vocabulary>>() {
+            @Override
+            public void success(List<Vocabulary> voc, Response response) {
+                // accecss the items from you shop list here
+
+                List<Vocabulary> vc = voc;
+                /*Example[] array = ep.toArray(new Example[ep.size()]);
+                List<Example> listsample = ep.getSaleDate();*/
+                listView.setAdapter(new vocListAdapter(vc));
+
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Toast.makeText(ActionVocabulary.this,
+                        "Connect Failure Please Try Again",
+                        Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
+    public class vocListAdapter extends BaseAdapter {
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_action_vocabulary, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        List<Vocabulary> Vocabulary;
+        public vocListAdapter(List<Vocabulary> sd) {
+            Vocabulary = sd;
+        }
+        @Override
+        public int getCount() {
+            return Vocabulary.size();
         }
 
-        return super.onOptionsItemSelected(item);
+        @Override
+        public Object getItem(int position) {
+            return Vocabulary.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        private class ViewHolder {
+            FlatTextView vocName;
+            FlatTextView position;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            ViewHolder  holder;
+            LayoutInflater inflater = getLayoutInflater();
+
+            if(convertView == null){
+                convertView = inflater.inflate(R.layout.activity_action_vocabulary_column, parent,false);
+                holder = new ViewHolder();
+                holder.position=(FlatTextView)convertView.findViewById(R.id.position);
+                holder.vocName=(FlatTextView)convertView.findViewById(R.id.vocName);
+                convertView.setTag(holder);
+            }else{
+                holder=(ViewHolder)convertView.getTag();
+            }
+            Vocabulary bk = Vocabulary.get(position);
+            holder.position.setText(""+(position+1));
+            holder.vocName.setText("" + bk.getVoc_name());
+
+            return convertView;
+        }
     }
 }

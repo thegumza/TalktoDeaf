@@ -52,6 +52,22 @@
             android:name="project.se.speak.SpeakVocabularyDetail"
             android:label="@string/title_activity_speak_vocabulary_detail" >
         </activity>
+        <activity
+            android:name="project.se.information.book.BookInfo"
+            android:label="@string/title_activity_book_info" >
+        </activity>
+        <activity
+            android:name="project.se.information.book.BookDetail"
+            android:label="@string/title_activity_book_detail" >
+        </activity>
+        <activity
+            android:name="project.se.information.place.PlaceInfo"
+            android:label="@string/title_activity_place_info" >
+        </activity>
+        <activity
+            android:name="project.se.information.place.PlaceDetail"
+            android:label="@string/title_activity_place_detail" >
+        </activity>
     </application>
 
 </manifest>

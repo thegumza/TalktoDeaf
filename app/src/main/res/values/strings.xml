@@ -13,5 +13,9 @@
     <string name="title_activity_action_vocabulary_detail">ActionVocabularyDetail</string>
     <string name="title_activity_speak_vocabulary">SpeakVocabulary</string>
     <string name="title_activity_speak_vocabulary_detail">SpeakVocabularyDetail</string>
+    <string name="title_activity_book_info">BookInfo</string>
+    <string name="title_activity_book_detail">BookDetail</string>
+    <string name="title_activity_place_info">PlaceInfo</string>
+    <string name="title_activity_place_detail">PlaceDetail</string>
 
 </resources>
