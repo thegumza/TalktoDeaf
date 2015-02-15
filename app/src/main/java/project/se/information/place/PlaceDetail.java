@@ -1,40 +1,98 @@
 package project.se.information.place;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.support.v7.app.ActionBarActivity;
+import android.widget.Toast;
 
+import com.cengalabs.flatui.views.FlatTextView;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.gson.GsonBuilder;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import project.se.model.Place_Detail;
+import project.se.rest.ApiService;
 import project.se.talktodeaf.R;
+import retrofit.Callback;
+import retrofit.RestAdapter;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+import retrofit.converter.GsonConverter;
 
 public class PlaceDetail extends ActionBarActivity {
-
+    FlatTextView placeName,placeAddress,phone,placeNameTitle;
+    String PlaceName,Address,Phone,PlaceNameTitle;
+    String latitude,longtitude,slatitude,slongtitude;
+    String place_name = PlaceInfo.place_name;
+    private GoogleMap map;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place_detail);
-    }
+        placeName = (FlatTextView)findViewById(R.id.place_name);
+        placeAddress = (FlatTextView)findViewById(R.id.address);
+        phone = (FlatTextView)findViewById(R.id.phone);
+        placeNameTitle = (FlatTextView)findViewById(R.id.place_title);
+        map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map))
+                .getMap();
+        GsonBuilder builder = new GsonBuilder();
+        RestAdapter restAdapter = new RestAdapter.Builder()
+                .setLogLevel(RestAdapter.LogLevel.FULL)
+                .setEndpoint("http://talktodeafphp-talktodeaf.rhcloud.com")
+                .setConverter(new GsonConverter(builder.create()))
+                .build();
+        ApiService retrofit = restAdapter.create(ApiService.class);
+        retrofit.getPlaceDetailByIdWithCallback(place_name,new Callback<List<Place_Detail>>() {
+
+            @Override
+            public void success(List<Place_Detail> listPlace, Response response) {
+                List<Place_Detail> place = listPlace;
+
+                ArrayList<String> arrPlaceName = new ArrayList<String>();
+                ArrayList<String> arrPlaceAdress = new ArrayList<String>();
+                ArrayList<String> arrPhone = new ArrayList<String>();
+                ArrayList<Double> arrLat = new ArrayList<Double>();
+                ArrayList<Double> arrLong = new ArrayList<Double>();
+
+                for (Place_Detail pd : place) arrPlaceName.add((pd.getPlace_name()));
+                for (Place_Detail pd : place) arrPlaceAdress.add((pd.getAddress()));
+                for (Place_Detail pd : place) arrPhone.add((pd.getPhone()));
+                for (Place_Detail pd : place) arrLat.add((pd.getLatitude()));
+                for (Place_Detail pd : place) arrLong.add((pd.getLongitude()));
+
+                PlaceName = arrPlaceName.toString();
+                Address = arrPlaceAdress.toString();
+                Phone = arrPhone.toString();
+                latitude = arrLat.toString();
+                longtitude = arrLong.toString();
+
+                slatitude = latitude.substring(1, latitude.length() - 1);
+                slongtitude = longtitude.substring(1, longtitude.length() - 1);
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_place_detail, menu);
-        return true;
-    }
+                LatLng School = new LatLng(Double.valueOf(slatitude), Double.valueOf(slongtitude));
+                Marker places = map.addMarker(new MarkerOptions().position(School)
+                            .title("" + PlaceName.substring(1, PlaceName.length() - 1)));
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(School, 15));
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+                placeNameTitle.setText("" + PlaceName.substring(1, PlaceName.length() - 1));
+                placeName.setText("ชื่อ: " + PlaceName.substring(1, PlaceName.length() - 1));
+                placeAddress.setText("ที่อยู่: " + Address.substring(1, Address.length() - 1));
+                phone.setText("เบอร์โทร: " + Phone.substring(1, Phone.length() - 1));
 
-        return super.onOptionsItemSelected(item);
-    }
-}
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Toast.makeText(PlaceDetail.this,"Connection fail please try again",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }}

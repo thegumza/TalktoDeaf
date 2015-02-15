@@ -14,9 +14,6 @@ import android.widget.Toast;
 
 import com.cengalabs.flatui.views.FlatTextView;
 import com.google.gson.GsonBuilder;
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
 import java.util.List;
 
@@ -33,20 +30,10 @@ public class ActionVocabulary extends ActionBarActivity {
     private ListView listView;
     public static String voc_name;
     public static String cat_name=ActionCategory.cat_name;
-    DisplayImageOptions options;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_action_vocabulary);
-        options = new DisplayImageOptions.Builder()
-                //.showImageOnLoading(R.drawable.ic_stub)
-                //.showImageForEmptyUri(R.drawable.ic_empty)
-                //.showImageOnFail(R.drawable.ic_error)
-                .cacheInMemory(true)
-                .cacheOnDisk(true)
-                .considerExifParams(true)
-                .displayer(new RoundedBitmapDisplayer(20))
-                .build();
         listView = (ListView)findViewById(R.id.listView);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -78,9 +65,7 @@ public class ActionVocabulary extends ActionBarActivity {
 
             @Override
             public void failure(RetrofitError error) {
-                Toast.makeText(ActionVocabulary.this,
-                        "Connect Failure Please Try Again",
-                        Toast.LENGTH_LONG).show();
+                        Toast.makeText(ActionVocabulary.this, "Connection fail please try again", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -120,7 +105,7 @@ public class ActionVocabulary extends ActionBarActivity {
                 convertView = inflater.inflate(R.layout.activity_action_vocabulary_column, parent,false);
                 holder = new ViewHolder();
                 holder.position=(FlatTextView)convertView.findViewById(R.id.position);
-                holder.thumbnail_micro=(ImageView)convertView.findViewById(R.id.thumbnail);
+                //holder.thumbnail_micro=(ImageView)convertView.findViewById(R.id.thumbnail);
                 holder.vocName=(FlatTextView)convertView.findViewById(R.id.vocName);
                 convertView.setTag(holder);
             }else{
@@ -131,7 +116,8 @@ public class ActionVocabulary extends ActionBarActivity {
             String video = ("http://talktodeafphp-talktodeaf.rhcloud.com/video/" + vidname+".mp4");
             holder.position.setText(""+(position+1));
             holder.vocName.setText("" + bk.getVoc_name());
-            ImageLoader.getInstance().displayImage(video, holder.thumbnail_micro, options, null);
+            //Bitmap bMap = ThumbnailUtils.createVideoThumbnail(video, MediaStore.Video.Thumbnails.MICRO_KIND);
+            //ImageLoader.getInstance().displayImage(video, holder.thumbnail_micro, options, null);
             //Picasso.with(ActionVocabulary.this).load(vidname).into(holder.thumbnail_micro);
             //ImageSize targetSize = new ImageSize(50, 50);
             //imageLoader.displayImage(video, holder.thumbnail_micro);

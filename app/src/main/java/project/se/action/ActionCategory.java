@@ -66,9 +66,7 @@ public class ActionCategory extends ActionBarActivity {
 
             @Override
             public void failure(RetrofitError error) {
-                Toast.makeText(ActionCategory.this,
-                        "Connect Failure Please Try Again",
-                        Toast.LENGTH_LONG).show();
+                Toast.makeText(ActionCategory.this, "Connection fail please try again", Toast.LENGTH_SHORT).show();
             }
         });
     }

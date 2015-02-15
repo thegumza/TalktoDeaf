@@ -8,6 +8,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.MediaController;
+import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.cengalabs.flatui.views.FlatTextView;
@@ -119,7 +120,7 @@ public class ActionVocabularyDetail extends ActionBarActivity {
 
                 @Override
                 public void failure(RetrofitError error) {
-                    // If any error.
+                    Toast.makeText(ActionVocabularyDetail.this, "Connection fail please try again", Toast.LENGTH_SHORT).show();
                 }
             });
         }
