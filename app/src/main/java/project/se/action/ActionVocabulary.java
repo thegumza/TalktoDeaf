@@ -16,7 +16,7 @@ import com.cengalabs.flatui.views.FlatTextView;
 import com.google.gson.GsonBuilder;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
 import java.util.List;
 
@@ -34,13 +34,10 @@ public class ActionVocabulary extends ActionBarActivity {
     public static String voc_name;
     public static String cat_name=ActionCategory.cat_name;
     DisplayImageOptions options;
-    protected ImageLoader imageLoader;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_action_vocabulary);
-        imageLoader = ImageLoader.getInstance();
-        imageLoader.init(ImageLoaderConfiguration.createDefault(this));
         options = new DisplayImageOptions.Builder()
                 //.showImageOnLoading(R.drawable.ic_stub)
                 //.showImageForEmptyUri(R.drawable.ic_empty)
@@ -48,9 +45,8 @@ public class ActionVocabulary extends ActionBarActivity {
                 .cacheInMemory(true)
                 .cacheOnDisk(true)
                 .considerExifParams(true)
-                //.displayer(new RoundedBitmapDisplayer(20))
+                .displayer(new RoundedBitmapDisplayer(20))
                 .build();
-
         listView = (ListView)findViewById(R.id.listView);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -135,11 +131,14 @@ public class ActionVocabulary extends ActionBarActivity {
             String video = ("http://talktodeafphp-talktodeaf.rhcloud.com/video/" + vidname+".mp4");
             holder.position.setText(""+(position+1));
             holder.vocName.setText("" + bk.getVoc_name());
-            /*ImageSize targetSize = new ImageSize(50, 50);
-            imageLoader.displayImage(video, holder.thumbnail_micro);*/
+            ImageLoader.getInstance().displayImage(video, holder.thumbnail_micro, options, null);
+            //Picasso.with(ActionVocabulary.this).load(vidname).into(holder.thumbnail_micro);
+            //ImageSize targetSize = new ImageSize(50, 50);
+            //imageLoader.displayImage(video, holder.thumbnail_micro);
+
             //Bitmap bmp = imageLoader.loadImageSync(video, targetSize, options);
-            //holder.thumbnail_micro.setImageBitmap(bmp);
-            ImageLoader.getInstance().displayImage(video, holder.thumbnail_micro, null, null);
+            //imageLoader.displayImage(video, holder.thumbnail_micro);
+            //ImageLoader.getInstance().displayImage(video, holder.thumbnail_micro, options, null);
 
             return convertView;
         }
