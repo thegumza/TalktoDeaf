@@ -1,15 +1,18 @@
 package project.se.action;
 
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.VideoView;
 
 import com.cengalabs.flatui.views.FlatTextView;
 import com.google.gson.GsonBuilder;
+import com.pnikosis.materialishprogress.ProgressWheel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,10 +31,13 @@ public class ActionVocabularyDetail extends ActionBarActivity {
         VideoView videoView;
         String VocName,DesName,VocExam,CatName,TypeName,VidName;
         String voc_name = ActionVocabulary.voc_name;
+        ImageView imageView;
+        ProgressWheel wheel;
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_action_vocabulary_detail);
+
             vocTitle = (FlatTextView) findViewById(R.id.voc_title);
             videoView = (VideoView) findViewById(R.id.videoView);
             vocName = (FlatTextView) findViewById(R.id.voc_name);
@@ -39,6 +45,9 @@ public class ActionVocabularyDetail extends ActionBarActivity {
             vocDes = (FlatTextView) findViewById(R.id.voc_des);
             vocExam = (FlatTextView) findViewById(R.id.voc_exam);
             catName = (FlatTextView) findViewById(R.id.cat_name);
+            imageView = (ImageView) findViewById(R.id.imageView);
+            wheel = (ProgressWheel) findViewById(R.id.progress_wheel);
+            wheel.setBarColor(Color.rgb(25, 181, 254));
 
             GsonBuilder builder = new GsonBuilder();
             RestAdapter restAdapter = new RestAdapter.Builder()
@@ -80,13 +89,15 @@ public class ActionVocabularyDetail extends ActionBarActivity {
                     catName.setText("หมวด: " + CatName.substring(1, CatName.length() - 1));
                     typeName.setText("ประเภท: " + TypeName.substring(1, TypeName.length() - 1));
                     vocExam.setText("ตัวอย่าง: " + VocExam.substring(1, VocExam.length() - 1));
+                    wheel.spin();
                     try {
                         // Start the MediaController
                         MediaController mediacontroller = new MediaController(
                                 ActionVocabularyDetail.this);
                         mediacontroller.setAnchorView(videoView);
                         // Get the URL from String VideoURL
-                        Uri video = Uri.parse("http://talktodeafphp-talktodeaf.rhcloud.com/video/"+VidName.substring(1, VidName.length() - 1)+".mp4");
+
+                        Uri video = Uri.parse("http://talktodeafphp-talktodeaf.rhcloud.com/video/" + VidName.substring(1, VidName.length() - 1) + ".mp4");
                         videoView.setMediaController(mediacontroller);
                         videoView.setVideoURI(video);
 
@@ -100,6 +111,7 @@ public class ActionVocabularyDetail extends ActionBarActivity {
                         // Close the progress bar and play the video
                         public void onPrepared(MediaPlayer mp) {
                             //pDialog.dismiss();
+                            wheel.stopSpinning();
                             videoView.start();
                         }
                     });

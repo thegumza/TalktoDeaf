@@ -101,7 +101,6 @@ public class ActionVocabulary extends ActionBarActivity {
         public View getView(int position, View convertView, ViewGroup parent) {
             ViewHolder  holder;
             LayoutInflater inflater = getLayoutInflater();
-
             if(convertView == null){
                 convertView = inflater.inflate(R.layout.activity_action_vocabulary_column, parent,false);
                 holder = new ViewHolder();
