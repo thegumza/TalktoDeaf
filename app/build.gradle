@@ -30,4 +30,5 @@ dependencies {
     compile 'com.hannesdorfmann.smoothprogressbar:library:1.0.0'
     compile 'com.squareup.picasso:picasso:2.3.2'
     compile 'com.pnikosis:materialish-progress:1.4'
+    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.3'
 }

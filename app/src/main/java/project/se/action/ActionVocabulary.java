@@ -8,11 +8,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.cengalabs.flatui.views.FlatTextView;
 import com.google.gson.GsonBuilder;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import java.util.List;
 
@@ -29,10 +33,24 @@ public class ActionVocabulary extends ActionBarActivity {
     private ListView listView;
     public static String voc_name;
     public static String cat_name=ActionCategory.cat_name;
+    DisplayImageOptions options;
+    protected ImageLoader imageLoader;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_action_vocabulary);
+        imageLoader = ImageLoader.getInstance();
+        imageLoader.init(ImageLoaderConfiguration.createDefault(this));
+        options = new DisplayImageOptions.Builder()
+                //.showImageOnLoading(R.drawable.ic_stub)
+                //.showImageForEmptyUri(R.drawable.ic_empty)
+                //.showImageOnFail(R.drawable.ic_error)
+                .cacheInMemory(true)
+                .cacheOnDisk(true)
+                .considerExifParams(true)
+                //.displayer(new RoundedBitmapDisplayer(20))
+                .build();
+
         listView = (ListView)findViewById(R.id.listView);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -95,6 +113,7 @@ public class ActionVocabulary extends ActionBarActivity {
         private class ViewHolder {
             FlatTextView vocName;
             FlatTextView position;
+            ImageView thumbnail_micro;
         }
 
         @Override
@@ -105,14 +124,22 @@ public class ActionVocabulary extends ActionBarActivity {
                 convertView = inflater.inflate(R.layout.activity_action_vocabulary_column, parent,false);
                 holder = new ViewHolder();
                 holder.position=(FlatTextView)convertView.findViewById(R.id.position);
+                holder.thumbnail_micro=(ImageView)convertView.findViewById(R.id.thumbnail);
                 holder.vocName=(FlatTextView)convertView.findViewById(R.id.vocName);
                 convertView.setTag(holder);
             }else{
                 holder=(ViewHolder)convertView.getTag();
             }
             Vocabulary bk = Vocabulary.get(position);
+            String vidname = bk.getVid_name();
+            String video = ("http://talktodeafphp-talktodeaf.rhcloud.com/video/" + vidname+".mp4");
             holder.position.setText(""+(position+1));
             holder.vocName.setText("" + bk.getVoc_name());
+            /*ImageSize targetSize = new ImageSize(50, 50);
+            imageLoader.displayImage(video, holder.thumbnail_micro);*/
+            //Bitmap bmp = imageLoader.loadImageSync(video, targetSize, options);
+            //holder.thumbnail_micro.setImageBitmap(bmp);
+            ImageLoader.getInstance().displayImage(video, holder.thumbnail_micro, null, null);
 
             return convertView;
         }

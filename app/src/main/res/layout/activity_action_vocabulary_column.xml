@@ -15,6 +15,12 @@
         flatui:fl_fontWeight="regular"
         flatui:fl_fontExtension="otf"
         flatui:fl_textColor="fl_darker"/>
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:id="@+id/thumbnail" />
+
     <com.cengalabs.flatui.views.FlatTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
