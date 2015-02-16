@@ -14,6 +14,7 @@ tools:context="project.se.action.ActionVocabularyDetail">
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
     android:layout_gravity="center">
 
 
@@ -22,13 +23,13 @@ tools:context="project.se.action.ActionVocabularyDetail">
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text=""
-        android:textSize="40dp"
+        android:textSize="50dp"
         android:gravity="center"
-        android:layout_margin="20dp"
-        android:layout_marginBottom="10dp"
-        flatui:fl_fontFamily="Waffle"
-        flatui:fl_fontWeight="regular"
-        flatui:fl_fontExtension="otf"
+        android:layout_margin="5dp"
+        flatui:fl_theme="@array/dark"
+        flatui:fl_fontFamily="ThaiSansNeue"
+        flatui:fl_fontWeight="light"
+        flatui:fl_fontExtension="ttf"
         flatui:fl_textColor="fl_darker" />
 
     <LinearLayout
@@ -49,10 +50,11 @@ tools:context="project.se.action.ActionVocabularyDetail">
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal">
                 <VideoView
-                    android:layout_width="150dp"
-                    android:layout_height="180dp"
+                    android:layout_width="180dp"
+                    android:layout_height="200dp"
                     android:id="@+id/videoView"
                     android:layout_gravity="center"
+                    android:layout_marginBottom="5dp"
                     />
 
                 <LinearLayout
@@ -78,13 +80,13 @@ tools:context="project.se.action.ActionVocabularyDetail">
                 android:background="#0000"
                 android:textSize="25dp"
                 android:text=""
-                android:layout_margin="5dip"
+                android:layout_margin="2dip"
                 flatui:fl_size="30dip"
                 flatui:fl_theme="@array/dark"
                 android:orientation="vertical"
-                flatui:fl_fontFamily="Waffle"
-                flatui:fl_fontWeight="regular"
-                flatui:fl_fontExtension="otf"/>
+                flatui:fl_fontFamily="ThaiSansNeue"
+                flatui:fl_fontWeight="light"
+                flatui:fl_fontExtension="ttf"/>
 
             <com.cengalabs.flatui.views.FlatTextView
                 android:id="@+id/cat_name"
@@ -94,13 +96,13 @@ tools:context="project.se.action.ActionVocabularyDetail">
                 android:background="#0000"
                 android:textSize="25dp"
                 android:text=""
-                android:layout_margin="5dip"
+                android:layout_margin="2dip"
                 flatui:fl_size="30dip"
                 flatui:fl_theme="@array/dark"
                 android:orientation="vertical"
-                flatui:fl_fontFamily="Waffle"
-                flatui:fl_fontWeight="regular"
-                flatui:fl_fontExtension="otf"/>
+                flatui:fl_fontFamily="ThaiSansNeue"
+                flatui:fl_fontWeight="light"
+                flatui:fl_fontExtension="ttf"/>
 
             <com.cengalabs.flatui.views.FlatTextView
                 android:id="@+id/type_name"
@@ -110,13 +112,13 @@ tools:context="project.se.action.ActionVocabularyDetail">
                 android:background="#0000"
                 android:textSize="25dp"
                 android:text=""
-                android:layout_margin="5dip"
+                android:layout_margin="2dip"
                 flatui:fl_size="30dip"
                 flatui:fl_theme="@array/dark"
                 android:orientation="vertical"
-                flatui:fl_fontFamily="Waffle"
-                flatui:fl_fontWeight="regular"
-                flatui:fl_fontExtension="otf"/>
+                flatui:fl_fontFamily="ThaiSansNeue"
+                flatui:fl_fontWeight="light"
+                flatui:fl_fontExtension="ttf"/>
             <com.cengalabs.flatui.views.FlatTextView
                 android:id="@+id/voc_des"
                 android:layout_width="wrap_content"
@@ -125,13 +127,13 @@ tools:context="project.se.action.ActionVocabularyDetail">
                 android:background="#0000"
                 android:textSize="25dp"
                 android:text=""
-                android:layout_margin="5dip"
+                android:layout_margin="2dip"
                 flatui:fl_size="30dip"
                 flatui:fl_theme="@array/dark"
                 android:orientation="vertical"
-                flatui:fl_fontFamily="Waffle"
-                flatui:fl_fontWeight="regular"
-                flatui:fl_fontExtension="otf"/>
+                flatui:fl_fontFamily="ThaiSansNeue"
+                flatui:fl_fontWeight="light"
+                flatui:fl_fontExtension="ttf"/>
 
             <com.cengalabs.flatui.views.FlatTextView
                 android:id="@+id/voc_exam"
@@ -141,13 +143,13 @@ tools:context="project.se.action.ActionVocabularyDetail">
                 android:background="#0000"
                 android:textSize="25dp"
                 android:text=""
-                android:layout_margin="5dip"
+                android:layout_margin="2dip"
                 flatui:fl_size="30dip"
                 flatui:fl_theme="@array/dark"
                 android:orientation="vertical"
-                flatui:fl_fontFamily="Waffle"
-                flatui:fl_fontWeight="regular"
-                flatui:fl_fontExtension="otf"/>
+                flatui:fl_fontFamily="ThaiSansNeue"
+                flatui:fl_fontWeight="light"
+                flatui:fl_fontExtension="ttf"/>
 
 
 

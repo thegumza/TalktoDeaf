@@ -31,12 +31,14 @@ public class ActionVocabularyDetail extends ActionBarActivity {
         FlatTextView vocName,vocDes,vocExam,catName,typeName,vocTitle;
         VideoView videoView;
         String VocName,DesName,VocExam,CatName,TypeName,VidName;
-        String voc_name = ActionVocabulary.voc_name;
+        String voc_name;
         ImageView imageView;
         ProgressWheel wheel;
         @Override
         protected void onCreate(Bundle savedInstanceState) {
+            //getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
             super.onCreate(savedInstanceState);
+            //getSupportActionBar().hide();
             setContentView(R.layout.activity_action_vocabulary_detail);
 
             vocTitle = (FlatTextView) findViewById(R.id.voc_title);
@@ -57,6 +59,8 @@ public class ActionVocabularyDetail extends ActionBarActivity {
                     .setConverter(new GsonConverter(builder.create()))
                     .build();
             ApiService retrofit = restAdapter.create(ApiService.class);
+            voc_name = ActionVocabulary.getVoc_name();
+            Log.d("vocabulary Name", "" + voc_name);
             retrofit.getVocabularyDetailByIdWithCallback(voc_name, new Callback<List<VocabularyDetail>>() {
 
                 @Override

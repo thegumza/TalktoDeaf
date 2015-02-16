@@ -1,6 +1,8 @@
 package project.se.action;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
@@ -10,12 +12,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.amulyakhare.textdrawable.TextDrawable;
 import com.cengalabs.flatui.views.FlatTextView;
 import com.google.gson.GsonBuilder;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.List;
 
 import project.se.model.Category;
@@ -71,6 +77,10 @@ public class ActionCategory extends ActionBarActivity {
         });
     }
 
+    public static String getCat_name() {
+        return cat_name;
+    }
+
     public class CategoryListAdapter extends BaseAdapter {
 
         List<Category> Category;
@@ -95,6 +105,7 @@ public class ActionCategory extends ActionBarActivity {
         private class ViewHolder {
             FlatTextView catName;
             FlatTextView position;
+            ImageView imageview;
         }
 
         @Override
@@ -106,15 +117,26 @@ public class ActionCategory extends ActionBarActivity {
                 convertView = inflater.inflate(R.layout.activity_action_category_column, parent,false);
                 holder = new ViewHolder();
                 holder.position=(FlatTextView)convertView.findViewById(R.id.position);
+                holder.imageview=(ImageView)convertView.findViewById(R.id.imageView);
                 holder.catName=(FlatTextView)convertView.findViewById(R.id.catName);
                 convertView.setTag(holder);
             }else{
                 holder=(ViewHolder)convertView.getTag();
             }
             Category ct = Category.get(position);
-            holder.position.setText(""+(position+1));
+            String FirstCat = ct.getCat_name().substring(0,1);
+            Typeface type = Typeface.createFromAsset(getAssets(),"fonts/ThaiSansNeue_regular.ttf");
+            TextDrawable drawable = TextDrawable.builder()
+                    .beginConfig()
+                    .useFont(type)
+                    .bold()
+                    .toUpperCase()
+                    .endConfig()
+                    .buildRound("" + FirstCat, Color.DKGRAY);
+            NumberFormat f = new DecimalFormat("00");
+            holder.position.setText(""+f.format(position + 1));
             holder.catName.setText("" + ct.getCat_name());
-
+            holder.imageview.setImageDrawable(drawable);
             return convertView;
         }
     }

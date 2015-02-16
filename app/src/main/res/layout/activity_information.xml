@@ -15,9 +15,9 @@
         android:singleLine="true"
         android:layout_gravity="center_horizontal"
         flatui:fl_theme="@array/sea"
-        flatui:fl_fontFamily="Waffle"
-        flatui:fl_fontWeight="regular"
-        flatui:fl_fontExtension="otf"
+        flatui:fl_fontFamily="ThaiSansNeue"
+        flatui:fl_fontWeight="light"
+        flatui:fl_fontExtension="ttf"
         flatui:fl_textColor="fl_darker" />
 
     <LinearLayout
@@ -40,9 +40,9 @@
             flatui:fl_theme="@array/grape"
             flatui:fl_textAppearance="fl_light"
             flatui:fl_blockButtonEffectHeight="3dp"
-            flatui:fl_fontFamily="Waffle"
-            flatui:fl_fontWeight="regular"
-            flatui:fl_fontExtension="otf"/>
+            flatui:fl_fontFamily="ThaiSansNeue"
+            flatui:fl_fontWeight="light"
+            flatui:fl_fontExtension="ttf"/>
 
         <com.cengalabs.flatui.views.FlatButton
             android:id="@+id/btn_place"
@@ -58,8 +58,8 @@
             flatui:fl_theme="@array/sand"
             flatui:fl_textAppearance="fl_light"
             flatui:fl_blockButtonEffectHeight="3dp"
-            flatui:fl_fontFamily="Waffle"
-            flatui:fl_fontWeight="regular"
-            flatui:fl_fontExtension="otf"/>
+            flatui:fl_fontFamily="ThaiSansNeue"
+            flatui:fl_fontWeight="light"
+            flatui:fl_fontExtension="ttf"/>
     </LinearLayout>
 </LinearLayout>

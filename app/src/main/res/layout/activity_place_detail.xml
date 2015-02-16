@@ -25,9 +25,9 @@ tools:context="project.se.information.place.PlaceDetail">
         android:textSize="30dp"
         android:gravity="center"
         android:layout_margin="20dp"
-        flatui:fl_fontFamily="Waffle"
-        flatui:fl_fontWeight="regular"
-        flatui:fl_fontExtension="otf"
+        flatui:fl_fontFamily="ThaiSansNeue"
+        flatui:fl_fontWeight="light"
+        flatui:fl_fontExtension="ttf"
         flatui:fl_textColor="fl_darker" />
 
     <LinearLayout
@@ -55,9 +55,9 @@ tools:context="project.se.information.place.PlaceDetail">
                 flatui:fl_size="30dip"
                 flatui:fl_theme="@array/dark"
                 android:orientation="vertical"
-                flatui:fl_fontFamily="Waffle"
-                flatui:fl_fontWeight="regular"
-                flatui:fl_fontExtension="otf"/>
+                flatui:fl_fontFamily="ThaiSansNeue"
+                flatui:fl_fontWeight="light"
+                flatui:fl_fontExtension="ttf"/>
 
             <com.cengalabs.flatui.views.FlatTextView
                 android:id="@+id/address"
@@ -71,9 +71,9 @@ tools:context="project.se.information.place.PlaceDetail">
                 flatui:fl_size="30dip"
                 flatui:fl_theme="@array/dark"
                 android:orientation="vertical"
-                flatui:fl_fontFamily="Waffle"
-                flatui:fl_fontWeight="regular"
-                flatui:fl_fontExtension="otf"/>
+                flatui:fl_fontFamily="ThaiSansNeue"
+                flatui:fl_fontWeight="light"
+                flatui:fl_fontExtension="ttf"/>
 
             <com.cengalabs.flatui.views.FlatTextView
                 android:id="@+id/phone"
@@ -84,12 +84,13 @@ tools:context="project.se.information.place.PlaceDetail">
                 android:textSize="25dp"
                 android:text=""
                 android:layout_margin="5dip"
+                android:clickable="true"
                 flatui:fl_size="30dip"
                 flatui:fl_theme="@array/dark"
                 android:orientation="vertical"
-                flatui:fl_fontFamily="Waffle"
-                flatui:fl_fontWeight="regular"
-                flatui:fl_fontExtension="otf"/>
+                flatui:fl_fontFamily="ThaiSansNeue"
+                flatui:fl_fontWeight="light"
+                flatui:fl_fontExtension="ttf"/>
 
             <fragment
                 android:id="@+id/map"
