@@ -8,6 +8,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.MediaController;
+import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.cengalabs.flatui.views.FlatTextView;
@@ -30,12 +31,14 @@ public class ActionVocabularyDetail extends ActionBarActivity {
         FlatTextView vocName,vocDes,vocExam,catName,typeName,vocTitle;
         VideoView videoView;
         String VocName,DesName,VocExam,CatName,TypeName,VidName;
-        String voc_name = ActionVocabulary.voc_name;
+        String voc_name;
         ImageView imageView;
         ProgressWheel wheel;
         @Override
         protected void onCreate(Bundle savedInstanceState) {
+            //getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
             super.onCreate(savedInstanceState);
+            //getSupportActionBar().hide();
             setContentView(R.layout.activity_action_vocabulary_detail);
 
             vocTitle = (FlatTextView) findViewById(R.id.voc_title);
@@ -56,6 +59,8 @@ public class ActionVocabularyDetail extends ActionBarActivity {
                     .setConverter(new GsonConverter(builder.create()))
                     .build();
             ApiService retrofit = restAdapter.create(ApiService.class);
+            voc_name = ActionVocabulary.getVoc_name();
+            Log.d("vocabulary Name", "" + voc_name);
             retrofit.getVocabularyDetailByIdWithCallback(voc_name, new Callback<List<VocabularyDetail>>() {
 
                 @Override
@@ -119,7 +124,7 @@ public class ActionVocabularyDetail extends ActionBarActivity {
 
                 @Override
                 public void failure(RetrofitError error) {
-                    // If any error.
+                    Toast.makeText(ActionVocabularyDetail.this, "Connection fail please try again", Toast.LENGTH_SHORT).show();
                 }
             });
         }

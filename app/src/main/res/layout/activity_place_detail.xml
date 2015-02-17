@@ -1,12 +1,110 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="project.se.information.place.PlaceDetail">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+xmlns:flatui="http://schemas.android.com/apk/res-auto"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:layout_gravity="center"
+tools:context="project.se.information.place.PlaceDetail">
 
-    <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
 
-</RelativeLayout>
+
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center">
+
+
+
+
+    <com.cengalabs.flatui.views.FlatTextView
+        android:id="@+id/place_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="30dp"
+        android:gravity="center"
+        android:layout_margin="20dp"
+        flatui:fl_fontFamily="ThaiSansNeue"
+        flatui:fl_fontWeight="light"
+        flatui:fl_fontExtension="ttf"
+        flatui:fl_textColor="fl_darker" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="left"
+            android:padding="10dp" >
+
+            <com.cengalabs.flatui.views.FlatTextView
+                android:id="@+id/place_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:background="#0000"
+                android:textSize="25dp"
+                android:text=""
+                android:layout_margin="5dip"
+                flatui:fl_size="30dip"
+                flatui:fl_theme="@array/dark"
+                android:orientation="vertical"
+                flatui:fl_fontFamily="ThaiSansNeue"
+                flatui:fl_fontWeight="light"
+                flatui:fl_fontExtension="ttf"/>
+
+            <com.cengalabs.flatui.views.FlatTextView
+                android:id="@+id/address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:background="#0000"
+                android:textSize="25dp"
+                android:text=""
+                android:layout_margin="5dip"
+                flatui:fl_size="30dip"
+                flatui:fl_theme="@array/dark"
+                android:orientation="vertical"
+                flatui:fl_fontFamily="ThaiSansNeue"
+                flatui:fl_fontWeight="light"
+                flatui:fl_fontExtension="ttf"/>
+
+            <com.cengalabs.flatui.views.FlatTextView
+                android:id="@+id/phone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:background="#0000"
+                android:textSize="25dp"
+                android:text=""
+                android:layout_margin="5dip"
+                android:clickable="true"
+                flatui:fl_size="30dip"
+                flatui:fl_theme="@array/dark"
+                android:orientation="vertical"
+                flatui:fl_fontFamily="ThaiSansNeue"
+                flatui:fl_fontWeight="light"
+                flatui:fl_fontExtension="ttf"/>
+
+            <fragment
+                android:id="@+id/map"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:name="com.google.android.gms.maps.MapFragment"/>
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+</LinearLayout>
+
+
+
+</LinearLayout>

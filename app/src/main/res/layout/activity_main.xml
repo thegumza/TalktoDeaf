@@ -27,9 +27,9 @@
             flatui:fl_theme="@array/orange"
             flatui:fl_textAppearance="fl_light"
             flatui:fl_blockButtonEffectHeight="3dp"
-            flatui:fl_fontFamily="Waffle"
-            flatui:fl_fontWeight="regular"
-            flatui:fl_fontExtension="otf"/>
+            flatui:fl_fontFamily="ThaiSansNeue"
+            flatui:fl_fontWeight="light"
+            flatui:fl_fontExtension="ttf"/>
 
         <com.cengalabs.flatui.views.FlatButton
             android:id="@+id/btn_game"
@@ -44,9 +44,9 @@
             flatui:fl_theme="@array/candy"
             flatui:fl_textAppearance="fl_light"
             flatui:fl_blockButtonEffectHeight="3dp"
-            flatui:fl_fontFamily="Waffle"
-            flatui:fl_fontWeight="regular"
-            flatui:fl_fontExtension="otf"/>
+            flatui:fl_fontFamily="ThaiSansNeue"
+            flatui:fl_fontWeight="light"
+            flatui:fl_fontExtension="ttf"/>
     </LinearLayout>
     <LinearLayout
         android:orientation="vertical"
@@ -66,9 +66,9 @@
             flatui:fl_textAppearance="fl_light"
             flatui:fl_blockButtonEffectHeight="3dp"
             flatui:fl_theme="@array/sky"
-            flatui:fl_fontFamily="Waffle"
-            flatui:fl_fontWeight="regular"
-            flatui:fl_fontExtension="otf"/>
+            flatui:fl_fontFamily="ThaiSansNeue"
+            flatui:fl_fontWeight="light"
+            flatui:fl_fontExtension="ttf"/>
 
         <com.cengalabs.flatui.views.FlatButton
             android:id="@+id/btn_info"
@@ -83,8 +83,8 @@
             flatui:fl_theme="@array/sand"
             flatui:fl_textAppearance="fl_light"
             flatui:fl_blockButtonEffectHeight="3dp"
-            flatui:fl_fontFamily="Waffle"
-            flatui:fl_fontWeight="regular"
-            flatui:fl_fontExtension="otf"/>
+            flatui:fl_fontFamily="ThaiSansNeue"
+            flatui:fl_fontWeight="light"
+            flatui:fl_fontExtension="ttf"/>
     </LinearLayout>
 </LinearLayout>
