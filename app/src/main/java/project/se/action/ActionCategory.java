@@ -44,7 +44,7 @@ public class ActionCategory extends ActionBarActivity implements SearchView.OnQu
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_action_category);
-        listCategory = (ListView)findViewById(R.id.scroll);
+        listCategory = (ListView)findViewById(R.id.listView);
         listCategory.setTextFilterEnabled(true);
         listCategory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

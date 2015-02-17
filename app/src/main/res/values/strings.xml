@@ -17,5 +17,7 @@
     <string name="title_activity_book_detail">BookDetail</string>
     <string name="title_activity_place_info">PlaceInfo</string>
     <string name="title_activity_place_detail">PlaceDetail</string>
+    <string name="context_menu">Context menu</string>
+    <string name="title_activity_main_fragment">MainFragment</string>
 
 </resources>
