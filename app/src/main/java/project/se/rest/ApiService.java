@@ -28,6 +28,9 @@ public interface ApiService {
     @GET("/place_detail.php")
     void getPlaceInfoByMethodWithCallback(Callback<List<Place>> callback);
 
+    @GET("/search_category.php")
+    void getCategoryBySearchWithCallback(@Query("cat_name")String cat_name,Callback<List<Category>> callback);
+
     @GET("/category.php")
     void getCategoryByMethodWithCallback(Callback<List<Category>> callback);
 

@@ -1,10 +1,13 @@
 package project.se.action;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -33,14 +36,16 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 import retrofit.converter.GsonConverter;
 
-public class ActionCategory extends ActionBarActivity {
+public class ActionCategory extends ActionBarActivity implements SearchView.OnQueryTextListener {
     ListView listCategory;
     public static String cat_name;
+    String url = "http://talktodeafphp-talktodeaf.rhcloud.com";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_action_category);
-        listCategory = (ListView)findViewById(R.id.listView);
+        listCategory = (ListView)findViewById(R.id.scroll);
+        listCategory.setTextFilterEnabled(true);
         listCategory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -50,11 +55,13 @@ public class ActionCategory extends ActionBarActivity {
                 startActivity(detail);
             }
         });
-
+        getCategory();
+    }
+    public void getCategory() {
         GsonBuilder builder = new GsonBuilder();
         RestAdapter restAdapter = new RestAdapter.Builder()
                 .setLogLevel(RestAdapter.LogLevel.FULL)
-                .setEndpoint("http://talktodeafphp-talktodeaf.rhcloud.com")
+                .setEndpoint(url)
                 .setConverter(new GsonConverter(builder.create()))
                 .build();
         ApiService retrofit = restAdapter.create(ApiService.class);
@@ -76,10 +83,53 @@ public class ActionCategory extends ActionBarActivity {
             }
         });
     }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        getCategory();
+    }
 
     public static String getCat_name() {
         return cat_name;
     }
+
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+
+        GsonBuilder builder = new GsonBuilder();
+        RestAdapter restAdapter = new RestAdapter.Builder()
+                .setLogLevel(RestAdapter.LogLevel.FULL)
+                .setEndpoint(url)
+                .setConverter(new GsonConverter(builder.create()))
+                .build();
+        ApiService retrofit = restAdapter.create(ApiService.class);
+        retrofit.getCategoryBySearchWithCallback(query,new Callback<List<Category>>() {
+            @Override
+            public void success(List<Category> category, Response response) {
+                try {
+                    List<Category> ep = category;
+                    listCategory.setAdapter(new CategoryListAdapter(ep));
+                } catch (Exception e) {
+                    Toast.makeText(ActionCategory.this, "Category Not Found", Toast.LENGTH_SHORT).show();
+                    e.printStackTrace();
+                }
+
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Toast.makeText(ActionCategory.this, "Connection fail please try again", Toast.LENGTH_SHORT).show();
+            }
+        });
+        return true;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        return false;
+    }
+
 
     public class CategoryListAdapter extends BaseAdapter {
 
@@ -146,6 +196,13 @@ public class ActionCategory extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_action_category, menu);
+        // Get the SearchView and set the searchable configuration
+        SearchManager searchManager = (SearchManager) getSystemService( Context.SEARCH_SERVICE );
+        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setSubmitButtonEnabled(true);
+        searchView.setOnQueryTextListener(this);
         return true;
     }
 
@@ -163,4 +220,5 @@ public class ActionCategory extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }
