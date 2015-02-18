@@ -199,10 +199,10 @@ public class ActionCategory extends ActionBarActivity implements SearchView.OnQu
         // Get the SearchView and set the searchable configuration
         SearchManager searchManager = (SearchManager) getSystemService( Context.SEARCH_SERVICE );
         SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
-
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         searchView.setSubmitButtonEnabled(true);
         searchView.setOnQueryTextListener(this);
+        searchView.setQueryHint("ป้อนคำค้นหา");
         return true;
     }
 

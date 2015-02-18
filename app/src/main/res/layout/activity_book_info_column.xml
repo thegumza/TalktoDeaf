@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:flatui="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent">
+        <com.cengalabs.flatui.views.FlatTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:gravity="center"
+            android:text="No."
+            android:layout_gravity="center"
+            android:textSize="30dp"
+            android:id="@+id/position"
+            flatui:fl_fontFamily="Waffle"
+            flatui:fl_fontWeight="regular"
+            flatui:fl_fontExtension="otf"
+            flatui:fl_textColor="fl_darker"/>
+    <ImageView
+        android:id="@+id/img"
+        android:layout_width="100dp"
+        android:layout_height="150dp"/>
+
+    <com.cengalabs.flatui.views.FlatTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:gravity="left"
+        android:layout_gravity="center"
+        android:text="Vocabulary"
+        android:textSize="30dp"
+        android:id="@+id/bookName"
+        flatui:fl_fontFamily="Waffle"
+        flatui:fl_fontWeight="regular"
+        flatui:fl_fontExtension="otf"
+        flatui:fl_textColor="fl_darker"/>
+    </LinearLayout>
+</LinearLayout>

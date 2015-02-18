@@ -90,7 +90,9 @@ tools:context="project.se.information.place.PlaceDetail">
                 android:orientation="vertical"
                 flatui:fl_fontFamily="ThaiSansNeue"
                 flatui:fl_fontWeight="light"
-                flatui:fl_fontExtension="ttf"/>
+                flatui:fl_fontExtension="ttf"
+                android:drawableRight="@drawable/ic_phone_black_24dp"
+                android:drawablePadding="3dp" />
 
             <fragment
                 android:id="@+id/map"

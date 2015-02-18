@@ -36,8 +36,10 @@ public class MainActivity extends ActionBarActivity implements OnMenuItemClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ArrayList<MenuObject> menuObjects = new ArrayList<>();
-        menuObjects.add(new MenuObject(R.drawable.ic_home_black_36dp));
-        menuObjects.add(new MenuObject(R.drawable.ic_file_download_black_24dp, "Download"));
+        menuObjects.add(new MenuObject(R.drawable.ic_highlight_remove_black_36dp,"ปิดหน้าต่าง"));
+        menuObjects.add(new MenuObject(R.drawable.ic_settings_black_36dp, "ตั้งค่า"));
+        menuObjects.add(new MenuObject(R.drawable.ic_info_outline_black_36dp, "เกี่ยวกับ"));
+
         fragmentManager = getSupportFragmentManager();
         mMenuDialogFragment = ContextMenuDialogFragment.newInstance((int) getResources().getDimension(R.dimen.tool_bar_height), menuObjects);
         //addFragment(new MainFragment(), true, R.id.container);
