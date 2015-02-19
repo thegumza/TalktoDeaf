@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.cengalabs.flatui.views.FlatButton;
+import com.mikepenz.aboutlibraries.Libs;
 import com.yalantis.contextmenu.lib.ContextMenuDialogFragment;
 import com.yalantis.contextmenu.lib.MenuObject;
 import com.yalantis.contextmenu.lib.interfaces.OnMenuItemClickListener;
@@ -76,8 +77,9 @@ public class MainActivity extends ActionBarActivity implements OnMenuItemClickLi
                 startActivity(info);
             }
         });
-
     }
+
+
 
 
     @Override
@@ -111,6 +113,17 @@ public class MainActivity extends ActionBarActivity implements OnMenuItemClickLi
 
     @Override
     public void onMenuItemClick(View view, int i) {
-        Toast.makeText(this, "Clicked on position: " + i, Toast.LENGTH_SHORT).show();
+       if(i == 2){
+           new Libs.Builder()
+                   .withFields(R.string.class.getFields())
+                   .withActivityTitle("About")
+                   .withAboutAppName("พูดผ่านภาษามือ")
+                   .withAboutIconShown(true)
+                   .withAboutVersionShown(true)
+                   .withLicenseShown(true)
+                   .withAboutVersionShownCode(true)
+                   .withAboutDescription("แอพพลิเคชั่น TalktoDeaf พูดผ่านภาษามือ <br />พัฒนาโดยนักศึกษาวิศวกรรมซอฟต์แวร์<br /><b>มหาวิทยาลัยสงขลานครินทร์ วิทยาเขตภูเก็ต</b>")
+                   .start(this);
+       }
     }
 }

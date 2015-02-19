@@ -5,6 +5,7 @@ import java.util.List;
 import project.se.model.Book;
 import project.se.model.Book_Detail;
 import project.se.model.Category;
+import project.se.model.Game;
 import project.se.model.Place;
 import project.se.model.Place_Detail;
 import project.se.model.Vocabulary;
@@ -18,6 +19,9 @@ import retrofit.http.Query;
  */
 public interface ApiService {
 
+
+    @GET("/game_random.php")
+    void getGameByMethodWithCallback(Callback<Game> callback);
 
     @GET("/book_detail_by_name.php")
     void getBookDetailByNameWithCallback(@Query("book_name") String book_name,Callback<Book_Detail> callback);

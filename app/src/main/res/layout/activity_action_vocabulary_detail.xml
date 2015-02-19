@@ -1,11 +1,17 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools"
-xmlns:flatui="http://schemas.android.com/apk/res-auto"
-xmlns:wheel="http://schemas.android.com/apk/res-auto"
+<com.github.ksoichiro.android.observablescrollview.ObservableScrollView
+    android:id="@+id/scroll"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:flatui="http://schemas.android.com/apk/res-auto"
+    xmlns:wheel="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true"
+    android:overScrollMode="never"
+    android:scrollbars="none">
+
+<LinearLayout
 android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:layout_gravity="center"
-tools:context="project.se.action.ActionVocabularyDetail">
+android:layout_height="wrap_content">
 
 
 
@@ -14,8 +20,9 @@ tools:context="project.se.action.ActionVocabularyDetail">
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
-    android:layout_gravity="center">
+    android:gravity="center">
+
+
 
 
     <com.cengalabs.flatui.views.FlatTextView
@@ -163,3 +170,4 @@ tools:context="project.se.action.ActionVocabularyDetail">
 
 
 </LinearLayout>
+    </com.github.ksoichiro.android.observablescrollview.ObservableScrollView>

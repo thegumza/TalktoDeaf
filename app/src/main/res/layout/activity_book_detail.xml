@@ -25,9 +25,10 @@
             android:gravity="center"
             android:layout_margin="20dp"
             android:layout_marginBottom="30dp"
-            flatui:fl_fontFamily="Waffle"
-            flatui:fl_fontWeight="regular"
-            flatui:fl_fontExtension="otf"
+            flatui:fl_fontFamily="ThaiSansNeue"
+            flatui:fl_fontWeight="light"
+            flatui:fl_fontExtension="ttf"
+            flatui:fl_theme="@array/dark"
             flatui:fl_textColor="fl_darker" />
 
         <LinearLayout
@@ -60,11 +61,11 @@
                     android:text="ชื่อหนังสือ"
                     android:layout_margin="5dip"
                     flatui:fl_size="30dip"
+                    flatui:fl_fontFamily="ThaiSansNeue"
+                    flatui:fl_fontWeight="light"
+                    flatui:fl_fontExtension="ttf"
                     flatui:fl_theme="@array/dark"
-                    android:orientation="vertical"
-                    flatui:fl_fontFamily="Waffle"
-                    flatui:fl_fontWeight="regular"
-                    flatui:fl_fontExtension="otf"/>
+                    flatui:fl_textColor="fl_darker"/>
 
                 <com.cengalabs.flatui.views.FlatTextView
                     android:id="@+id/book_des"
@@ -76,11 +77,11 @@
                     android:text="รายละเอียด"
                     android:layout_margin="5dip"
                     flatui:fl_size="30dip"
+                    flatui:fl_fontFamily="ThaiSansNeue"
+                    flatui:fl_fontWeight="light"
+                    flatui:fl_fontExtension="ttf"
                     flatui:fl_theme="@array/dark"
-                    android:orientation="vertical"
-                    flatui:fl_fontFamily="Waffle"
-                    flatui:fl_fontWeight="regular"
-                    flatui:fl_fontExtension="otf"/>
+                    flatui:fl_textColor="fl_darker"/>
 
                 <com.cengalabs.flatui.views.FlatTextView
                     android:id="@+id/book_page"
@@ -92,11 +93,11 @@
                     android:text="จำนวนหน้า"
                     android:layout_margin="5dip"
                     flatui:fl_size="30dip"
+                    flatui:fl_fontFamily="ThaiSansNeue"
+                    flatui:fl_fontWeight="light"
+                    flatui:fl_fontExtension="ttf"
                     flatui:fl_theme="@array/dark"
-                    android:orientation="vertical"
-                    flatui:fl_fontFamily="Waffle"
-                    flatui:fl_fontWeight="regular"
-                    flatui:fl_fontExtension="otf"/>
+                    flatui:fl_textColor="fl_darker"/>
                 <com.cengalabs.flatui.views.FlatTextView
                     android:id="@+id/book_author"
                     android:layout_width="wrap_content"
@@ -107,11 +108,11 @@
                     android:text="ชื่อผู้แต่ง"
                     android:layout_margin="5dip"
                     flatui:fl_size="30dip"
+                    flatui:fl_fontFamily="ThaiSansNeue"
+                    flatui:fl_fontWeight="light"
+                    flatui:fl_fontExtension="ttf"
                     flatui:fl_theme="@array/dark"
-                    android:orientation="vertical"
-                    flatui:fl_fontFamily="Waffle"
-                    flatui:fl_fontWeight="regular"
-                    flatui:fl_fontExtension="otf"/>
+                    flatui:fl_textColor="fl_darker"/>
 
                 <com.cengalabs.flatui.views.FlatTextView
                     android:id="@+id/book_publisher"
@@ -123,11 +124,11 @@
                     android:text="ชื่อสำนักพิมพ์"
                     android:layout_margin="5dip"
                     flatui:fl_size="30dip"
+                    flatui:fl_fontFamily="ThaiSansNeue"
+                    flatui:fl_fontWeight="light"
+                    flatui:fl_fontExtension="ttf"
                     flatui:fl_theme="@array/dark"
-                    android:orientation="vertical"
-                    flatui:fl_fontFamily="Waffle"
-                    flatui:fl_fontWeight="regular"
-                    flatui:fl_fontExtension="otf"/>
+                    flatui:fl_textColor="fl_darker"/>
 
                 <com.cengalabs.flatui.views.FlatTextView
                     android:id="@+id/book_price"
@@ -139,11 +140,11 @@
                     android:text="ราคา"
                     android:layout_margin="5dip"
                     flatui:fl_size="30dip"
+                    flatui:fl_fontFamily="ThaiSansNeue"
+                    flatui:fl_fontWeight="light"
+                    flatui:fl_fontExtension="ttf"
                     flatui:fl_theme="@array/dark"
-                    android:orientation="vertical"
-                    flatui:fl_fontFamily="Waffle"
-                    flatui:fl_fontWeight="regular"
-                    flatui:fl_fontExtension="otf"/>
+                    flatui:fl_textColor="fl_darker"/>
 
             </LinearLayout>
 

@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.widget.ImageView;
@@ -12,6 +13,9 @@ import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.cengalabs.flatui.views.FlatTextView;
+import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
+import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
+import com.github.ksoichiro.android.observablescrollview.ScrollState;
 import com.google.gson.GsonBuilder;
 import com.pnikosis.materialishprogress.ProgressWheel;
 
@@ -24,7 +28,7 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 import retrofit.converter.GsonConverter;
 
-public class ActionVocabularyDetail extends ActionBarActivity {
+public class ActionVocabularyDetail extends ActionBarActivity implements ObservableScrollViewCallbacks {
         FlatTextView vocName,vocDes,vocExam,catName,typeName,vocTitle;
         VideoView videoView;
         String VocName,DesName,VocExam,CatName,TypeName,VidName;
@@ -37,7 +41,8 @@ public class ActionVocabularyDetail extends ActionBarActivity {
             super.onCreate(savedInstanceState);
             //getSupportActionBar().hide();
             setContentView(R.layout.activity_action_vocabulary_detail);
-
+            ObservableScrollView scrollView = (ObservableScrollView) findViewById(R.id.scroll);
+            scrollView.setScrollViewCallbacks(this);
             vocTitle = (FlatTextView) findViewById(R.id.voc_title);
             videoView = (VideoView) findViewById(R.id.videoView);
             vocName = (FlatTextView) findViewById(R.id.voc_name);
@@ -46,6 +51,7 @@ public class ActionVocabularyDetail extends ActionBarActivity {
             vocExam = (FlatTextView) findViewById(R.id.voc_exam);
             catName = (FlatTextView) findViewById(R.id.cat_name);
             imageView = (ImageView) findViewById(R.id.imageView);
+
             wheel = (ProgressWheel) findViewById(R.id.progress_wheel);
             wheel.setBarColor(Color.rgb(25, 181, 254));
 
@@ -76,7 +82,6 @@ public class ActionVocabularyDetail extends ActionBarActivity {
                     catName.setText("หมวด: " + CatName);
                     typeName.setText("ประเภท: " + TypeName);
                     vocExam.setText("ตัวอย่าง: " + VocExam);
-
                     wheel.spin();
                     try {
                         // Start the MediaController
@@ -85,7 +90,7 @@ public class ActionVocabularyDetail extends ActionBarActivity {
                         mediacontroller.setAnchorView(videoView);
                         // Get the URL from String VideoURL
 
-                        Uri video = Uri.parse("http://talktodeafphp-talktodeaf.rhcloud.com/video/" + VidName + ".mp4");
+                        Uri video = Uri.parse("http://talktodeafphp-talktodeaf.rhcloud.com/action_video/" + VidName + ".mp4");
                         videoView.setMediaController(mediacontroller);
                         videoView.setVideoURI(video);
 
@@ -111,4 +116,29 @@ public class ActionVocabularyDetail extends ActionBarActivity {
                 }
             });
         }
+
+
+    @Override
+    public void onScrollChanged(int i, boolean b, boolean b2) {
+
+    }
+
+    @Override
+    public void onDownMotionEvent() {
+
+    }
+
+    @Override
+    public void onUpOrCancelMotionEvent(ScrollState scrollState) {
+        ActionBar ab = getSupportActionBar();
+        if (scrollState == ScrollState.UP) {
+            if (ab.isShowing()) {
+                ab.hide();
+            }
+        } else if (scrollState == ScrollState.DOWN) {
+            if (!ab.isShowing()) {
+                ab.show();
+            }
+        }
+    }
 }
