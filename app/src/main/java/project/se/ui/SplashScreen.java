@@ -1,4 +1,4 @@
-package project.se.main;
+package project.se.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Window;
 
+import project.se.main.MainActivity;
 import project.se.talktodeaf.R;
 
 public class SplashScreen extends ActionBarActivity {

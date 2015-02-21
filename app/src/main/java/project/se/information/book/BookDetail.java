@@ -1,11 +1,15 @@
 package project.se.information.book;
 
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.cengalabs.flatui.views.FlatTextView;
+import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
+import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
+import com.github.ksoichiro.android.observablescrollview.ScrollState;
 import com.google.gson.GsonBuilder;
 import com.squareup.picasso.Picasso;
 
@@ -18,7 +22,7 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 import retrofit.converter.GsonConverter;
 
-public class BookDetail extends ActionBarActivity {
+public class BookDetail extends ActionBarActivity implements ObservableScrollViewCallbacks {
     FlatTextView bookName,bookDes,bookPage,bookAuthor,bookPublisher,bookPrice,bookTitle;
     ImageView bookImage;
     String BookName,BookDes,BookPage,BookAuthor,BookPublisher,BookPrice,BookImage;
@@ -27,7 +31,8 @@ public class BookDetail extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_detail);
-
+        ObservableScrollView scrollView = (ObservableScrollView) findViewById(R.id.scroll);
+        scrollView.setScrollViewCallbacks(this);
         bookImage = (ImageView) findViewById(R.id.imageView);
         bookName = (FlatTextView) findViewById(R.id.book_name);
         bookDes = (FlatTextView) findViewById(R.id.book_des);
@@ -77,4 +82,28 @@ public class BookDetail extends ActionBarActivity {
 
     }
 
+    @Override
+    public void onScrollChanged(int i, boolean b, boolean b2) {
+
     }
+
+    @Override
+    public void onDownMotionEvent() {
+
+    }
+
+    @Override
+    public void onUpOrCancelMotionEvent(ScrollState scrollState) {
+        ActionBar ab = getSupportActionBar();
+        if (scrollState == ScrollState.UP) {
+            if (ab.isShowing()) {
+                ab.hide();
+            }
+        } else if (scrollState == ScrollState.DOWN) {
+            if (!ab.isShowing()) {
+                ab.show();
+            }
+        }
+    }
+}
+
