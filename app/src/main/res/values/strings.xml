@@ -19,5 +19,7 @@
     <string name="title_activity_place_detail">รายละเอียดสถานที่</string>
     <string name="context_menu">เมนู</string>
     <string name="title_activity_main_fragment">MainFragment</string>
+    <string name="title_activity_download_multiple_files_demo">DownloadMultipleFilesDemo</string>
+    <string name="title_activity_lib_ion_demo">LibIonDemo</string>
 
 </resources>

@@ -99,6 +99,18 @@
             android:name="project.se.ui.MainFragment"
             android:label="@string/title_activity_main_fragment" >
         </activity>
+        <activity
+            android:name="project.se.DownloadMultipleFiles.DownloadMultipleFilesDemo"
+            android:label="@string/title_activity_download_multiple_files_demo" >
+        </activity>
+        <activity
+            android:name="project.se.lib.ion.ion.LibIonDemo"
+            android:label="@string/title_activity_lib_ion_demo" >
+        </activity>
+        <activity
+            android:name="project.se.lib.ion.LibIonDemo"
+            android:label="@string/title_activity_lib_ion_demo" >
+        </activity>
     </application>
 
 </manifest>
