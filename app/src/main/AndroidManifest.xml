@@ -24,7 +24,7 @@
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="project.se.main.SplashScreen"
+            android:name="project.se.ui.SplashScreen"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -50,6 +50,14 @@
         <activity
             android:name="project.se.game.Game"
             android:label="@string/title_activity_game" >
+        </activity>
+        <activity
+            android:name="project.se.game.wordgame.WordGame"
+            android:label="@string/title_activity_word_game" >
+        </activity>
+        <activity
+            android:name="project.se.game.videogame.VideoGame"
+            android:label="@string/title_activity_video_game" >
         </activity>
         <activity
             android:name="project.se.information.Information"
@@ -96,16 +104,8 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name="project.se.ui.MainFragment"
-            android:label="@string/title_activity_main_fragment" >
-        </activity>
-        <activity
             android:name="project.se.lib.ion.LibIonDemo"
             android:label="@string/title_activity_information" >
-        </activity>
-        <activity
-            android:name="project.se.lib.ion.ThinDownloadManager.ThinDownloadManagerDemo"
-            android:label="@string/title_activity_thin_download_manager_demo" >
         </activity>
         <activity
             android:name="project.se.main.Download"

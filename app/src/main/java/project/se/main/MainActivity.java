@@ -9,7 +9,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
 import com.cengalabs.flatui.views.FlatButton;
@@ -20,12 +19,9 @@ import com.yalantis.contextmenu.lib.interfaces.OnMenuItemClickListener;
 
 import java.util.ArrayList;
 
-import project.se.DownloadMultipleFiles.DownloadMultipleFilesDemo;
 import project.se.action.ActionCategory;
 import project.se.game.Game;
 import project.se.information.Information;
-import project.se.lib.ion.LibIonDemo;
-import project.se.lib.ion.ThinDownloadManager.ThinDownloadManagerDemo;
 import project.se.speak.SpeakCategory;
 import project.se.talktodeaf.R;
 
@@ -33,7 +29,6 @@ import project.se.talktodeaf.R;
 public class MainActivity extends ActionBarActivity implements OnMenuItemClickListener {
     private static final int TIME_INTERVAL = 2000;
     private long mBackPressed;
-    private Button test;
     FlatButton btnAction,btnSpeak,btnGame,btnInfo;
     private FragmentManager fragmentManager;
     private DialogFragment mMenuDialogFragment;
@@ -55,7 +50,6 @@ public class MainActivity extends ActionBarActivity implements OnMenuItemClickLi
         btnSpeak = (FlatButton)findViewById(R.id.btn_speak);
         btnGame = (FlatButton)findViewById(R.id.btn_game);
         btnInfo = (FlatButton)findViewById(R.id.btn_info);
-        test = (Button) findViewById(R.id.test);
 
         btnAction.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,13 +77,6 @@ public class MainActivity extends ActionBarActivity implements OnMenuItemClickLi
             public void onClick(View v) {
                 Intent info = new Intent(MainActivity.this, Information.class);
                 startActivity(info);
-            }
-        });
-        test.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent testAc = new Intent(MainActivity.this, ThinDownloadManagerDemo.class);
-                startActivity(testAc);
             }
         });
 
