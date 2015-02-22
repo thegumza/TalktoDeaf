@@ -21,10 +21,10 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="project.se.main.MainActivity"
-            android:label="@string/title_main" >
+            android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="project.se.ui.SplashScreen"
+            android:name="project.se.main.SplashScreen"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -100,12 +100,12 @@
             android:label="@string/title_activity_main_fragment" >
         </activity>
         <activity
-            android:name="project.se.game.videogame.VideoGame"
-            android:label="@string/title_activity_video_game" >
+            android:name="project.se.lib.ion.LibIonDemo"
+            android:label="@string/title_activity_information" >
         </activity>
         <activity
-            android:name="project.se.game.wordgame.WordGame"
-            android:label="@string/title_activity_word_game" >
+            android:name="project.se.lib.ion.ThinDownloadManager.ThinDownloadManagerDemo"
+            android:label="@string/title_activity_thin_download_manager_demo" >
         </activity>
         <activity
             android:name="project.se.main.Download"

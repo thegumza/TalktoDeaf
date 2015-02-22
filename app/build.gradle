@@ -11,6 +11,7 @@ android {
         versionCode 1
         versionName "1.0"
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -20,7 +21,7 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:21.0.3'
     compile 'com.github.eluleci:flatui:3.0.0'
     compile 'com.github.navasmdc:MaterialDesign:1.+@aar'
@@ -39,4 +40,6 @@ dependencies {
     compile('com.mikepenz.aboutlibraries:library:4.5.5@aar') {
         transitive = true
     }
+    compile 'com.koushikdutta.ion:ion:2.0.7'
+    compile 'com.mani:thindownloadmanager:1.0.0'
 }

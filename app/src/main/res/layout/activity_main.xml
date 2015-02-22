@@ -53,6 +53,15 @@
             flatui:fl_fontWeight="regular"
             flatui:fl_fontExtension="ttf"/>
     </LinearLayout>
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="New Button"
+        android:id="@+id/test"
+        android:layout_weight="1" />
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_weight="1"
