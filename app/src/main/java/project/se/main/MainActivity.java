@@ -25,6 +25,7 @@ import project.se.action.ActionCategory;
 import project.se.game.Game;
 import project.se.information.Information;
 import project.se.lib.ion.LibIonDemo;
+import project.se.lib.ion.ThinDownloadManager.ThinDownloadManagerDemo;
 import project.se.speak.SpeakCategory;
 import project.se.talktodeaf.R;
 
@@ -86,7 +87,7 @@ public class MainActivity extends ActionBarActivity implements OnMenuItemClickLi
         test.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent testAc = new Intent(MainActivity.this, LibIonDemo.class);
+                Intent testAc = new Intent(MainActivity.this, ThinDownloadManagerDemo.class);
                 startActivity(testAc);
             }
         });

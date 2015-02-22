@@ -1,5 +1,7 @@
 package project.se.lib.ion;
 
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -11,19 +13,36 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.os.Build;
+import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.amulyakhare.textdrawable.TextDrawable;
+import com.cengalabs.flatui.views.FlatTextView;
+import com.google.gson.GsonBuilder;
 import com.koushikdutta.async.future.Future;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 import com.koushikdutta.ion.ProgressCallback;
 
 import java.io.File;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.util.List;
 
+import project.se.action.ActionCategory;
+import project.se.model.Category;
+import project.se.rest.ApiService;
 import project.se.talktodeaf.R;
+import retrofit.Callback;
+import retrofit.RestAdapter;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+import retrofit.converter.GsonConverter;
 
 public class LibIonDemo extends ActionBarActivity {
 
@@ -69,16 +88,16 @@ public class LibIonDemo extends ActionBarActivity {
         TextView downloadCount;
         ProgressBar progressBar;
 
+        String url = "http://talktodeafphp-talktodeaf.rhcloud.com";
         Future<File> downloading;
-
+        ListView listView;
         public PlaceholderFragment() {
         }
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_lib_ion_demo, container, false);
-
+            final View rootView = inflater.inflate(R.layout.fragment_lib_ion_demo, container, false);
 
             // Enable global Ion logging
             Ion.getDefault(getActivity()).configure().setLogging("ion-sample", Log.DEBUG);
@@ -98,7 +117,7 @@ public class LibIonDemo extends ActionBarActivity {
                     download.setText("Cancel");
                     // this is a 180MB zip file to test with
                     downloading = Ion.with(getActivity())
-                            .load("http://talktodeafphp-talktodeaf.rhcloud.com/action_video/*")
+                            .load("http://talktodeafphp-talktodeaf.rhcloud.com/action_video")
                                     // attach the percentage report to a progress bar.
                                     // can also attach to a ProgressDialog with progressDialog.
                             .progressBar(progressBar)
@@ -112,7 +131,7 @@ public class LibIonDemo extends ActionBarActivity {
                                 }
                             })
                                     // write to a file
-                            .write(getActivity().getFileStreamPath("zip-" + /*System.currentTimeMillis()*/"test"+ ".zip"))
+                            .write(getActivity().getFileStreamPath("zip-" + System.currentTimeMillis()+"test"+ ".zip"))
                                     // run a callback on completion
                             .setCallback(new FutureCallback<File>() {
                                 @Override
@@ -129,6 +148,11 @@ public class LibIonDemo extends ActionBarActivity {
             });
 
 
+
+
+
+
+
             return rootView;
         }
 
@@ -142,5 +166,7 @@ public class LibIonDemo extends ActionBarActivity {
             downloadCount.setText(null);
             progressBar.setProgress(0);
         }
+
+
     }
 }

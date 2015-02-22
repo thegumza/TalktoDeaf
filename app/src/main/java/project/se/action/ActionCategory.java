@@ -40,6 +40,7 @@ public class ActionCategory extends ActionBarActivity implements SearchView.OnQu
     ListView listCategory;
     public static String cat_name;
     String url = "http://talktodeafphp-talktodeaf.rhcloud.com";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
