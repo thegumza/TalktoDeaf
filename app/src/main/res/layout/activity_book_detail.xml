@@ -1,13 +1,17 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<com.github.ksoichiro.android.observablescrollview.ObservableScrollView
+    android:id="@+id/scroll"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:flatui="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_gravity="center"
-    tools:context="project.talktodeaf.wordgame.GameWordFirstFragment$PlaceholderFragment">
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:fillViewport="true"
+    android:overScrollMode="never"
+    android:scrollbars="none">
 
 
-
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
     <LinearLayout
         android:orientation="vertical"
@@ -20,7 +24,7 @@
             android:id="@+id/book_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="ชื่อหนังสือ"
+            android:text=""
             android:textSize="40dp"
             android:gravity="center"
             android:layout_margin="20dp"
@@ -58,7 +62,7 @@
                     android:layout_gravity="left"
                     android:background="#0000"
                     android:textSize="20dp"
-                    android:text="ชื่อหนังสือ"
+                    android:text=""
                     android:layout_margin="5dip"
                     flatui:fl_size="30dip"
                     flatui:fl_fontFamily="ThaiSansNeue"
@@ -74,7 +78,7 @@
                     android:layout_gravity="left"
                     android:background="#0000"
                     android:textSize="20dp"
-                    android:text="รายละเอียด"
+                    android:text=""
                     android:layout_margin="5dip"
                     flatui:fl_size="30dip"
                     flatui:fl_fontFamily="ThaiSansNeue"
@@ -90,7 +94,7 @@
                     android:layout_gravity="left"
                     android:background="#0000"
                     android:textSize="20dp"
-                    android:text="จำนวนหน้า"
+                    android:text=""
                     android:layout_margin="5dip"
                     flatui:fl_size="30dip"
                     flatui:fl_fontFamily="ThaiSansNeue"
@@ -105,7 +109,7 @@
                     android:layout_gravity="left"
                     android:background="#0000"
                     android:textSize="20dp"
-                    android:text="ชื่อผู้แต่ง"
+                    android:text=""
                     android:layout_margin="5dip"
                     flatui:fl_size="30dip"
                     flatui:fl_fontFamily="ThaiSansNeue"
@@ -121,7 +125,7 @@
                     android:layout_gravity="left"
                     android:background="#0000"
                     android:textSize="20dp"
-                    android:text="ชื่อสำนักพิมพ์"
+                    android:text=""
                     android:layout_margin="5dip"
                     flatui:fl_size="30dip"
                     flatui:fl_fontFamily="ThaiSansNeue"
@@ -137,7 +141,7 @@
                     android:layout_gravity="left"
                     android:background="#0000"
                     android:textSize="20dp"
-                    android:text="ราคา"
+                    android:text=""
                     android:layout_margin="5dip"
                     flatui:fl_size="30dip"
                     flatui:fl_fontFamily="ThaiSansNeue"
@@ -152,7 +156,7 @@
         </LinearLayout>
     </LinearLayout>
 
+    </LinearLayout>
 
 
-
-</LinearLayout>
+</com.github.ksoichiro.android.observablescrollview.ObservableScrollView>
