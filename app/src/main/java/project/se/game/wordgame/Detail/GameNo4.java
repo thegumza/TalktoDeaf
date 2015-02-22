@@ -1,4 +1,4 @@
-package project.se.game.wordgame;
+package project.se.game.wordgame.Detail;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,16 +9,16 @@ import android.view.ViewGroup;
 import project.se.talktodeaf.R;
 
 /**
- * Created by wiwat on 2/20/2015.
+ * Created by wiwat on 2/22/2015.
  */
-public class SuperAwesomeCardFragment extends Fragment {
+public class GameNo4 extends Fragment {
 
     private static final String ARG_POSITION = "position";
 
     private int position;
 
-    public static SuperAwesomeCardFragment newInstance(int position) {
-        SuperAwesomeCardFragment f = new SuperAwesomeCardFragment();
+    public static GameNo4 newInstance(int position) {
+        GameNo4 f = new GameNo4();
         Bundle b = new Bundle();
         b.putInt(ARG_POSITION, position);
         f.setArguments(b);
@@ -43,3 +43,5 @@ public class SuperAwesomeCardFragment extends Fragment {
     }
 
 }
+
+

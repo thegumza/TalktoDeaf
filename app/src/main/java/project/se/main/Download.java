@@ -1,7 +1,5 @@
-package project.se.action;
+package project.se.main;
 
-import android.app.SearchManager;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -9,8 +7,6 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -27,6 +23,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.List;
 
+import project.se.action.ActionVocabulary;
 import project.se.model.Category;
 import project.se.rest.ApiService;
 import project.se.talktodeaf.R;
@@ -36,27 +33,27 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 import retrofit.converter.GsonConverter;
 
-public class ActionCategory extends ActionBarActivity implements SearchView.OnQueryTextListener {
-        ListView listCategory;
-        public static String cat_name;
-        String url = "http://talktodeafphp-talktodeaf.rhcloud.com";
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_action_category);
-            listCategory = (ListView)findViewById(R.id.listView);
-            listCategory.setTextFilterEnabled(true);
-            listCategory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Category catName = (Category) parent.getItemAtPosition(position);
-                    cat_name = catName.getCat_name();
-                    Intent detail = new Intent(ActionCategory.this, ActionVocabulary.class);
-                    startActivity(detail);
-                }
-            });
-            getCategory();
-        }
+public class Download extends ActionBarActivity implements SearchView.OnQueryTextListener {
+    ListView listCategory;
+    public static String cat_name;
+    String url = "http://talktodeafphp-talktodeaf.rhcloud.com";
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_action_category);
+        listCategory = (ListView)findViewById(R.id.listView);
+        listCategory.setTextFilterEnabled(true);
+        listCategory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Category catName = (Category) parent.getItemAtPosition(position);
+                cat_name = catName.getCat_name();
+                Intent detail = new Intent(Download.this, ActionVocabulary.class);
+                startActivity(detail);
+            }
+        });
+        getCategory();
+    }
     public void getCategory() {
         GsonBuilder builder = new GsonBuilder();
         RestAdapter restAdapter = new RestAdapter.Builder()
@@ -79,7 +76,7 @@ public class ActionCategory extends ActionBarActivity implements SearchView.OnQu
 
             @Override
             public void failure(RetrofitError error) {
-                Toast.makeText(ActionCategory.this, "Connection fail please try again", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Download.this, "Connection fail please try again", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -111,7 +108,7 @@ public class ActionCategory extends ActionBarActivity implements SearchView.OnQu
                     List<Category> ep = category;
                     listCategory.setAdapter(new CategoryListAdapter(ep));
                 } catch (Exception e) {
-                    Toast.makeText(ActionCategory.this, "Category Not Found", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Download.this, "Category Not Found", Toast.LENGTH_SHORT).show();
                     e.printStackTrace();
                 }
 
@@ -119,7 +116,7 @@ public class ActionCategory extends ActionBarActivity implements SearchView.OnQu
 
             @Override
             public void failure(RetrofitError error) {
-                Toast.makeText(ActionCategory.this, "Connection fail please try again", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Download.this, "Connection fail please try again", Toast.LENGTH_SHORT).show();
             }
         });
         return true;
@@ -189,36 +186,4 @@ public class ActionCategory extends ActionBarActivity implements SearchView.OnQu
             holder.imageview.setImageDrawable(drawable);
             return convertView;
         }
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_action_category, menu);
-        // Get the SearchView and set the searchable configuration
-        SearchManager searchManager = (SearchManager) getSystemService( Context.SEARCH_SERVICE );
-        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        searchView.setSubmitButtonEnabled(true);
-        searchView.setOnQueryTextListener(this);
-        searchView.setQueryHint("ป้อนคำค้นหา");
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-}
+    }}

@@ -30,7 +30,7 @@
             flatui:fl_textAppearance="fl_light"
             flatui:fl_blockButtonEffectHeight="3dp"
             flatui:fl_fontFamily="ThaiSansNeue"
-            flatui:fl_fontWeight="light"
+            flatui:fl_fontWeight="regular"
             flatui:fl_fontExtension="ttf"/>
 
         <com.cengalabs.flatui.views.FlatButton
@@ -50,7 +50,7 @@
             flatui:fl_textAppearance="fl_light"
             flatui:fl_blockButtonEffectHeight="3dp"
             flatui:fl_fontFamily="ThaiSansNeue"
-            flatui:fl_fontWeight="light"
+            flatui:fl_fontWeight="regular"
             flatui:fl_fontExtension="ttf"/>
     </LinearLayout>
     <LinearLayout
@@ -75,7 +75,7 @@
             flatui:fl_blockButtonEffectHeight="3dp"
             flatui:fl_theme="@array/sky"
             flatui:fl_fontFamily="ThaiSansNeue"
-            flatui:fl_fontWeight="light"
+            flatui:fl_fontWeight="regular"
             flatui:fl_fontExtension="ttf"/>
 
         <com.cengalabs.flatui.views.FlatButton
@@ -95,7 +95,7 @@
             flatui:fl_textAppearance="fl_light"
             flatui:fl_blockButtonEffectHeight="3dp"
             flatui:fl_fontFamily="ThaiSansNeue"
-            flatui:fl_fontWeight="light"
+            flatui:fl_fontWeight="regular"
             flatui:fl_fontExtension="ttf"/>
     </LinearLayout>
 </LinearLayout>

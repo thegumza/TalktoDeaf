@@ -32,6 +32,7 @@ public class MainActivity extends ActionBarActivity implements OnMenuItemClickLi
     FlatButton btnAction,btnSpeak,btnGame,btnInfo;
     private FragmentManager fragmentManager;
     private DialogFragment mMenuDialogFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -116,10 +117,11 @@ public class MainActivity extends ActionBarActivity implements OnMenuItemClickLi
     public void onMenuItemClick(View view, int i) {
         switch(i) {
             case 1:
-                //Download Here!!!
+                //Setting Here!!!
                 break;
             case 2:
-                //Download Here!!!
+                Intent download = new Intent(MainActivity.this, Download.class);
+                startActivity(download);
                 break;
             case 3:
                 new Libs.Builder()

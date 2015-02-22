@@ -5,18 +5,18 @@ package project.se.model;
  */
 public class Game {
 
-    String voc_name;
+    String vid_name;
     String correct;
     String wrong;
 
-    public Game(String voc_name, String correct, String wrong) {
-        this.voc_name = voc_name;
+    public Game(String vid_name, String correct, String wrong) {
+        this.vid_name = vid_name;
         this.correct = correct;
         this.wrong = wrong;
     }
 
-    public String getVoc_name() {
-        return voc_name;
+    public String getVid_name() {
+        return vid_name;
     }
 
     public String getCorrect() {

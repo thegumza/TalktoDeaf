@@ -107,6 +107,10 @@
             android:name="project.se.game.wordgame.WordGame"
             android:label="@string/title_activity_word_game" >
         </activity>
+        <activity
+            android:name="project.se.main.Download"
+            android:label="@string/title_activity_download" >
+        </activity>
     </application>
 
 </manifest>
