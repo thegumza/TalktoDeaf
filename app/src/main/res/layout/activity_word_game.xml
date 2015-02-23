@@ -40,7 +40,9 @@
         flatui:fl_fontExtension="ttf"
         flatui:fl_textColor="fl_darker"/>
 
-    <com.cengalabs.flatui.views.FlatButton
+
+
+        <com.cengalabs.flatui.views.FlatButton
         android:id="@+id/btn_next"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -59,5 +61,26 @@
         flatui:fl_fontWeight="light"
         flatui:fl_fontExtension="ttf"
         flatui:fl_textColor="fl_darker"/>
+
+        <com.cengalabs.flatui.views.FlatButton
+            android:id="@+id/btn_answer"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_margin="5dp"
+            android:text="เฉลยคำตอบ"
+            android:textSize="25dp"
+            android:singleLine="true"
+            android:layout_weight="1.0"
+            android:layout_alignParentBottom="true"
+            android:drawableLeft="@drawable/ic_question_answer_white_36dp"
+            flatui:fl_theme="@array/grass"
+            flatui:fl_textAppearance="fl_light"
+            flatui:fl_blockButtonEffectHeight="3dp"
+            flatui:fl_fontFamily="ThaiSansNeue"
+            flatui:fl_fontWeight="light"
+            flatui:fl_fontExtension="ttf"
+            flatui:fl_textColor="fl_darker"/>
+
     </LinearLayout>
 </RelativeLayout>

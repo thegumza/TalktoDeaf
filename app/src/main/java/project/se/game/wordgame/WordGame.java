@@ -1,5 +1,8 @@
 package project.se.game.wordgame;
 
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,7 +12,9 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.TypedValue;
 import android.view.View;
+import android.widget.Toast;
 
+import com.afollestad.materialdialogs.AlertDialogWrapper;
 import com.astuetz.PagerSlidingTabStrip;
 import com.cengalabs.flatui.views.FlatButton;
 
@@ -25,19 +30,20 @@ public class WordGame extends FragmentActivity {
     private PagerSlidingTabStrip tabs;
     private ViewPager pager;
     private MyPagerAdapter adapter;
-    private FlatButton btnPrev,btnNext;
+    private FlatButton btnPrev,btnNext,btnAns;
+    //List<String> answer;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_word_game);
-
         tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
         pager = (ViewPager) findViewById(R.id.pager);
         adapter = new MyPagerAdapter(getSupportFragmentManager());
         btnPrev = (FlatButton) findViewById(R.id.btn_prev);
         btnNext = (FlatButton) findViewById(R.id.btn_next);
+        btnAns = (FlatButton) findViewById(R.id.btn_answer);
         pager.setAdapter(adapter);
 
         final int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources()
@@ -62,32 +68,68 @@ public class WordGame extends FragmentActivity {
                 pager.setCurrentItem(getItem(+1), true); //getItem(-1) for previous
             }
         });
+        btnAns.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //answer.add(GameNo1.getAnswer());
+                SharedPreferences sp = getSharedPreferences("PREF_NAME", Context.MODE_PRIVATE);
+                Toast.makeText(WordGame.this,""+(sp.getString("Answer1","No Select")),Toast.LENGTH_SHORT).show();
+            }
+        });
 
+
+        /*btnAns.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                MaterialDialog dialog = new MaterialDialog.Builder(WordGame.this)
+                        .title("เฉลยคำตอบ")
+                        .adapter(new ButtonItemAdapter(this, R.array.socialNetworks))
+                        .build();
+
+                ListView listView = dialog.getListView();
+                if (listView != null) {
+                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            Toast.makeText(WordGame.this, "Clicked item " + position, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+
+                dialog.show();
+            }
+        });*/
         tabs.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
                 if(pager.getCurrentItem() == 0)
                 {
+                    btnAns.setVisibility(View.GONE);
                     btnPrev.setVisibility(View.GONE);
                     btnNext.setVisibility(View.VISIBLE);
                 }
                 if(pager.getCurrentItem() == 1)
                 {
+                    btnAns.setVisibility(View.GONE);
                     btnPrev.setVisibility(View.VISIBLE);
                     btnNext.setVisibility(View.VISIBLE);
                 }
                 if(pager.getCurrentItem() == 2)
                 {
+                    btnAns.setVisibility(View.GONE);
                     btnPrev.setVisibility(View.VISIBLE);
                     btnNext.setVisibility(View.VISIBLE);
                 }
                 if(pager.getCurrentItem() == 3)
                 {
+                    btnAns.setVisibility(View.GONE);
                     btnPrev.setVisibility(View.VISIBLE);
                     btnNext.setVisibility(View.VISIBLE);
                 }
                 if(pager.getCurrentItem() == 4)
                 {
+                    btnAns.setVisibility(View.VISIBLE);
                     btnPrev.setVisibility(View.VISIBLE);
                     btnNext.setVisibility(View.GONE);
                 }
@@ -142,16 +184,16 @@ public class WordGame extends FragmentActivity {
         public Fragment getItem(final int position) {
             switch(position) {
 
-                case 1:
+                case 0:
                     return GameNo1.newInstance(position);
 
-                case 2:
+                case 1:
                     return GameNo2.newInstance(position);
-                case 3:
+                case 2:
                     return GameNo3.newInstance(position);
-                case 4:
+                case 3:
                     return GameNo4.newInstance(position);
-                case 5:
+                case 4:
                     return GameNo5.newInstance(position);
                 default:
                     return GameNo1.newInstance(position);
@@ -160,4 +202,26 @@ public class WordGame extends FragmentActivity {
 
     }
 
+    @Override
+    public void onBackPressed()
+    {
+        AlertDialogWrapper.Builder dialogBuilder = new AlertDialogWrapper.Builder(WordGame.this);
+        dialogBuilder.setMessage("คุณต้องการออกจากเกมใช่หรือไม่");
+        dialogBuilder.setTitle("ออกจากเกม");
+        dialogBuilder.setIcon(R.drawable.ic_warning_amber_36dp);
+        dialogBuilder.setPositiveButton("ไม่", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        dialogBuilder.setNegativeButton("ใช่", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+                dialog.dismiss();
+            }
+        });
+        dialogBuilder.create().show();
+    }
 }

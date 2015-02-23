@@ -1,5 +1,7 @@
 package project.se.game.wordgame.Detail;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,6 +18,9 @@ import android.widget.VideoView;
 import com.cengalabs.flatui.views.FlatRadioButton;
 import com.google.gson.GsonBuilder;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 import project.se.model.Game;
 import project.se.rest.ApiService;
 import project.se.talktodeaf.R;
@@ -28,17 +33,20 @@ import retrofit.converter.GsonConverter;
 /**
  * Created by wiwat on 2/22/2015.
  */
-public class GameNo1 extends Fragment {
+public class GameNo1 extends Fragment{
+    SharedPreferences.Editor editor;
     String url = "http://talktodeafphp-talktodeaf.rhcloud.com";
     private RadioGroup radioGroup;
     Game gm;
     String choice1,choice2,voc_name,VidName;
     FlatRadioButton correctchoice,wrongchoice;
     VideoView videoView;
-
+    ArrayList<String> shufflelist;
+    String correct,wrong;
     private static final String ARG_POSITION = "position";
-
     private int position;
+    public static String answer = "correct";
+
 
     public static GameNo1 newInstance(int position) {
         GameNo1 f = new GameNo1();
@@ -51,15 +59,16 @@ public class GameNo1 extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        SharedPreferences sp = getActivity().getSharedPreferences("PREF_NAME", Context.MODE_PRIVATE);
+        editor = sp.edit();
+        editor.putString("Answer1", "");
+        editor.commit();
         position = getArguments().getInt(ARG_POSITION);
         getApi();
 
 
+
     }
-
-
-
 
 
     @Override
@@ -72,10 +81,51 @@ public class GameNo1 extends Fragment {
         radioGroup = (RadioGroup) rootView.findViewById(R.id.myRadioGroup);
         correctchoice = (FlatRadioButton)rootView.findViewById(R.id.correctchoice);
         wrongchoice = (FlatRadioButton)rootView.findViewById(R.id.wrongchoice);
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                // find which radio button is selected
+                if (checkedId == R.id.correctchoice) {
+                    SharedPreferences sp = getActivity().getSharedPreferences("PREF_NAME", Context.MODE_PRIVATE);
+                    editor = sp.edit();
+                    editor.putString("Answer1", shufflelist.get(0));
+                    editor.commit();
+                                /*if(shufflelist.get(0).equals(correct)){
 
+                                    editor.putString("Answer1", correct);
+                                    Log.d("Check correctchoice",correct);
+                                    editor.commit();
+                                }
+                                if(shufflelist.get(0).equals(wrong)){
+                                    editor.putString("Answer1", wrong);
+                                    Log.d("Check correctchoice",wrong);
+                                    editor.commit();
+                                }*/
+                }
+                if (checkedId == R.id.wrongchoice) {
+                    SharedPreferences sp = getActivity().getSharedPreferences("PREF_NAME", Context.MODE_PRIVATE);
+                    editor = sp.edit();
+                    editor.putString("Answer1", shufflelist.get(1));
+                    editor.commit();
+                                /*if(shufflelist.get(1).equals(correct)){
+                                    editor.putString("Answer1", correct);
+                                    Log.d("Check wrongchoice",correct);
+                                    editor.commit();
+                                }
+                                if(shufflelist.get(1).equals(wrong)){
+                                    editor.putString("Answer1", wrong);
+                                    Log.d("Check wrongchoice",wrong);
+                                    editor.commit();
+                                }*/
+                }
+
+            }
+        });
         return rootView;
     }
+
+
     private void getApi() {
         GsonBuilder builder = new GsonBuilder();
         RestAdapter restAdapter = new RestAdapter.Builder()
@@ -114,21 +164,61 @@ public class GameNo1 extends Fragment {
                             //videoView.start();
                         }
                     });
-                    correctchoice.setText(gm.getCorrect());
-                    wrongchoice.setText(gm.getWrong());
-                    radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+                    shufflelist = new ArrayList<String>();
+                    correct = gm.getCorrect();
+                    wrong =gm.getWrong();
+
+                    shufflelist.add(correct);
+                    shufflelist.add(wrong);
+
+                    Collections.shuffle(shufflelist);
+
+                    correctchoice.setText(shufflelist.get(0));
+                    wrongchoice.setText(shufflelist.get(1));
+
+                    /*radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 
                         @Override
                         public void onCheckedChanged(RadioGroup group, int checkedId) {
                             // find which radio button is selected
                             if (checkedId == R.id.correctchoice) {
+                                SharedPreferences sp = getActivity().getSharedPreferences("PREF_NAME", Context.MODE_PRIVATE);
+                                editor = sp.edit();
+                                editor.putString("Answer1", shufflelist.get(0));
+                                editor.commit();
+                                *//*if(shufflelist.get(0).equals(correct)){
 
+                                    editor.putString("Answer1", correct);
+                                    Log.d("Check correctchoice",correct);
+                                    editor.commit();
+                                }
+                                if(shufflelist.get(0).equals(wrong)){
+                                    editor.putString("Answer1", wrong);
+                                    Log.d("Check correctchoice",wrong);
+                                    editor.commit();
+                                }*//*
                             }
                             if (checkedId == R.id.wrongchoice) {
+                                SharedPreferences sp = getActivity().getSharedPreferences("PREF_NAME", Context.MODE_PRIVATE);
+                                editor = sp.edit();
+                                editor.putString("Answer1", shufflelist.get(1));
+                                editor.commit();
+                                *//*if(shufflelist.get(1).equals(correct)){
+                                    editor.putString("Answer1", correct);
+                                    Log.d("Check wrongchoice",correct);
+                                    editor.commit();
+                                }
+                                if(shufflelist.get(1).equals(wrong)){
+                                    editor.putString("Answer1", wrong);
+                                    Log.d("Check wrongchoice",wrong);
+                                    editor.commit();
+                                }*//*
                             }
 
                         }
-                    });
+                    });*/
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -140,6 +230,10 @@ public class GameNo1 extends Fragment {
                 Toast.makeText(getActivity(), "Connection fail please try again", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    public static String getAnswer() {
+        return answer;
     }
 }
 
