@@ -78,7 +78,7 @@
             flatui:fl_textAppearance="fl_light"
             flatui:fl_blockButtonEffectHeight="3dp"
             flatui:fl_fontFamily="ThaiSansNeue"
-            flatui:fl_fontWeight="light"
+            flatui:fl_fontWeight="regular"
             flatui:fl_fontExtension="ttf"
             flatui:fl_textColor="fl_darker"/>
 

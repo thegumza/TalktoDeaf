@@ -34,19 +34,18 @@ import retrofit.converter.GsonConverter;
  * Created by wiwat on 2/22/2015.
  */
 public class GameNo1 extends Fragment{
-    SharedPreferences.Editor editor;
     String url = "http://talktodeafphp-talktodeaf.rhcloud.com";
     private RadioGroup radioGroup;
     Game gm;
-    String choice1,choice2,voc_name,VidName;
-    FlatRadioButton correctchoice,wrongchoice;
+    public static String VidName,correct,wrong;
+    FlatRadioButton firstchoice,secondchoice;
     VideoView videoView;
     ArrayList<String> shufflelist;
-    String correct,wrong;
     private static final String ARG_POSITION = "position";
     private int position;
     public static String answer = "correct";
-
+    SharedPreferences sp;
+    SharedPreferences.Editor editor;
 
     public static GameNo1 newInstance(int position) {
         GameNo1 f = new GameNo1();
@@ -79,45 +78,36 @@ public class GameNo1 extends Fragment{
         rootView.findViewById(R.id.linear_layout);
         videoView = (VideoView)rootView.findViewById(R.id.videoView);
         radioGroup = (RadioGroup) rootView.findViewById(R.id.myRadioGroup);
-        correctchoice = (FlatRadioButton)rootView.findViewById(R.id.correctchoice);
-        wrongchoice = (FlatRadioButton)rootView.findViewById(R.id.wrongchoice);
+        firstchoice = (FlatRadioButton)rootView.findViewById(R.id.firstchoice);
+        secondchoice = (FlatRadioButton)rootView.findViewById(R.id.secondchoice);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 // find which radio button is selected
-                if (checkedId == R.id.correctchoice) {
-                    SharedPreferences sp = getActivity().getSharedPreferences("PREF_NAME", Context.MODE_PRIVATE);
-                    editor = sp.edit();
+                if (checkedId == R.id.firstchoice) {
+                    /*editor.putString("Answer1", shufflelist.get(0));
+                    editor.commit();*/
+                    if(shufflelist.get(0).equals(correct)){
                     editor.putString("Answer1", shufflelist.get(0));
                     editor.commit();
-                                /*if(shufflelist.get(0).equals(correct)){
-
-                                    editor.putString("Answer1", correct);
-                                    Log.d("Check correctchoice",correct);
-                                    editor.commit();
-                                }
-                                if(shufflelist.get(0).equals(wrong)){
-                                    editor.putString("Answer1", wrong);
-                                    Log.d("Check correctchoice",wrong);
-                                    editor.commit();
-                                }*/
-                }
-                if (checkedId == R.id.wrongchoice) {
-                    SharedPreferences sp = getActivity().getSharedPreferences("PREF_NAME", Context.MODE_PRIVATE);
-                    editor = sp.edit();
-                    editor.putString("Answer1", shufflelist.get(1));
+                    }
+                    else{
+                    editor.putString("Answer1", "");
                     editor.commit();
-                                /*if(shufflelist.get(1).equals(correct)){
-                                    editor.putString("Answer1", correct);
-                                    Log.d("Check wrongchoice",correct);
-                                    editor.commit();
-                                }
-                                if(shufflelist.get(1).equals(wrong)){
-                                    editor.putString("Answer1", wrong);
-                                    Log.d("Check wrongchoice",wrong);
-                                    editor.commit();
-                                }*/
+                    }
+                }
+                if (checkedId == R.id.secondchoice) {
+                    /*editor.putString("Answer1", shufflelist.get(1));
+                    editor.commit();*/
+                    if(shufflelist.get(1).equals(correct)){
+                        editor.putString("Answer1", shufflelist.get(1));
+                        editor.commit();
+                    }
+                    else{
+                        editor.putString("Answer1", "");
+                        editor.commit();
+                    }
                 }
 
             }
@@ -125,6 +115,13 @@ public class GameNo1 extends Fragment{
         return rootView;
     }
 
+    public static String getCorrect() {
+        return correct;
+    }
+
+    public static String getWrong() {
+        return wrong;
+    }
 
     private void getApi() {
         GsonBuilder builder = new GsonBuilder();
@@ -174,50 +171,9 @@ public class GameNo1 extends Fragment{
 
                     Collections.shuffle(shufflelist);
 
-                    correctchoice.setText(shufflelist.get(0));
-                    wrongchoice.setText(shufflelist.get(1));
+                    firstchoice.setText(shufflelist.get(0));
+                    secondchoice.setText(shufflelist.get(1));
 
-                    /*radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-
-                        @Override
-                        public void onCheckedChanged(RadioGroup group, int checkedId) {
-                            // find which radio button is selected
-                            if (checkedId == R.id.correctchoice) {
-                                SharedPreferences sp = getActivity().getSharedPreferences("PREF_NAME", Context.MODE_PRIVATE);
-                                editor = sp.edit();
-                                editor.putString("Answer1", shufflelist.get(0));
-                                editor.commit();
-                                *//*if(shufflelist.get(0).equals(correct)){
-
-                                    editor.putString("Answer1", correct);
-                                    Log.d("Check correctchoice",correct);
-                                    editor.commit();
-                                }
-                                if(shufflelist.get(0).equals(wrong)){
-                                    editor.putString("Answer1", wrong);
-                                    Log.d("Check correctchoice",wrong);
-                                    editor.commit();
-                                }*//*
-                            }
-                            if (checkedId == R.id.wrongchoice) {
-                                SharedPreferences sp = getActivity().getSharedPreferences("PREF_NAME", Context.MODE_PRIVATE);
-                                editor = sp.edit();
-                                editor.putString("Answer1", shufflelist.get(1));
-                                editor.commit();
-                                *//*if(shufflelist.get(1).equals(correct)){
-                                    editor.putString("Answer1", correct);
-                                    Log.d("Check wrongchoice",correct);
-                                    editor.commit();
-                                }
-                                if(shufflelist.get(1).equals(wrong)){
-                                    editor.putString("Answer1", wrong);
-                                    Log.d("Check wrongchoice",wrong);
-                                    editor.commit();
-                                }*//*
-                            }
-
-                        }
-                    });*/
 
                 } catch (Exception e) {
                     e.printStackTrace();

@@ -10,13 +10,17 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
-import android.widget.Toast;
 
 import com.afollestad.materialdialogs.AlertDialogWrapper;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.astuetz.PagerSlidingTabStrip;
 import com.cengalabs.flatui.views.FlatButton;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import project.se.game.wordgame.Detail.GameNo1;
 import project.se.game.wordgame.Detail.GameNo2;
@@ -31,9 +35,10 @@ public class WordGame extends FragmentActivity {
     private ViewPager pager;
     private MyPagerAdapter adapter;
     private FlatButton btnPrev,btnNext,btnAns;
-    //List<String> answer;
-
-
+    SharedPreferences sp;
+    SharedPreferences.Editor editor;
+    int correctanswer = 0,wronganswer = 0;
+    ArrayList<String> correctList,wrongList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +58,9 @@ public class WordGame extends FragmentActivity {
         tabs.setViewPager(pager);
         tabs.setTypeface(font, 20);
         tabs.setTextSize(50);
+        sp = getSharedPreferences("PREF_NAME", Context.MODE_PRIVATE);
+        editor = sp.edit();
+
         //btnPrev.setVisibility(View.INVISIBLE);
         btnPrev.setOnClickListener(new View.OnClickListener() {
 
@@ -68,12 +76,83 @@ public class WordGame extends FragmentActivity {
                 pager.setCurrentItem(getItem(+1), true); //getItem(-1) for previous
             }
         });
+
         btnAns.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //answer.add(GameNo1.getAnswer());
-                SharedPreferences sp = getSharedPreferences("PREF_NAME", Context.MODE_PRIVATE);
-                Toast.makeText(WordGame.this,""+(sp.getString("Answer1","No Select")),Toast.LENGTH_SHORT).show();
+
+                correctList = new ArrayList<String>();
+                wrongList = new ArrayList<String>();
+                /*correctList.add(GameNo1.getCorrect());
+                correctList.add(GameNo2.getCorrect());
+                correctList.add(GameNo3.getCorrect());
+                correctList.add(GameNo4.getCorrect());
+                correctList.add(GameNo5.getCorrect());
+
+                wrongList.add(GameNo1.getWrong());
+                wrongList.add(GameNo2.getWrong());
+                wrongList.add(GameNo3.getWrong());
+                wrongList.add(GameNo4.getWrong());
+                wrongList.add(GameNo5.getWrong());*/
+
+                correctList.add(sp.getString("Answer1",""));
+                correctList.add(sp.getString("Answer2", ""));
+                correctList.add(sp.getString("Answer3", ""));
+                correctList.add(sp.getString("Answer4", ""));
+                correctList.add(sp.getString("Answer5", ""));
+
+                /*correctList.remove(sp.getString("Answer1",""));
+                correctList.remove(sp.getString("Answer2", ""));
+                correctList.remove(sp.getString("Answer3", ""));
+                correctList.remove(sp.getString("Answer4", ""));
+                correctList.remove(sp.getString("Answer5", ""));
+
+
+                wrongList.remove(sp.getString("Answer1",""));
+                wrongList.remove(sp.getString("Answer2", ""));
+                wrongList.remove(sp.getString("Answer3", ""));
+                wrongList.remove(sp.getString("Answer4", ""));
+                wrongList.remove(sp.getString("Answer5", ""));*/
+
+                correctList.removeAll(Arrays.asList("", null));
+
+                String[] arrCorrect = correctList.toArray(new String[correctList.size()]);
+                String[] arrWrong = wrongList.toArray(new String[wrongList.size()]);
+
+                if(correctList.isEmpty()) {
+                    MaterialDialog dialog = new MaterialDialog.Builder(WordGame.this)
+                            .title("คุณตอบถูก " + 0 + " ข้อ")
+                            .iconRes(R.drawable.ic_question_answer_black_36dp)
+                            .build();
+                            dialog.show();
+                    correctList.clear();
+                }
+                else {
+                    MaterialDialog dialog = new MaterialDialog.Builder(WordGame.this)
+                            .title("คุณตอบถูก " + correctList.size() + " ข้อ")
+                            .iconRes(R.drawable.ic_question_answer_black_36dp)
+                            .items(arrCorrect)
+                            .build();
+                    dialog.show();
+                    correctList.clear();
+                }
+
+                /*Log.d("Check Answer",""+GameNo1.getCorrect()+", "+GameNo2.getCorrect()+", "+GameNo3.getCorrect()+", "+GameNo4.getCorrect()+", "+GameNo5.getCorrect());
+                answerList = new ArrayList<String>();
+
+                answerList.add(GameNo1.getCorrect());
+                answerList.add(GameNo2.getCorrect());
+                answerList.add(GameNo3.getCorrect());
+                answerList.add(GameNo4.getCorrect());
+                answerList.add(GameNo5.getCorrect());
+
+                answerList.remove(sp.getString("Answer1",""));
+                answerList.remove(sp.getString("Answer2",""));
+                answerList.remove(sp.getString("Answer3",""));
+                answerList.remove(sp.getString("Answer4",""));
+                answerList.remove(sp.getString("Answer5",""));
+
+                Toast.makeText(WordGame.this, "คุณตอบถูก " + answerList.size()+" ข้อ\nคุณตอบผิด "+wronganswer+" ข้อ", Toast.LENGTH_SHORT).show();*/
             }
         });
 
@@ -224,4 +303,6 @@ public class WordGame extends FragmentActivity {
         });
         dialogBuilder.create().show();
     }
+
+
 }

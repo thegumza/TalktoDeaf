@@ -32,12 +32,12 @@
         android:checkedButton="@+id/sound" >
 
         <com.cengalabs.flatui.views.FlatRadioButton
-            android:id="@+id/correctchoice"
+            android:id="@+id/firstchoice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
             android:background="#0000"
-            android:text="Choice 1"
+            android:text=""
             android:textSize="30dp"
             android:gravity="left"
             android:layout_margin="5dip"
@@ -50,12 +50,12 @@
             flatui:fl_dotMargin="1dp"/>
 
         <com.cengalabs.flatui.views.FlatRadioButton
-            android:id="@+id/wrongchoice"
+            android:id="@+id/secondchoice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
             android:background="#0000"
-            android:text="Choice 2"
+            android:text=""
             android:textSize="30dp"
             android:gravity="left"
             android:layout_margin="5dip"
