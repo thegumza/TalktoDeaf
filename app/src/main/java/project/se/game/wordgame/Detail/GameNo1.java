@@ -2,6 +2,7 @@ package project.se.game.wordgame.Detail;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import com.google.gson.GsonBuilder;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import project.se.model.Game;
 import project.se.rest.ApiService;
 import project.se.talktodeaf.R;
@@ -46,7 +48,7 @@ public class GameNo1 extends Fragment{
     public static String answer = "correct";
     SharedPreferences sp;
     SharedPreferences.Editor editor;
-
+    SweetAlertDialog pDialog;
     public static GameNo1 newInstance(int position) {
         GameNo1 f = new GameNo1();
         Bundle b = new Bundle();
@@ -58,6 +60,7 @@ public class GameNo1 extends Fragment{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         SharedPreferences sp = getActivity().getSharedPreferences("PREF_NAME", Context.MODE_PRIVATE);
         editor = sp.edit();
         editor.putString("Answer1", "");
@@ -67,8 +70,14 @@ public class GameNo1 extends Fragment{
 
 
 
+
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -80,6 +89,7 @@ public class GameNo1 extends Fragment{
         radioGroup = (RadioGroup) rootView.findViewById(R.id.myRadioGroup);
         firstchoice = (FlatRadioButton)rootView.findViewById(R.id.firstchoice);
         secondchoice = (FlatRadioButton)rootView.findViewById(R.id.secondchoice);
+
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
 
             @Override
@@ -124,6 +134,11 @@ public class GameNo1 extends Fragment{
     }
 
     private void getApi() {
+        pDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.PROGRESS_TYPE);
+        pDialog.getProgressHelper().setBarColor(Color.parseColor("#303F9F"));
+        pDialog.setTitleText("กำลังดาวน์โหลด");
+        pDialog.setCancelable(true);
+        pDialog.show();
         GsonBuilder builder = new GsonBuilder();
         RestAdapter restAdapter = new RestAdapter.Builder()
                 .setLogLevel(RestAdapter.LogLevel.FULL)
@@ -137,28 +152,25 @@ public class GameNo1 extends Fragment{
                 try {
                     gm = game;
                     VidName = gm.getVid_name();
+
+                    MediaController mediacontroller = new MediaController(getActivity());
+                    mediacontroller.setAnchorView(videoView);
+
+                    Uri video = null;
                     try {
-                        // Start the MediaController
-                        MediaController mediacontroller = new MediaController(
-                                getActivity());
-                        mediacontroller.setAnchorView(videoView);
-                        // Get the URL from String VideoURL
-
-                        Uri video = Uri.parse("http://talktodeafphp-talktodeaf.rhcloud.com/action_video/" + VidName + ".mp4");
-                        videoView.setMediaController(mediacontroller);
-                        videoView.setVideoURI(video);
-
+                        video = Uri.parse("http://talktodeafphp-talktodeaf.rhcloud.com/action_video/" + VidName + ".mp4");
+                        Log.d("Video1 Url", "" + video);
                     } catch (Exception e) {
-                        Log.e("Error", e.getMessage());
                         e.printStackTrace();
                     }
 
+                    videoView.setMediaController(mediacontroller);
+                    videoView.setVideoURI(video);
                     videoView.requestFocus();
                     videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                        // Close the progress bar and play the video
+
                         public void onPrepared(MediaPlayer mp) {
-                            //pDialog.dismiss();
-                            //videoView.start();
+                            pDialog.dismiss();
                         }
                     });
 
@@ -174,6 +186,7 @@ public class GameNo1 extends Fragment{
                     firstchoice.setText(shufflelist.get(0));
                     secondchoice.setText(shufflelist.get(1));
 
+                    //showProgressDialog(true);
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -187,7 +200,6 @@ public class GameNo1 extends Fragment{
             }
         });
     }
-
     public static String getAnswer() {
         return answer;
     }

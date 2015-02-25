@@ -17,8 +17,8 @@ import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
 import com.github.ksoichiro.android.observablescrollview.ScrollState;
 import com.google.gson.GsonBuilder;
-import com.pnikosis.materialishprogress.ProgressWheel;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import project.se.model.VocabularyDetail;
 import project.se.rest.ApiService;
 import project.se.talktodeaf.R;
@@ -34,7 +34,8 @@ public class ActionVocabularyDetail extends ActionBarActivity implements Observa
         String VocName,DesName,VocExam,CatName,TypeName,VidName;
         String voc_name;
         ImageView imageView;
-        ProgressWheel wheel;
+        SweetAlertDialog pDialog;
+        //ProgressWheel wheel;
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             //getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
@@ -51,9 +52,13 @@ public class ActionVocabularyDetail extends ActionBarActivity implements Observa
             vocExam = (FlatTextView) findViewById(R.id.voc_exam);
             catName = (FlatTextView) findViewById(R.id.cat_name);
             imageView = (ImageView) findViewById(R.id.imageView);
-
-            wheel = (ProgressWheel) findViewById(R.id.progress_wheel);
-            wheel.setBarColor(Color.rgb(25, 181, 254));
+            pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
+            pDialog.getProgressHelper().setBarColor(Color.parseColor("#303F9F"));
+            pDialog.setTitleText("กำลังดาวน์โหลด");
+            pDialog.setCancelable(true);
+            pDialog.show();
+            //wheel = (ProgressWheel) findViewById(R.id.progress_wheel);
+            //wheel.setBarColor(Color.rgb(25, 181, 254));
 
             GsonBuilder builder = new GsonBuilder();
             RestAdapter restAdapter = new RestAdapter.Builder()
@@ -82,7 +87,7 @@ public class ActionVocabularyDetail extends ActionBarActivity implements Observa
                     catName.setText("หมวด: " + CatName);
                     typeName.setText("ประเภท: " + TypeName);
                     vocExam.setText("ตัวอย่าง: " + VocExam);
-                    wheel.spin();
+                    //wheel.spin();
                     try {
                         // Start the MediaController
                         MediaController mediacontroller = new MediaController(
@@ -104,7 +109,8 @@ public class ActionVocabularyDetail extends ActionBarActivity implements Observa
                         // Close the progress bar and play the video
                         public void onPrepared(MediaPlayer mp) {
                             //pDialog.dismiss();
-                            wheel.stopSpinning();
+                            //wheel.stopSpinning();
+                            pDialog.dismiss();
                             videoView.start();
                         }
                     });

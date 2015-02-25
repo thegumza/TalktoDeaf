@@ -64,19 +64,6 @@ android:layout_height="wrap_content">
                     android:layout_marginBottom="5dp"
                     />
 
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:layout_gravity="center">
-                    <com.pnikosis.materialishprogress.ProgressWheel
-                        android:id="@+id/progress_wheel"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:layout_gravity="center"
-                        wheel:matProg_barColor="#5588FF"
-                        wheel:matProg_progressIndeterminate="true" />
-                    </LinearLayout>
 
             </FrameLayout>
             <com.cengalabs.flatui.views.FlatTextView

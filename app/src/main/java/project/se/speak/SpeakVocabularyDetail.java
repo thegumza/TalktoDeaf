@@ -16,8 +16,8 @@ import com.cengalabs.flatui.views.FlatTextView;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
 import com.github.ksoichiro.android.observablescrollview.ScrollState;
 import com.google.gson.GsonBuilder;
-import com.pnikosis.materialishprogress.ProgressWheel;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import project.se.model.VocabularyDetail;
 import project.se.rest.ApiService;
 import project.se.talktodeaf.R;
@@ -33,7 +33,8 @@ public class SpeakVocabularyDetail extends ActionBarActivity implements Observab
     String VocName,DesName,VocExam,CatName,TypeName,VidName;
     String voc_name;
     ImageView imageView;
-    ProgressWheel wheel;
+    //ProgressWheel wheel;
+    SweetAlertDialog pDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         //getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
@@ -49,9 +50,13 @@ public class SpeakVocabularyDetail extends ActionBarActivity implements Observab
         vocExam = (FlatTextView) findViewById(R.id.voc_exam);
         catName = (FlatTextView) findViewById(R.id.cat_name);
         imageView = (ImageView) findViewById(R.id.imageView);
-        wheel = (ProgressWheel) findViewById(R.id.progress_wheel);
-        wheel.setBarColor(Color.rgb(25, 181, 254));
-
+        //wheel = (ProgressWheel) findViewById(R.id.progress_wheel);
+        //wheel.setBarColor(Color.rgb(25, 181, 254));
+        pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
+        pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+        pDialog.setTitleText("กำลังดาวน์โหลด");
+        pDialog.setCancelable(true);
+        pDialog.show();
         GsonBuilder builder = new GsonBuilder();
         RestAdapter restAdapter = new RestAdapter.Builder()
                 .setLogLevel(RestAdapter.LogLevel.FULL)
@@ -80,7 +85,7 @@ public class SpeakVocabularyDetail extends ActionBarActivity implements Observab
                 typeName.setText("ประเภท: " + TypeName);
                 vocExam.setText("ตัวอย่าง: " + VocExam);
 
-                wheel.spin();
+                //wheel.spin();
                 try {
                     // Start the MediaController
                     MediaController mediacontroller = new MediaController(
@@ -102,7 +107,8 @@ public class SpeakVocabularyDetail extends ActionBarActivity implements Observab
                     // Close the progress bar and play the video
                     public void onPrepared(MediaPlayer mp) {
                         //pDialog.dismiss();
-                        wheel.stopSpinning();
+                        //wheel.stopSpinning();
+                        pDialog.dismiss();
                         videoView.start();
                     }
                 });

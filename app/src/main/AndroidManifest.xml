@@ -21,7 +21,8 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="project.se.main.MainActivity"
-            android:label="@string/app_name" >
+            android:label="พูดผ่านภาษามือ"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name="project.se.ui.SplashScreen"

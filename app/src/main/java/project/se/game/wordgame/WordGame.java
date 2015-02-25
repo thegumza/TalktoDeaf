@@ -1,7 +1,6 @@
 package project.se.game.wordgame;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -10,11 +9,9 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 
-import com.afollestad.materialdialogs.AlertDialogWrapper;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.astuetz.PagerSlidingTabStrip;
 import com.cengalabs.flatui.views.FlatButton;
@@ -22,11 +19,11 @@ import com.cengalabs.flatui.views.FlatButton;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import project.se.game.wordgame.Detail.GameNo1;
 import project.se.game.wordgame.Detail.GameNo2;
 import project.se.game.wordgame.Detail.GameNo3;
 import project.se.game.wordgame.Detail.GameNo4;
-import project.se.game.wordgame.Detail.GameNo5;
 import project.se.talktodeaf.R;
 
 public class WordGame extends FragmentActivity {
@@ -50,14 +47,14 @@ public class WordGame extends FragmentActivity {
         btnNext = (FlatButton) findViewById(R.id.btn_next);
         btnAns = (FlatButton) findViewById(R.id.btn_answer);
         pager.setAdapter(adapter);
-
+        pager.setOffscreenPageLimit(4);
         final int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources()
                 .getDisplayMetrics());
         pager.setPageMargin(pageMargin);
         Typeface font = Typeface.createFromAsset(WordGame.this.getAssets(), "fonts/ThaiSansNeue_regular.ttf");
         tabs.setViewPager(pager);
         tabs.setTypeface(font, 20);
-        tabs.setTextSize(50);
+        tabs.setTextSize(60);
         sp = getSharedPreferences("PREF_NAME", Context.MODE_PRIVATE);
         editor = sp.edit();
 
@@ -83,36 +80,13 @@ public class WordGame extends FragmentActivity {
 
                 correctList = new ArrayList<String>();
                 wrongList = new ArrayList<String>();
-                /*correctList.add(GameNo1.getCorrect());
-                correctList.add(GameNo2.getCorrect());
-                correctList.add(GameNo3.getCorrect());
-                correctList.add(GameNo4.getCorrect());
-                correctList.add(GameNo5.getCorrect());
-
-                wrongList.add(GameNo1.getWrong());
-                wrongList.add(GameNo2.getWrong());
-                wrongList.add(GameNo3.getWrong());
-                wrongList.add(GameNo4.getWrong());
-                wrongList.add(GameNo5.getWrong());*/
 
                 correctList.add(sp.getString("Answer1",""));
                 correctList.add(sp.getString("Answer2", ""));
                 correctList.add(sp.getString("Answer3", ""));
                 correctList.add(sp.getString("Answer4", ""));
-                correctList.add(sp.getString("Answer5", ""));
+                //correctList.add(sp.getString("Answer5", ""));
 
-                /*correctList.remove(sp.getString("Answer1",""));
-                correctList.remove(sp.getString("Answer2", ""));
-                correctList.remove(sp.getString("Answer3", ""));
-                correctList.remove(sp.getString("Answer4", ""));
-                correctList.remove(sp.getString("Answer5", ""));
-
-
-                wrongList.remove(sp.getString("Answer1",""));
-                wrongList.remove(sp.getString("Answer2", ""));
-                wrongList.remove(sp.getString("Answer3", ""));
-                wrongList.remove(sp.getString("Answer4", ""));
-                wrongList.remove(sp.getString("Answer5", ""));*/
 
                 correctList.removeAll(Arrays.asList("", null));
 
@@ -157,28 +131,6 @@ public class WordGame extends FragmentActivity {
         });
 
 
-        /*btnAns.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                MaterialDialog dialog = new MaterialDialog.Builder(WordGame.this)
-                        .title("เฉลยคำตอบ")
-                        .adapter(new ButtonItemAdapter(this, R.array.socialNetworks))
-                        .build();
-
-                ListView listView = dialog.getListView();
-                if (listView != null) {
-                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            Toast.makeText(WordGame.this, "Clicked item " + position, Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
-
-                dialog.show();
-            }
-        });*/
         tabs.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -202,16 +154,20 @@ public class WordGame extends FragmentActivity {
                 }
                 if(pager.getCurrentItem() == 3)
                 {
-                    btnAns.setVisibility(View.GONE);
+                    btnAns.setVisibility(View.VISIBLE);
                     btnPrev.setVisibility(View.VISIBLE);
-                    btnNext.setVisibility(View.VISIBLE);
+                    btnNext.setVisibility(View.GONE);
+
+                    /*btnAns.setVisibility(View.GONE);
+                    btnPrev.setVisibility(View.VISIBLE);
+                    btnNext.setVisibility(View.VISIBLE);*/
                 }
-                if(pager.getCurrentItem() == 4)
+                /*if(pager.getCurrentItem() == 4)
                 {
                     btnAns.setVisibility(View.VISIBLE);
                     btnPrev.setVisibility(View.VISIBLE);
                     btnNext.setVisibility(View.GONE);
-                }
+                }*/
             }
 
             @Override
@@ -243,7 +199,7 @@ public class WordGame extends FragmentActivity {
 
     public class MyPagerAdapter extends FragmentPagerAdapter {
 
-        private final String[] TITLES = { "ข้อ 1","ข้อ 2", "ข้อ 3", "ข้อ 4", "ข้อ 5"};
+        private final String[] TITLES = { "ข้อ 1","ข้อ 2", "ข้อ 3", "ข้อ 4"/*,"ข้อ 5"*/};
 
         public MyPagerAdapter(FragmentManager fm) {
             super(fm);
@@ -272,8 +228,8 @@ public class WordGame extends FragmentActivity {
                     return GameNo3.newInstance(position);
                 case 3:
                     return GameNo4.newInstance(position);
-                case 4:
-                    return GameNo5.newInstance(position);
+                /*case 4:
+                    return GameNo5.newInstance(position);*/
                 default:
                     return GameNo1.newInstance(position);
             }
@@ -284,24 +240,19 @@ public class WordGame extends FragmentActivity {
     @Override
     public void onBackPressed()
     {
-        AlertDialogWrapper.Builder dialogBuilder = new AlertDialogWrapper.Builder(WordGame.this);
-        dialogBuilder.setMessage("คุณต้องการออกจากเกมใช่หรือไม่");
-        dialogBuilder.setTitle("ออกจากเกม");
-        dialogBuilder.setIcon(R.drawable.ic_warning_amber_36dp);
-        dialogBuilder.setPositiveButton("ไม่", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-        dialogBuilder.setNegativeButton("ใช่", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                finish();
-                dialog.dismiss();
-            }
-        });
-        dialogBuilder.create().show();
+        new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+                .setTitleText("ออกจากเกมส์")
+                .setContentText("คุณต้องการออกจากเกมส์ใช่หรือไม่?")
+                .setConfirmText("ใช่")
+                .setCancelText("ไม่")
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                        sDialog.dismissWithAnimation();
+                        finish();
+                    }
+                })
+                .show();
     }
 
 
