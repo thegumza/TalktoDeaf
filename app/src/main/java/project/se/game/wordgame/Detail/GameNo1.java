@@ -73,11 +73,8 @@ public class GameNo1 extends Fragment{
 
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
 
-    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -124,7 +121,17 @@ public class GameNo1 extends Fragment{
         });
         return rootView;
     }
+    @Override
+    public void onStart() {
+        super.onStart();
+        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
 
+            public void onPrepared(MediaPlayer mp) {
+                pDialog.dismiss();
+                videoView.start();
+            }
+        });
+    }
     public static String getCorrect() {
         return correct;
     }
@@ -167,12 +174,8 @@ public class GameNo1 extends Fragment{
                     videoView.setMediaController(mediacontroller);
                     videoView.setVideoURI(video);
                     videoView.requestFocus();
-                    videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
 
-                        public void onPrepared(MediaPlayer mp) {
-                            pDialog.dismiss();
-                        }
-                    });
+
 
                     shufflelist = new ArrayList<String>();
                     correct = gm.getCorrect();

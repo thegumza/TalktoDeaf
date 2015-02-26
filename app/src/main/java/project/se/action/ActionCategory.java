@@ -8,9 +8,9 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -27,6 +27,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.List;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import project.se.model.Category;
 import project.se.rest.ApiService;
 import project.se.talktodeaf.R;
@@ -69,7 +70,6 @@ public class ActionCategory extends ActionBarActivity implements SearchView.OnQu
             @Override
             public void success(List<Category> category, Response response) {
                 // accecss the items from you shop list here
-
                 List<Category> ep = category;
                 /*Example[] array = ep.toArray(new Example[ep.size()]);
                 List<Example> listsample = ep.getSaleDate();*/
@@ -89,14 +89,22 @@ public class ActionCategory extends ActionBarActivity implements SearchView.OnQu
         getCategory();
     }
 
+
+
     public static String getCat_name() {
         return cat_name;
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        getCategory();
+
+    }
 
     @Override
-    public boolean onQueryTextSubmit(String query) {
-
+    public boolean onQueryTextSubmit(final String query) {
+        Log.d("Query String",""+ query);
         GsonBuilder builder = new GsonBuilder();
         RestAdapter restAdapter = new RestAdapter.Builder()
                 .setLogLevel(RestAdapter.LogLevel.FULL)
@@ -108,11 +116,24 @@ public class ActionCategory extends ActionBarActivity implements SearchView.OnQu
             @Override
             public void success(List<Category> category, Response response) {
                 try {
-                    List<Category> ep = category;
-                    listCategory.setAdapter(new CategoryListAdapter(ep));
+
+                        List<Category> ep = category;
+                        if(ep.isEmpty()){
+                            new SweetAlertDialog(ActionCategory.this, SweetAlertDialog.ERROR_TYPE)
+                                    .setTitleText("ไม่พบคำที่คุณค้นหา")
+                                    .setContentText("กรุณาลองอีกครั้ง")
+                                    .show();
+                        }
+                        else {
+                            listCategory.setAdapter(new CategoryListAdapter(ep));
+                        }
                 } catch (Exception e) {
-                    Toast.makeText(ActionCategory.this, "Category Not Found", Toast.LENGTH_SHORT).show();
+                new SweetAlertDialog(ActionCategory.this, SweetAlertDialog.ERROR_TYPE)
+                        .setTitleText("ไม่พบคำที่คุณค้นหา")
+                        .setContentText("กรุณาลองอีกครั้ง")
+                        .show();
                     e.printStackTrace();
+                    //Toast.makeText(ActionCategory.this, "Category Not Found", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -174,7 +195,7 @@ public class ActionCategory extends ActionBarActivity implements SearchView.OnQu
                 holder=(ViewHolder)convertView.getTag();
             }
             Category ct = Category.get(position);
-            String FirstCat = ct.getCat_name().substring(0,1);
+            String FirstCat = ct.getCat_name().substring(0, 1);
             Typeface type = Typeface.createFromAsset(getAssets(),"fonts/ThaiSansNeue_regular.ttf");
             TextDrawable drawable = TextDrawable.builder()
                     .beginConfig()
@@ -206,7 +227,7 @@ public class ActionCategory extends ActionBarActivity implements SearchView.OnQu
         return true;
     }
 
-    @Override
+    /*@Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -219,6 +240,6 @@ public class ActionCategory extends ActionBarActivity implements SearchView.OnQu
         }
 
         return super.onOptionsItemSelected(item);
-    }
+    }*/
 
 }

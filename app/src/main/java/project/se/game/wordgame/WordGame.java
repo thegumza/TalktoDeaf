@@ -54,7 +54,6 @@ public class WordGame extends FragmentActivity {
         Typeface font = Typeface.createFromAsset(WordGame.this.getAssets(), "fonts/ThaiSansNeue_regular.ttf");
         tabs.setViewPager(pager);
         tabs.setTypeface(font, 20);
-        tabs.setTextSize(60);
         sp = getSharedPreferences("PREF_NAME", Context.MODE_PRIVATE);
         editor = sp.edit();
 

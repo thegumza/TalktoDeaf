@@ -119,6 +119,17 @@ public class GameNo2 extends Fragment{
         return rootView;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+
+            public void onPrepared(MediaPlayer mp) {
+                pDialog.dismiss();
+                videoView.start();
+            }
+        });
+    }
     public static String getCorrect() {
         return correct;
     }
@@ -158,12 +169,8 @@ public class GameNo2 extends Fragment{
                     videoView.setMediaController(mediacontroller);
                     videoView.setVideoURI(video);
                     videoView.requestFocus();
-                    videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                        // Close the progress bar and play the video
-                        public void onPrepared(MediaPlayer mp) {
-                            pDialog.dismiss();
-                        }
-                    });
+
+
 
                     shufflelist = new ArrayList<String>();
                     correct = gm.getCorrect();

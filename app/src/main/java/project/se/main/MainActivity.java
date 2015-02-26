@@ -24,6 +24,7 @@ import com.yalantis.contextmenu.lib.interfaces.OnMenuItemClickListener;
 import java.util.ArrayList;
 
 import project.se.action.ActionCategory;
+import project.se.download.CategoryDownload;
 import project.se.game.Game;
 import project.se.information.Information;
 import project.se.speak.SpeakCategory;
@@ -121,7 +122,7 @@ public class MainActivity extends ActionBarActivity implements OnMenuItemClickLi
             super.onBackPressed();
             return;
         }
-        else { Toast.makeText(getBaseContext(), "Press again to Exit", Toast.LENGTH_SHORT).show(); }
+        else { Toast.makeText(getBaseContext(), "กดอีกครั้งเพื่อออก", Toast.LENGTH_SHORT).show(); }
 
         mBackPressed = System.currentTimeMillis();
     }
@@ -149,7 +150,7 @@ public class MainActivity extends ActionBarActivity implements OnMenuItemClickLi
                 //Setting Here!!!
                 break;
             case 2:
-                Intent download = new Intent(MainActivity.this, Download.class);
+                Intent download = new Intent(MainActivity.this, CategoryDownload.class);
                 startActivity(download);
                 break;
             case 3:

@@ -109,7 +109,11 @@
             android:label="@string/title_activity_information" >
         </activity>
         <activity
-            android:name="project.se.main.Download"
+            android:name="project.se.download.CategoryDownload"
+            android:label="@string/title_activity_download" >
+        </activity>
+        <activity
+            android:name="project.se.download.VocabularyDownload"
             android:label="@string/title_activity_download" >
         </activity>
     </application>

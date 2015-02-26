@@ -1,12 +1,16 @@
 package project.se.speak;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.SearchView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -23,6 +27,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.List;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import project.se.model.Vocabulary;
 import project.se.rest.ApiService;
 import project.se.talktodeaf.R;
@@ -32,10 +37,11 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 import retrofit.converter.GsonConverter;
 
-public class SpeakVocabulary extends ActionBarActivity {
+public class SpeakVocabulary extends ActionBarActivity implements SearchView.OnQueryTextListener{
     private ListView listView;
     public static String  voc_name;
     public String cat_name;
+    String url = "http://talktodeafphp-talktodeaf.rhcloud.com";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,7 +59,7 @@ public class SpeakVocabulary extends ActionBarActivity {
         GsonBuilder builder = new GsonBuilder();
         RestAdapter restAdapter = new RestAdapter.Builder()
                 .setLogLevel(RestAdapter.LogLevel.FULL)
-                .setEndpoint("http://talktodeafphp-talktodeaf.rhcloud.com")
+                .setEndpoint(url)
                 .setConverter(new GsonConverter(builder.create()))
                 .build();
         ApiService retrofit = restAdapter.create(ApiService.class);
@@ -80,6 +86,54 @@ public class SpeakVocabulary extends ActionBarActivity {
 
     public static String getVoc_name() {
         return voc_name;
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        Log.d("Query String", "" + query);
+        GsonBuilder builder = new GsonBuilder();
+        RestAdapter restAdapter = new RestAdapter.Builder()
+                .setLogLevel(RestAdapter.LogLevel.FULL)
+                .setEndpoint(url)
+                .setConverter(new GsonConverter(builder.create()))
+                .build();
+        ApiService retrofit = restAdapter.create(ApiService.class);
+        retrofit.getVocabularyBySearchWithCallback(cat_name,query, new Callback<List<Vocabulary>>() {
+            @Override
+            public void success(List<Vocabulary> voc, Response response) {
+                try {
+
+                    List<Vocabulary> vc = voc;
+                    if(vc.isEmpty()){
+                        new SweetAlertDialog(SpeakVocabulary.this, SweetAlertDialog.ERROR_TYPE)
+                                .setTitleText("ไม่พบคำที่คุณค้นหา")
+                                .setContentText("กรุณาลองอีกครั้ง")
+                                .show();
+                    }
+                    else {
+                        listView.setAdapter(new vocListAdapter(vc));
+                    }
+                } catch (Exception e) {
+                    new SweetAlertDialog(SpeakVocabulary.this, SweetAlertDialog.ERROR_TYPE)
+                            .setTitleText("ไม่พบคำที่คุณค้นหา")
+                            .setContentText("กรุณาลองอีกครั้ง")
+                            .show();
+                    e.printStackTrace();
+                    //Toast.makeText(ActionCategory.this, "Category Not Found", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+            @Override
+            public void failure(RetrofitError error) {
+                Toast.makeText(SpeakVocabulary.this, "Connection fail please try again", Toast.LENGTH_SHORT).show();
+            }
+        });
+        return true;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String s) {
+        return false;
     }
 
     public class vocListAdapter extends BaseAdapter {
@@ -135,21 +189,24 @@ public class SpeakVocabulary extends ActionBarActivity {
                     .buildRound("" + FirstVoc, Color.DKGRAY);
             NumberFormat f = new DecimalFormat("00");
             String vidname = bk.getVid_name();
-            String video = ("http://talktodeafphp-talktodeaf.rhcloud.com/video/" + vidname+".mp4");
             holder.position.setText(""+f.format(position + 1));
             holder.vocName.setText("" + bk.getVoc_name());
             holder.imageview.setImageDrawable(drawable);
-            //Bitmap bMap = ThumbnailUtils.createVideoThumbnail(video, MediaStore.Video.Thumbnails.MICRO_KIND);
-            //ImageLoader.getInstance().displayImage(video, holder.thumbnail_micro, options, null);
-            //Picasso.with(ActionVocabulary.this).load(vidname).into(holder.thumbnail_micro);
-            //ImageSize targetSize = new ImageSize(50, 50);
-            //imageLoader.displayImage(video, holder.thumbnail_micro);
-
-            //Bitmap bmp = imageLoader.loadImageSync(video, targetSize, options);
-            //imageLoader.displayImage(video, holder.thumbnail_micro);
-            //ImageLoader.getInstance().displayImage(video, holder.thumbnail_micro, options, null);
 
             return convertView;
         }
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_action_category, menu);
+        // Get the SearchView and set the searchable configuration
+        SearchManager searchManager = (SearchManager) getSystemService( Context.SEARCH_SERVICE );
+        SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setSubmitButtonEnabled(true);
+        searchView.setOnQueryTextListener(this);
+        searchView.setQueryHint("ป้อนคำค้นหา");
+        return true;
     }
 }

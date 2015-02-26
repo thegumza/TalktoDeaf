@@ -38,6 +38,9 @@ public interface ApiService {
     @GET("/vocabulary_detail_by_name.php")
     void getVocabularyDetailByNameWithCallback(@Query("voc_name") String voc_name,Callback<VocabularyDetail> callback);
 
+    @GET("/search_vocabulary.php")
+    void getVocabularyBySearchWithCallback(@Query("cat_name")String cat_name,@Query("voc_name")String voc_name,Callback<List<Vocabulary>> callback);
+
     @GET("/vocabulary_by_category.php")
     void getVocabularyByMethodWithCallback(@Query("cat_name")String cat_name,Callback<List<Vocabulary>> callback);
 

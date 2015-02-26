@@ -1,4 +1,4 @@
-package project.se.main;
+package project.se.download;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -23,7 +23,6 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.List;
 
-import project.se.action.ActionVocabulary;
 import project.se.model.Category;
 import project.se.rest.ApiService;
 import project.se.talktodeaf.R;
@@ -33,7 +32,7 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 import retrofit.converter.GsonConverter;
 
-public class Download extends ActionBarActivity implements SearchView.OnQueryTextListener {
+public class CategoryDownload extends ActionBarActivity implements SearchView.OnQueryTextListener {
     ListView listCategory;
     public static String cat_name;
     String url = "http://talktodeafphp-talktodeaf.rhcloud.com";
@@ -48,7 +47,7 @@ public class Download extends ActionBarActivity implements SearchView.OnQueryTex
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Category catName = (Category) parent.getItemAtPosition(position);
                 cat_name = catName.getCat_name();
-                Intent detail = new Intent(Download.this, ActionVocabulary.class);
+                Intent detail = new Intent(CategoryDownload.this, VocabularyDownload.class);
                 startActivity(detail);
             }
         });
@@ -76,7 +75,7 @@ public class Download extends ActionBarActivity implements SearchView.OnQueryTex
 
             @Override
             public void failure(RetrofitError error) {
-                Toast.makeText(Download.this, "Connection fail please try again", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CategoryDownload.this, "Connection fail please try again", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -108,7 +107,7 @@ public class Download extends ActionBarActivity implements SearchView.OnQueryTex
                     List<Category> ep = category;
                     listCategory.setAdapter(new CategoryListAdapter(ep));
                 } catch (Exception e) {
-                    Toast.makeText(Download.this, "Category Not Found", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CategoryDownload.this, "Category Not Found", Toast.LENGTH_SHORT).show();
                     e.printStackTrace();
                 }
 
@@ -116,7 +115,7 @@ public class Download extends ActionBarActivity implements SearchView.OnQueryTex
 
             @Override
             public void failure(RetrofitError error) {
-                Toast.makeText(Download.this, "Connection fail please try again", Toast.LENGTH_SHORT).show();
+                Toast.makeText(CategoryDownload.this, "Connection fail please try again", Toast.LENGTH_SHORT).show();
             }
         });
         return true;
