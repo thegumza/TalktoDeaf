@@ -28,7 +28,6 @@ dependencies {
     compile 'com.squareup.retrofit:retrofit:1.6.1'
     compile 'com.google.code.gson:gson:2.3'
     compile 'org.parceler:parceler:0.2.13'
-    compile 'com.hannesdorfmann.smoothprogressbar:library:1.0.0'
     compile 'com.squareup.picasso:picasso:2.3.2'
     compile 'com.google.android.gms:play-services-maps:6.5.87'
     compile 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
@@ -41,6 +40,8 @@ dependencies {
     compile('com.mikepenz.aboutlibraries:library:4.5.5@aar') {
         transitive = true
     }
-    compile 'com.koushikdutta.ion:ion:2.0.7'
     compile 'com.mani:thindownloadmanager:1.0.0'
+    compile('de.keyboardsurfer.android.widget:crouton:1.8.5@aar') {
+        exclude group: 'com.google.android', module: 'support-v4'
+    }
 }

@@ -3,7 +3,6 @@ package project.se.download;
 import android.app.SearchManager;
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -15,22 +14,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.amulyakhare.textdrawable.TextDrawable;
 import com.cengalabs.flatui.views.FlatTextView;
 import com.google.gson.GsonBuilder;
 import com.thin.downloadmanager.DownloadRequest;
 import com.thin.downloadmanager.DownloadStatusListener;
 import com.thin.downloadmanager.ThinDownloadManager;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.List;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
+import de.keyboardsurfer.android.widget.crouton.Crouton;
 import project.se.model.Vocabulary;
 import project.se.rest.ApiService;
 import project.se.talktodeaf.R;
@@ -50,14 +46,17 @@ public class VocabularyDownload extends ActionBarActivity implements SearchView.
     MyDownloadStatusListener myDownloadStatusListener = new MyDownloadStatusListener();
     ThinDownloadManager downloadManager;
     private static final int DOWNLOAD_THREAD_POOL_SIZE = 4;
-
     String url = "http://talktodeafphp-talktodeaf.rhcloud.com";
+    SweetAlertDialog pDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_action_vocabulary);
         downloadManager = new ThinDownloadManager(DOWNLOAD_THREAD_POOL_SIZE);
-
+        pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
+        pDialog.getProgressHelper().setBarColor(Color.parseColor("#303F9F"));
+        pDialog.setTitleText("กำลังดาวน์โหลด");
+        pDialog.setCancelable(true);
 
 
         listView = (ListView)findViewById(R.id.listView);
@@ -76,6 +75,7 @@ public class VocabularyDownload extends ActionBarActivity implements SearchView.
                         .setDownloadListener(myDownloadStatusListener);
 
                  downloadManager.add(downloadRequest1);
+                pDialog.show();
 
 
 
@@ -182,10 +182,8 @@ public class VocabularyDownload extends ActionBarActivity implements SearchView.
             return position;
         }
 
-        private class ViewHolder {
+        public class ViewHolder {
             FlatTextView vocName;
-            FlatTextView position;
-            ImageView imageview;
         }
 
         @Override
@@ -193,40 +191,16 @@ public class VocabularyDownload extends ActionBarActivity implements SearchView.
             ViewHolder  holder;
             LayoutInflater inflater = getLayoutInflater();
             if(convertView == null){
-                convertView = inflater.inflate(R.layout.activity_action_vocabulary_column, parent,false);
+                convertView = inflater.inflate(R.layout.download_vocabulary_list, parent,false);
                 holder = new ViewHolder();
-                holder.position=(FlatTextView)convertView.findViewById(R.id.position);
-                holder.imageview=(ImageView)convertView.findViewById(R.id.imageView);
                 holder.vocName=(FlatTextView)convertView.findViewById(R.id.vocName);
+
                 convertView.setTag(holder);
             }else{
                 holder=(ViewHolder)convertView.getTag();
             }
             Vocabulary bk = Vocabulary.get(position);
-            String FirstVoc = bk.getVoc_name().substring(0, 1);
-            Typeface type = Typeface.createFromAsset(getAssets(), "fonts/ThaiSansNeue_regular.ttf");
-            TextDrawable drawable = TextDrawable.builder()
-                    .beginConfig()
-                    .useFont(type)
-                    .bold()
-                    .toUpperCase()
-                    .endConfig()
-                    .buildRound("" + FirstVoc, Color.DKGRAY);
-            NumberFormat f = new DecimalFormat("00");
-            String vidname = bk.getVid_name();
-            String video = ("http://talktodeafphp-talktodeaf.rhcloud.com/video/" + vidname+".mp4");
-            holder.position.setText(""+f.format(position + 1));
             holder.vocName.setText("" + bk.getVoc_name());
-            holder.imageview.setImageDrawable(drawable);
-            //Bitmap bMap = ThumbnailUtils.createVideoThumbnail(video, MediaStore.Video.Thumbnails.MICRO_KIND);
-            //ImageLoader.getInstance().displayImage(video, holder.thumbnail_micro, options, null);
-            //Picasso.with(ActionVocabulary.this).load(vidname).into(holder.thumbnail_micro);
-            //ImageSize targetSize = new ImageSize(50, 50);
-            //imageLoader.displayImage(video, holder.thumbnail_micro);
-
-            //Bitmap bmp = imageLoader.loadImageSync(video, targetSize, options);
-            //imageLoader.displayImage(video, holder.thumbnail_micro);
-            //ImageLoader.getInstance().displayImage(video, holder.thumbnail_micro, options, null);
 
             return convertView;
         }
@@ -248,17 +222,25 @@ public class VocabularyDownload extends ActionBarActivity implements SearchView.
     private class MyDownloadStatusListener implements DownloadStatusListener {
         @Override
         public void onDownloadComplete(int id) {
-            Toast.makeText(VocabularyDownload.this,"Download Complete",Toast.LENGTH_SHORT).show();
+            pDialog.dismiss();
+            View view = getLayoutInflater().inflate(R.layout.crouton_custom_view, null);
+            final Crouton crouton;
+            crouton = Crouton.make(VocabularyDownload.this, view);
+            crouton.show();
+
         }
 
         @Override
         public void onDownloadFailed(int id, int errorCode, String errorMessage) {
-
+            pDialog.dismiss();
+            View view = getLayoutInflater().inflate(R.layout.crouton_custom_error_view, null);
+            final Crouton crouton;
+            crouton = Crouton.make(VocabularyDownload.this, view);
+            crouton.show();
         }
 
         @Override
         public void onProgress(int id, long totalBytes, int progress) {
-
         }
     }
 
