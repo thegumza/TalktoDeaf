@@ -59,6 +59,7 @@ public class SpeakVocabularyDetail extends ActionBarActivity implements Observab
         pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
         pDialog.setTitleText("กำลังดาวน์โหลด");
         pDialog.setCancelable(true);
+        pDialog.setCanceledOnTouchOutside(true);
         GsonBuilder builder = new GsonBuilder();
         RestAdapter restAdapter = new RestAdapter.Builder()
                 .setLogLevel(RestAdapter.LogLevel.FULL)

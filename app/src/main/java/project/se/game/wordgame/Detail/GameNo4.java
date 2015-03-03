@@ -140,6 +140,7 @@ public class GameNo4 extends Fragment{
         pDialog.getProgressHelper().setBarColor(Color.parseColor("#303F9F"));
         pDialog.setTitleText("กำลังดาวน์โหลด");
         pDialog.setCancelable(true);
+        pDialog.setCanceledOnTouchOutside(true);
         pDialog.show();
         GsonBuilder builder = new GsonBuilder();
         RestAdapter restAdapter = new RestAdapter.Builder()

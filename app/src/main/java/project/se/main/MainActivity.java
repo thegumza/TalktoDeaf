@@ -179,6 +179,7 @@ public class MainActivity extends ActionBarActivity implements OnMenuItemClickLi
                 showcaseView.setContentTitle("การพูด");
                 showcaseView.setContentText("คุณสามารถฝึกการพูดจากปุ่มนี้");
                 showcaseView.setStyle(R.style.CustomShowcaseTheme2);
+                showcaseView.setButtonText("ต่อไป");
                 break;
 
             case 1:
@@ -186,13 +187,18 @@ public class MainActivity extends ActionBarActivity implements OnMenuItemClickLi
                 showcaseView.setContentTitle("ข้อมูล");
                 showcaseView.setContentText("ข้อมูลหนังสือเกี่ยวกับภาษามือและสถานที่");
                 showcaseView.setStyle(R.style.CustomShowcaseTheme2);
+                showcaseView.setButtonText("ต่อไป");
                 break;
+
             case 2:
                 showcaseView.setShowcase(new ViewTarget(btnGame), true);
                 showcaseView.setContentTitle("เกม");
-                showcaseView.setContentText("มีเกมทายปริศนารอคนอยู่");
+                showcaseView.setContentText("มีเกมทายปริศนารอคุณอยู่");
                 showcaseView.setStyle(R.style.CustomShowcaseTheme2);
+                showcaseView.setButtonText("ต่อไป");
                 break;
+
+
             case 3:
                 showcaseView.setTarget(Target.NONE);
                 showcaseView.setContentTitle("ขอบคุณ");

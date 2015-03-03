@@ -63,6 +63,7 @@ public class VocabularyDownload extends ActionBarActivity  {
         pDialog.getProgressHelper().setBarColor(Color.parseColor("#303F9F"));
         pDialog.setTitleText("กำลังดาวน์โหลด");
         pDialog.setCancelable(true);
+        pDialog.setCanceledOnTouchOutside(true);
         final File actiondirectory = new File(Environment.getExternalStorageDirectory() +File.separator+ "action");
         actiondirectory.mkdirs();
         final File speakdirectory = new File(Environment.getExternalStorageDirectory() +File.separator+ "speak");
