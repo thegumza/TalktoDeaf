@@ -22,7 +22,7 @@
         <activity
             android:name="project.se.main.MainActivity"
             android:label="พูดผ่านภาษามือ"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="project.se.ui.SplashScreen"
@@ -115,6 +115,10 @@
         <activity
             android:name="project.se.download.VocabularyDownload"
             android:label="@string/title_activity_download" >
+        </activity>
+        <activity
+            android:name="project.se.main.Setting"
+            android:label="@string/title_activity_setting" >
         </activity>
     </application>
 

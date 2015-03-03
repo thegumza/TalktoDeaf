@@ -61,7 +61,7 @@ public class GameNo1 extends Fragment{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        SharedPreferences sp = getActivity().getSharedPreferences("PREF_NAME", Context.MODE_PRIVATE);
+        sp = getActivity().getSharedPreferences("PREF_NAME", Context.MODE_PRIVATE);
         editor = sp.edit();
         editor.putString("Answer1", "");
         editor.commit();

@@ -25,7 +25,7 @@ import java.util.ArrayList;
 
 import project.se.action.ActionCategory;
 import project.se.download.CategoryDownload;
-import project.se.game.Game;
+import project.se.game.wordgame.WordGame;
 import project.se.information.Information;
 import project.se.speak.SpeakCategory;
 import project.se.talktodeaf.R;
@@ -78,7 +78,7 @@ public class MainActivity extends ActionBarActivity implements OnMenuItemClickLi
         btnGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent game = new Intent(MainActivity.this, Game.class);
+                Intent game = new Intent(MainActivity.this, WordGame.class);
                 startActivity(game);
             }
         });
@@ -147,7 +147,8 @@ public class MainActivity extends ActionBarActivity implements OnMenuItemClickLi
     public void onMenuItemClick(View view, int i) {
         switch(i) {
             case 1:
-                //Setting Here!!!
+                Intent setting = new Intent(MainActivity.this, Setting.class);
+                startActivity(setting);
                 break;
             case 2:
                 Intent download = new Intent(MainActivity.this, CategoryDownload.class);
@@ -156,7 +157,7 @@ public class MainActivity extends ActionBarActivity implements OnMenuItemClickLi
             case 3:
                 new Libs.Builder()
                         .withFields(R.string.class.getFields())
-                        .withActivityTitle("About")
+                        .withActivityTitle("เก")
                         .withAboutAppName("พูดผ่านภาษามือ")
                         .withAboutIconShown(true)
                         .withAboutVersionShown(true)

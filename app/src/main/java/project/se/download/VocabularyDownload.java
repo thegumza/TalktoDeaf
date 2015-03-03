@@ -43,11 +43,14 @@ public class VocabularyDownload extends ActionBarActivity implements SearchView.
     private ListView listView;
     public static String  voc_name,vid_name;
     public String cat_name;
-    MyDownloadStatusListener myDownloadStatusListener = new MyDownloadStatusListener();
-    ThinDownloadManager downloadManager;
+    private MyDownloadStatusListener myDownloadStatusListener = new MyDownloadStatusListener();
+    private ThinDownloadManager downloadManager;
     private static final int DOWNLOAD_THREAD_POOL_SIZE = 4;
-    String url = "http://talktodeafphp-talktodeaf.rhcloud.com";
+    private String url = "http://talktodeafphp-talktodeaf.rhcloud.com";
     SweetAlertDialog pDialog;
+    List<Vocabulary> vc;
+    BaseAdapter adapter;
+    int listposition;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,11 +62,13 @@ public class VocabularyDownload extends ActionBarActivity implements SearchView.
         pDialog.setCancelable(true);
 
 
+
         listView = (ListView)findViewById(R.id.listView);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Vocabulary  vocName = (Vocabulary) parent.getItemAtPosition(position);
+                listposition = position;
                 voc_name = vocName.getVoc_name();
                 vid_name = vocName.getVid_name();
                 String video = ("http://talktodeafphp-talktodeaf.rhcloud.com/action_video/" + vid_name+".mp4");
@@ -93,12 +98,12 @@ public class VocabularyDownload extends ActionBarActivity implements SearchView.
         retrofit.getVocabularyByMethodWithCallback(cat_name,new Callback<List<Vocabulary>>() {
             @Override
             public void success(List<Vocabulary> voc, Response response) {
-                // accecss the items from you shop list here
 
-                List<Vocabulary> vc = voc;
-                /*Example[] array = ep.toArray(new Example[ep.size()]);
-                List<Example> listsample = ep.getSaleDate();*/
-                listView.setAdapter(new vocListAdapter(vc));
+                vc = voc;
+
+                adapter = new vocListAdapter(vc);
+
+                listView.setAdapter(adapter);
 
             }
 
@@ -129,7 +134,7 @@ public class VocabularyDownload extends ActionBarActivity implements SearchView.
 
                 try {
 
-                    List<Vocabulary> vc = voc;
+                    vc = voc;
                     if(vc.isEmpty()){
                         new SweetAlertDialog(VocabularyDownload.this, SweetAlertDialog.ERROR_TYPE)
                                 .setTitleText("ไม่พบคำที่คุณค้นหา")
@@ -137,7 +142,9 @@ public class VocabularyDownload extends ActionBarActivity implements SearchView.
                                 .show();
                     }
                     else {
-                        listView.setAdapter(new vocListAdapter(vc));
+
+                        listView.setAdapter(adapter);
+
                     }
                 } catch (Exception e) {
                     new SweetAlertDialog(VocabularyDownload.this, SweetAlertDialog.ERROR_TYPE)
@@ -160,6 +167,7 @@ public class VocabularyDownload extends ActionBarActivity implements SearchView.
     public boolean onQueryTextChange(String s) {
         return false;
     }
+
 
     public class vocListAdapter extends BaseAdapter {
 
@@ -225,9 +233,10 @@ public class VocabularyDownload extends ActionBarActivity implements SearchView.
             pDialog.dismiss();
             View view = getLayoutInflater().inflate(R.layout.crouton_custom_view, null);
             final Crouton crouton;
+            vc.remove(listposition);
+            adapter.notifyDataSetChanged();
             crouton = Crouton.make(VocabularyDownload.this, view);
             crouton.show();
-
         }
 
         @Override
