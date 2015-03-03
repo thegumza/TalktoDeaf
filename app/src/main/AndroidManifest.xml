@@ -19,6 +19,8 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+        <meta-data android:name="AA_DB_NAME" android:value="talktodeaf.db" />
+        <meta-data android:name="AA_DB_VERSION" android:value="1" />
         <activity
             android:name="project.se.main.MainActivity"
             android:label="พูดผ่านภาษามือ"
@@ -115,6 +117,9 @@
         <activity
             android:name="project.se.download.VocabularyDownload"
             android:label="@string/title_activity_download" >
+            <meta-data
+                android:name="AA_MODELS"
+                android:value="project.se.database.model.SqlDownload" />
         </activity>
         <activity
             android:name="project.se.main.Setting"

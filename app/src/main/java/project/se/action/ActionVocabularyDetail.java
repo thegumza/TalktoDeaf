@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -17,6 +18,8 @@ import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
 import com.github.ksoichiro.android.observablescrollview.ScrollState;
 import com.google.gson.GsonBuilder;
+
+import java.io.File;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import project.se.model.VocabularyDetail;
@@ -56,7 +59,7 @@ public class ActionVocabularyDetail extends ActionBarActivity implements Observa
             pDialog.getProgressHelper().setBarColor(Color.parseColor("#303F9F"));
             pDialog.setTitleText("กำลังดาวน์โหลด");
             pDialog.setCancelable(true);
-            pDialog.show();
+            final File actiondirectory = new File(Environment.getExternalStorageDirectory() +File.separator+ "action");
             //wheel = (ProgressWheel) findViewById(R.id.progress_wheel);
             //wheel.setBarColor(Color.rgb(25, 181, 254));
 
@@ -94,26 +97,40 @@ public class ActionVocabularyDetail extends ActionBarActivity implements Observa
                                 ActionVocabularyDetail.this);
                         mediacontroller.setAnchorView(videoView);
                         // Get the URL from String VideoURL
+                        File vid1 = new File(actiondirectory+"/"+VidName+".mp4");
+                        if(!vid1.exists()){
+                            pDialog.show();
+                            Uri video = Uri.parse("http://talktodeafphp-talktodeaf.rhcloud.com/action_video/" + VidName + ".mp4");
+                            videoView.setMediaController(mediacontroller);
+                            videoView.setVideoURI(video);
+                            videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                                // Close the progress bar and play the video
+                                public void onPrepared(MediaPlayer mp) {
+                                    //pDialog.dismiss();
+                                    //wheel.stopSpinning();
+                                    pDialog.dismiss();
+                                    videoView.start();
+                                }
+                            });
+                        }
+                        else{
+                            Uri video = Uri.parse(actiondirectory+"/"+VidName+".mp4");
+                            videoView.setVideoURI(video);
+                            videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                                // Close the progress bar and play the video
+                                public void onPrepared(MediaPlayer mp) {
+                                    videoView.start();
+                                }
+                            });
+                        }
 
-                        Uri video = Uri.parse("http://talktodeafphp-talktodeaf.rhcloud.com/action_video/" + VidName + ".mp4");
-                        videoView.setMediaController(mediacontroller);
-                        videoView.setVideoURI(video);
 
                     } catch (Exception e) {
                         Log.e("Error", e.getMessage());
                         e.printStackTrace();
                     }
 
-                    videoView.requestFocus();
-                    videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                        // Close the progress bar and play the video
-                        public void onPrepared(MediaPlayer mp) {
-                            //pDialog.dismiss();
-                            //wheel.stopSpinning();
-                            pDialog.dismiss();
-                            videoView.start();
-                        }
-                    });
+
                 }
 
                 @Override

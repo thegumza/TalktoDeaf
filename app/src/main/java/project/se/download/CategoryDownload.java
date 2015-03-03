@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.cengalabs.flatui.views.FlatTextView;
 import com.google.gson.GsonBuilder;
+import com.thin.downloadmanager.ThinDownloadManager;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -34,7 +35,9 @@ import retrofit.converter.GsonConverter;
 
 public class CategoryDownload extends ActionBarActivity implements SearchView.OnQueryTextListener {
     ListView listCategory;
-    public static String cat_name;
+    public static String cat_name,vid_name;
+    private ThinDownloadManager downloadManager;
+    private static final int DOWNLOAD_THREAD_POOL_SIZE = 4;
     String url = "http://talktodeafphp-talktodeaf.rhcloud.com";
     @Override
     protected void onCreate(Bundle savedInstanceState) {

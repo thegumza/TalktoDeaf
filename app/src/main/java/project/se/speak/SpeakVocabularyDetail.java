@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -16,6 +17,8 @@ import com.cengalabs.flatui.views.FlatTextView;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
 import com.github.ksoichiro.android.observablescrollview.ScrollState;
 import com.google.gson.GsonBuilder;
+
+import java.io.File;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import project.se.model.VocabularyDetail;
@@ -41,7 +44,7 @@ public class SpeakVocabularyDetail extends ActionBarActivity implements Observab
         super.onCreate(savedInstanceState);
         //getSupportActionBar().hide();
         setContentView(R.layout.activity_speak_vocabulary_detail);
-
+        final File speakdirectory = new File(Environment.getExternalStorageDirectory() +File.separator+ "speak");
         vocTitle = (FlatTextView) findViewById(R.id.voc_title);
         videoView = (VideoView) findViewById(R.id.videoView);
         vocName = (FlatTextView) findViewById(R.id.voc_name);
@@ -56,7 +59,6 @@ public class SpeakVocabularyDetail extends ActionBarActivity implements Observab
         pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
         pDialog.setTitleText("กำลังดาวน์โหลด");
         pDialog.setCancelable(true);
-        pDialog.show();
         GsonBuilder builder = new GsonBuilder();
         RestAdapter restAdapter = new RestAdapter.Builder()
                 .setLogLevel(RestAdapter.LogLevel.FULL)
@@ -92,26 +94,39 @@ public class SpeakVocabularyDetail extends ActionBarActivity implements Observab
                             SpeakVocabularyDetail.this);
                     mediacontroller.setAnchorView(videoView);
                     // Get the URL from String VideoURL
-
-                    Uri video = Uri.parse("http://talktodeafphp-talktodeaf.rhcloud.com/speak_video/" + VidName + ".mp4");
-                    videoView.setMediaController(mediacontroller);
-                    videoView.setVideoURI(video);
+                    File vid1 = new File(speakdirectory+"/"+VidName+".mp4");
+                    if(!vid1.exists()){
+                        pDialog.show();
+                        Uri video = Uri.parse("http://talktodeafphp-talktodeaf.rhcloud.com/speak_video/" + VidName + ".mp4");
+                        videoView.setMediaController(mediacontroller);
+                        videoView.setVideoURI(video);
+                        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                            // Close the progress bar and play the video
+                            public void onPrepared(MediaPlayer mp) {
+                                //pDialog.dismiss();
+                                //wheel.stopSpinning();
+                                pDialog.dismiss();
+                                videoView.start();
+                            }
+                        });
+                    }
+                    else{
+                        Uri video = Uri.parse(speakdirectory+"/"+VidName+".mp4");
+                        videoView.setVideoURI(video);
+                        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                            // Close the progress bar and play the video
+                            public void onPrepared(MediaPlayer mp) {
+                                videoView.start();
+                            }
+                        });
+                    }
 
                 } catch (Exception e) {
                     Log.e("Error", e.getMessage());
                     e.printStackTrace();
                 }
 
-                videoView.requestFocus();
-                videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-                    // Close the progress bar and play the video
-                    public void onPrepared(MediaPlayer mp) {
-                        //pDialog.dismiss();
-                        //wheel.stopSpinning();
-                        pDialog.dismiss();
-                        videoView.start();
-                    }
-                });
+
             }
 
             @Override
