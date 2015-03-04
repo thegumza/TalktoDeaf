@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
@@ -22,12 +23,15 @@ import android.widget.Toast;
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.cengalabs.flatui.views.FlatTextView;
 import com.google.gson.GsonBuilder;
+import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
+import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.List;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
+import project.se.action.ActionVocabulary;
 import project.se.model.Vocabulary;
 import project.se.rest.ApiService;
 import project.se.talktodeaf.R;
@@ -42,10 +46,22 @@ public class SpeakVocabulary extends ActionBarActivity implements SearchView.OnQ
     public static String  voc_name;
     public String cat_name;
     String url = "http://talktodeafphp-talktodeaf.rhcloud.com";
+    private SwipyRefreshLayout mSwipyRefreshLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_action_vocabulary);
+        mSwipyRefreshLayout = (SwipyRefreshLayout) findViewById(R.id.swipyrefreshlayout);
+
+        mSwipyRefreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh(SwipyRefreshLayoutDirection swipyRefreshLayoutDirection) {
+
+                getVocabularyRefresh();
+
+            }
+        });
+
         listView = (ListView)findViewById(R.id.listView);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -56,6 +72,49 @@ public class SpeakVocabulary extends ActionBarActivity implements SearchView.OnQ
                 startActivity(vocDetail);
             }
         });
+        getVocabulary();
+    }
+    private void getVocabularyRefresh() {
+        GsonBuilder builder = new GsonBuilder();
+        RestAdapter restAdapter = new RestAdapter.Builder()
+                .setLogLevel(RestAdapter.LogLevel.FULL)
+                .setEndpoint(url)
+                .setConverter(new GsonConverter(builder.create()))
+                .build();
+        ApiService retrofit = restAdapter.create(ApiService.class);
+        cat_name = SpeakCategory.getCat_name();
+        Log.d("Category Name", "" + cat_name);
+        retrofit.getVocabularyByMethodWithCallback(cat_name,new Callback<List<Vocabulary>>() {
+            @Override
+            public void success(List<Vocabulary> voc, Response response) {
+                // accecss the items from you shop list here
+
+                List<Vocabulary> vc = voc;
+                /*Example[] array = ep.toArray(new Example[ep.size()]);
+                List<Example> listsample = ep.getSaleDate();*/
+                listView.setAdapter(new vocListAdapter(vc));
+
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Toast.makeText(SpeakVocabulary.this, "Connection fail please try again", Toast.LENGTH_SHORT).show();
+            }
+        });
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //Hide the refresh after 2sec
+                SpeakVocabulary.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mSwipyRefreshLayout.setRefreshing(false);
+                    }
+                });
+            }
+        }, 1000);
+    }
+    private void getVocabulary() {
         GsonBuilder builder = new GsonBuilder();
         RestAdapter restAdapter = new RestAdapter.Builder()
                 .setLogLevel(RestAdapter.LogLevel.FULL)

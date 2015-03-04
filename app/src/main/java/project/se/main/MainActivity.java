@@ -49,7 +49,7 @@ public class MainActivity extends ActionBarActivity implements OnMenuItemClickLi
 
         ArrayList<MenuObject> menuObjects = new ArrayList<>();
         menuObjects.add(new MenuObject(R.drawable.ic_highlight_remove_black_36dp,"ปิดหน้าต่าง"));
-        menuObjects.add(new MenuObject(R.drawable.ic_settings_black_36dp, "ตั้งค่า"));
+       // menuObjects.add(new MenuObject(R.drawable.ic_settings_black_36dp, "ตั้งค่า"));
         menuObjects.add(new MenuObject(R.drawable.ic_file_download_black_24dp, "ดาว์นโหลด"));
         menuObjects.add(new MenuObject(R.drawable.ic_info_outline_black_36dp, "เกี่ยวกับ"));
 
@@ -146,18 +146,18 @@ public class MainActivity extends ActionBarActivity implements OnMenuItemClickLi
     @Override
     public void onMenuItemClick(View view, int i) {
         switch(i) {
-            case 1:
+            /*case 1:
                 Intent setting = new Intent(MainActivity.this, Setting.class);
                 startActivity(setting);
-                break;
-            case 2:
+                break;*/
+            case 1:
                 Intent download = new Intent(MainActivity.this, CategoryDownload.class);
                 startActivity(download);
                 break;
-            case 3:
+            case 2:
                 new Libs.Builder()
                         .withFields(R.string.class.getFields())
-                        .withActivityTitle("เก")
+                        .withActivityTitle("เกี่ยวกับ")
                         .withAboutAppName("พูดผ่านภาษามือ")
                         .withAboutIconShown(true)
                         .withAboutVersionShown(true)
