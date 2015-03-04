@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -18,6 +19,8 @@ import android.widget.Toast;
 import com.activeandroid.ActiveAndroid;
 import com.cengalabs.flatui.views.FlatTextView;
 import com.google.gson.GsonBuilder;
+import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
+import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 import com.thin.downloadmanager.DownloadRequest;
 import com.thin.downloadmanager.DownloadStatusListener;
 import com.thin.downloadmanager.ThinDownloadManager;
@@ -53,11 +56,22 @@ public class VocabularyDownload extends ActionBarActivity  {
     int listposition;
     int downloadId1;
     int downloadId2;
+    private SwipyRefreshLayout mSwipyRefreshLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActiveAndroid.initialize(this);
         setContentView(R.layout.activity_action_vocabulary);
+        mSwipyRefreshLayout = (SwipyRefreshLayout) findViewById(R.id.swipyrefreshlayout);
+
+        mSwipyRefreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh(SwipyRefreshLayoutDirection swipyRefreshLayoutDirection) {
+
+                getDownloadVocabularyRefresh();
+
+            }
+        });
         downloadManager = new ThinDownloadManager(DOWNLOAD_THREAD_POOL_SIZE);
         pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
         pDialog.getProgressHelper().setBarColor(Color.parseColor("#303F9F"));
@@ -111,6 +125,49 @@ public class VocabularyDownload extends ActionBarActivity  {
 
             }
         });
+        getDownloadVocabulary();
+    }
+    private void getDownloadVocabularyRefresh() {
+        final GsonBuilder builder = new GsonBuilder();
+        RestAdapter restAdapter = new RestAdapter.Builder()
+                .setLogLevel(RestAdapter.LogLevel.FULL)
+                .setEndpoint(url)
+                .setConverter(new GsonConverter(builder.create()))
+                .build();
+        ApiService retrofit = restAdapter.create(ApiService.class);
+        cat_name = CategoryDownload.getCat_name();
+        Log.d("Category Name", "" + cat_name);
+        retrofit.getVocabularyByMethodWithCallback(cat_name,new Callback<List<Vocabulary>>() {
+            @Override
+            public void success(List<Vocabulary> voc, Response response) {
+
+                vc = voc;
+
+                adapter = new vocListAdapter(vc);
+
+                listView.setAdapter(adapter);
+
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Toast.makeText(VocabularyDownload.this, "Connection fail please try again", Toast.LENGTH_SHORT).show();
+            }
+        });
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //Hide the refresh after 2sec
+                VocabularyDownload.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mSwipyRefreshLayout.setRefreshing(false);
+                    }
+                });
+            }
+        }, 1000);
+    }
+    private void getDownloadVocabulary() {
         final GsonBuilder builder = new GsonBuilder();
         RestAdapter restAdapter = new RestAdapter.Builder()
                 .setLogLevel(RestAdapter.LogLevel.FULL)

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
@@ -18,6 +19,8 @@ import android.widget.Toast;
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.cengalabs.flatui.views.FlatTextView;
 import com.google.gson.GsonBuilder;
+import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
+import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 import com.thin.downloadmanager.ThinDownloadManager;
 
 import java.text.DecimalFormat;
@@ -39,10 +42,21 @@ public class CategoryDownload extends ActionBarActivity implements SearchView.On
     private ThinDownloadManager downloadManager;
     private static final int DOWNLOAD_THREAD_POOL_SIZE = 4;
     String url = "http://talktodeafphp-talktodeaf.rhcloud.com";
+    private SwipyRefreshLayout mSwipyRefreshLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_action_category);
+        mSwipyRefreshLayout = (SwipyRefreshLayout) findViewById(R.id.swipyrefreshlayout);
+
+        mSwipyRefreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh(SwipyRefreshLayoutDirection swipyRefreshLayoutDirection) {
+
+                getCategoryRefresh();
+
+            }
+        });
         listCategory = (ListView)findViewById(R.id.listView);
         listCategory.setTextFilterEnabled(true);
         listCategory.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -55,6 +69,44 @@ public class CategoryDownload extends ActionBarActivity implements SearchView.On
             }
         });
         getCategory();
+    }
+    public void getCategoryRefresh() {
+        GsonBuilder builder = new GsonBuilder();
+        RestAdapter restAdapter = new RestAdapter.Builder()
+                .setLogLevel(RestAdapter.LogLevel.FULL)
+                .setEndpoint(url)
+                .setConverter(new GsonConverter(builder.create()))
+                .build();
+        ApiService retrofit = restAdapter.create(ApiService.class);
+        retrofit.getCategoryByMethodWithCallback(new Callback<List<Category>>() {
+            @Override
+            public void success(List<Category> category, Response response) {
+                // accecss the items from you shop list here
+
+                List<Category> ep = category;
+                /*Example[] array = ep.toArray(new Example[ep.size()]);
+                List<Example> listsample = ep.getSaleDate();*/
+                listCategory.setAdapter(new CategoryListAdapter(ep));
+
+            }
+
+            @Override
+            public void failure(RetrofitError error) {
+                Toast.makeText(CategoryDownload.this, "Connection fail please try again", Toast.LENGTH_SHORT).show();
+            }
+        });
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //Hide the refresh after 2sec
+                CategoryDownload.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        mSwipyRefreshLayout.setRefreshing(false);
+                    }
+                });
+            }
+        }, 1000);
     }
     public void getCategory() {
         GsonBuilder builder = new GsonBuilder();
