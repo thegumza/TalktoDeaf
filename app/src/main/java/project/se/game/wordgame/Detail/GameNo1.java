@@ -124,13 +124,7 @@ public class GameNo1 extends Fragment{
     @Override
     public void onStart() {
         super.onStart();
-        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-
-            public void onPrepared(MediaPlayer mp) {
-                pDialog.dismiss();
                 videoView.start();
-            }
-        });
     }
     public static String getCorrect() {
         return correct;
@@ -195,6 +189,12 @@ public class GameNo1 extends Fragment{
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+                videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                    public void onPrepared(MediaPlayer mp) {
+                        pDialog.dismiss();
+                    }
+                });
+
 
             }
 

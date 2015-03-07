@@ -87,7 +87,7 @@ public class ActionVocabularyDetail extends ActionBarActivity implements Observa
 
                     vocTitle.setText("" + VocName);
                     vocName.setText("คำศัพท์: " + VocName);
-                    vocDes.setText("รายละเอียด: " + DesName);
+                    vocDes.setText("ความหมาย: " + DesName);
                     catName.setText("หมวด: " + CatName);
                     typeName.setText("ประเภท: " + TypeName);
                     vocExam.setText("ตัวอย่าง: " + VocExam);
@@ -116,6 +116,7 @@ public class ActionVocabularyDetail extends ActionBarActivity implements Observa
                         }
                         else{
                             Uri video = Uri.parse(actiondirectory+"/"+VidName+".mp4");
+                            videoView.setMediaController(mediacontroller);
                             videoView.setVideoURI(video);
                             videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                                 // Close the progress bar and play the video

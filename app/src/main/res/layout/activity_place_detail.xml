@@ -24,7 +24,8 @@ tools:context="project.se.information.place.PlaceDetail">
         android:text=""
         android:textSize="30dp"
         android:gravity="center"
-        android:layout_margin="20dp"
+        android:textColor="#ffffff"
+        flatui:fl_customBackgroundColor="#FF9800"
         flatui:fl_fontFamily="ThaiSansNeue"
         flatui:fl_fontWeight="light"
         flatui:fl_fontExtension="ttf"
@@ -43,33 +44,20 @@ tools:context="project.se.information.place.PlaceDetail">
             android:gravity="left"
             android:padding="10dp" >
 
-            <com.cengalabs.flatui.views.FlatTextView
-                android:id="@+id/place_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:background="#0000"
-                android:textSize="25dp"
-                android:text=""
-                android:layout_margin="5dip"
-                flatui:fl_size="30dip"
-                flatui:fl_theme="@array/dark"
-                android:orientation="vertical"
-                flatui:fl_fontFamily="ThaiSansNeue"
-                flatui:fl_fontWeight="light"
-                flatui:fl_fontExtension="ttf"/>
 
             <com.cengalabs.flatui.views.FlatTextView
                 android:id="@+id/address"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
                 android:layout_gravity="left"
                 android:background="#0000"
                 android:textSize="25dp"
                 android:text=""
-                android:layout_margin="5dip"
-                flatui:fl_size="30dip"
-                flatui:fl_theme="@array/dark"
+                android:layout_margin="2dip"
+                android:textColor="#ffffff"
+                flatui:fl_customBackgroundColor="#BF55EC"
                 android:orientation="vertical"
                 flatui:fl_fontFamily="ThaiSansNeue"
                 flatui:fl_fontWeight="light"
@@ -77,27 +65,27 @@ tools:context="project.se.information.place.PlaceDetail">
 
             <com.cengalabs.flatui.views.FlatTextView
                 android:id="@+id/phone"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
                 android:layout_gravity="left"
                 android:background="#0000"
                 android:textSize="25dp"
                 android:text=""
-                android:layout_margin="5dip"
-                android:clickable="true"
-                flatui:fl_size="30dip"
-                flatui:fl_theme="@array/dark"
+                android:layout_margin="2dip"
+                android:textColor="#ffffff"
+                flatui:fl_customBackgroundColor="#19B5FE"
                 android:orientation="vertical"
                 flatui:fl_fontFamily="ThaiSansNeue"
                 flatui:fl_fontWeight="light"
-                flatui:fl_fontExtension="ttf"
-                android:drawableRight="@drawable/ic_phone_black_24dp"
-                android:drawablePadding="3dp" />
+                flatui:fl_fontExtension="ttf"/>
 
             <fragment
                 android:id="@+id/map"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_margin="5dp"
                 android:name="com.google.android.gms.maps.MapFragment"/>
 
 

@@ -28,7 +28,8 @@
         </activity>
         <activity
             android:name="project.se.ui.SplashScreen"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -37,7 +38,8 @@
         </activity>
         <activity
             android:name="project.se.action.ActionCategory"
-            android:label="@string/title_activity_action_category" >
+            android:label="@string/title_activity_action_category"
+            android:theme="@style/ActionTheme">
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
@@ -48,7 +50,8 @@
         </activity>
         <activity
             android:name="project.se.speak.SpeakCategory"
-            android:label="@string/title_activity_speak_category" >
+            android:label="@string/title_activity_speak_category"
+            android:theme="@style/SpeakTheme">
         </activity>
         <activity
             android:name="project.se.game.Game"
@@ -56,7 +59,8 @@
         </activity>
         <activity
             android:name="project.se.game.wordgame.WordGame"
-            android:label="@string/title_activity_word_game" >
+            android:label="@string/title_activity_word_game"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name="project.se.game.videogame.VideoGame"
@@ -68,35 +72,47 @@
         </activity>
         <activity
             android:name="project.se.action.ActionVocabulary"
-            android:label="@string/title_activity_action_vocabulary" >
+            android:label="@string/title_activity_action_vocabulary"
+            android:theme="@style/ActionTheme" >
         </activity>
         <activity
             android:name="project.se.action.ActionVocabularyDetail"
-            android:label="@string/title_activity_action_vocabulary_detail" >
+            android:label="@string/title_activity_action_vocabulary_detail"
+            android:theme="@style/ActionTheme"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name="project.se.speak.SpeakVocabulary"
-            android:label="@string/title_activity_speak_vocabulary" >
+            android:label="@string/title_activity_speak_vocabulary"
+            android:theme="@style/SpeakTheme" >
         </activity>
         <activity
             android:name="project.se.speak.SpeakVocabularyDetail"
-            android:label="@string/title_activity_speak_vocabulary_detail" >
+            android:label="@string/title_activity_speak_vocabulary_detail"
+            android:theme="@style/SpeakTheme"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name="project.se.information.book.BookInfo"
-            android:label="@string/title_activity_book_info" >
+            android:label="@string/title_activity_book_info"
+            android:theme="@style/BookTheme" >
         </activity>
         <activity
             android:name="project.se.information.book.BookDetail"
-            android:label="@string/title_activity_book_detail" >
+            android:label="@string/title_activity_book_detail"
+            android:theme="@style/BookTheme"
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name="project.se.information.place.PlaceInfo"
-            android:label="@string/title_activity_place_info" >
+            android:label="@string/title_activity_place_info"
+            android:theme="@style/PlaceTheme" >
         </activity>
         <activity
             android:name="project.se.information.place.PlaceDetail"
-            android:label="@string/title_activity_place_detail" >
+            android:label="@string/title_activity_place_detail"
+            android:theme="@style/PlaceTheme"
+            android:screenOrientation="portrait">
         </activity>
 
         <meta-data
@@ -106,10 +122,6 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity
-            android:name="project.se.lib.ion.LibIonDemo"
-            android:label="@string/title_activity_information" >
-        </activity>
         <activity
             android:name="project.se.download.CategoryDownload"
             android:label="@string/title_activity_download" >

@@ -35,7 +35,7 @@ public class PlaceDetail extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_place_detail);
-        placeName = (FlatTextView)findViewById(R.id.place_name);
+        //placeName = (FlatTextView)findViewById(R.id.place_name);
         placeAddress = (FlatTextView)findViewById(R.id.address);
         phone = (FlatTextView)findViewById(R.id.phone);
         placeNameTitle = (FlatTextView)findViewById(R.id.place_title);
@@ -69,7 +69,7 @@ public class PlaceDetail extends ActionBarActivity {
                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(School, 15));
 
                 placeNameTitle.setText("" + PlaceName);
-                placeName.setText("ชื่อ: " + PlaceName);
+                //placeName.setText("ชื่อ: " + PlaceName);
                 placeAddress.setText("ที่อยู่: " + Address);
                 phone.setText("เบอร์โทร: " + Phone);
                 phone.setOnClickListener(new View.OnClickListener() {

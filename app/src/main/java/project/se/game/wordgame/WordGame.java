@@ -245,12 +245,12 @@ public class WordGame extends FragmentActivity {
                 .setConfirmText("ใช่")
                 .setCancelText("ไม่")
                 .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                    @Override
-                    public void onClick(SweetAlertDialog sDialog) {
-                        sDialog.dismissWithAnimation();
-                        finish();
-                    }
-                })
+        @Override
+        public void onClick(SweetAlertDialog sDialog) {
+            sDialog.dismissWithAnimation();
+            finish();
+        }
+    })
                 .show();
     }
 

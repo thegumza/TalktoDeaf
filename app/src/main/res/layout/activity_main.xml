@@ -5,6 +5,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:gravity="center"
+    android:background="#E0E0E0"
     android:layout_weight="1" tools:context=".MainActivity">
 
 
@@ -46,7 +47,7 @@
             android:singleLine="true"
             android:drawableTop="@drawable/ic_games_grey600_36dp"
             android:drawablePadding="5dp"
-            flatui:fl_theme="@array/candy"
+            flatui:fl_theme="@array/blossom"
             flatui:fl_textAppearance="fl_light"
             flatui:fl_blockButtonEffectHeight="3dp"
             flatui:fl_fontFamily="ThaiSansNeue"

@@ -71,16 +71,10 @@ public class GameNo4 extends Fragment{
 
     }
     @Override
-    public void onStart() {
+    public void onResume() {
         super.onStart();
-        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
-
-            public void onPrepared(MediaPlayer mp) {
-
-                pDialog.dismiss();
                 videoView.start();
-            }
-        });
+
     }
 
     @Override
@@ -187,7 +181,11 @@ public class GameNo4 extends Fragment{
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
+                videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                    public void onPrepared(MediaPlayer mp) {
+                        pDialog.dismiss();
+                    }
+                });
             }
 
             @Override

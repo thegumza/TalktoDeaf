@@ -2,17 +2,19 @@
     android:id="@+id/scroll"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:flatui="http://schemas.android.com/apk/res-auto"
-    xmlns:wheel="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#CFD8DC"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+
     android:fillViewport="true"
     android:overScrollMode="never"
     android:scrollbars="none">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
 
 
@@ -24,136 +26,148 @@
 
 
 
-    <com.cengalabs.flatui.views.FlatTextView
-            android:id="@+id/voc_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text=""
-            android:textSize="50dp"
-            android:gravity="center"
-            android:layout_margin="5dp"
-            flatui:fl_theme="@array/dark"
-            flatui:fl_fontFamily="ThaiSansNeue"
-            flatui:fl_fontWeight="light"
-            flatui:fl_fontExtension="ttf"
-            flatui:fl_textColor="fl_darker" />
 
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center">
+            <com.cengalabs.flatui.views.FlatTextView
+                android:id="@+id/voc_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textSize="40dp"
+                android:gravity="center"
+                android:textColor="#ffffff"
+                flatui:fl_customBackgroundColor="#03A9F4"
+                flatui:fl_fontFamily="ThaiSansNeue"
+                flatui:fl_fontWeight="light"
+                flatui:fl_fontExtension="ttf"
+                flatui:fl_textColor="fl_darker" />
 
             <LinearLayout
-                android:orientation="vertical"
+                android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="left"
-                android:padding="10dp" >
+                android:layout_gravity="center">
 
-                <FrameLayout
+                <LinearLayout
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal">
-                    <VideoView
-                        android:layout_width="250dp"
-                        android:layout_height="200dp"
-                        android:id="@+id/videoView"
-                        android:layout_gravity="center"
-                        android:layout_marginBottom="5dp"
-                        />
+                    android:layout_height="match_parent"
+                    android:gravity="left"
+                    android:padding="10dp" >
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal">
+                        <VideoView
+                            android:layout_width="280dp"
+                            android:layout_height="220dp"
+                            android:id="@+id/videoView"
+                            android:layout_gravity="center"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginTop="5dp"
+                            />
 
 
-                </FrameLayout>
-                <com.cengalabs.flatui.views.FlatTextView
-                    android:id="@+id/voc_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:background="#0000"
-                    android:textSize="25dp"
-                    android:text=""
-                    android:layout_margin="2dip"
-                    flatui:fl_size="30dip"
-                    flatui:fl_theme="@array/dark"
-                    android:orientation="vertical"
-                    flatui:fl_fontFamily="ThaiSansNeue"
-                    flatui:fl_fontWeight="light"
-                    flatui:fl_fontExtension="ttf"/>
+                    </FrameLayout>
+                    <com.cengalabs.flatui.views.FlatTextView
+                        android:id="@+id/voc_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:layout_gravity="left"
+                        android:background="#0000"
+                        android:textSize="25dp"
+                        android:text=""
+                        android:layout_margin="2dip"
+                        android:textColor="#ffffff"
+                        flatui:fl_customBackgroundColor="#F9690E"
+                        android:orientation="vertical"
+                        flatui:fl_fontFamily="ThaiSansNeue"
+                        flatui:fl_fontWeight="light"
+                        flatui:fl_fontExtension="ttf"/>
 
-                <com.cengalabs.flatui.views.FlatTextView
-                    android:id="@+id/cat_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:background="#0000"
-                    android:textSize="25dp"
-                    android:text=""
-                    android:layout_margin="2dip"
-                    flatui:fl_size="30dip"
-                    flatui:fl_theme="@array/dark"
-                    android:orientation="vertical"
-                    flatui:fl_fontFamily="ThaiSansNeue"
-                    flatui:fl_fontWeight="light"
-                    flatui:fl_fontExtension="ttf"/>
+                    <com.cengalabs.flatui.views.FlatTextView
+                        android:id="@+id/cat_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:layout_gravity="left"
+                        android:background="#0000"
+                        android:textSize="25dp"
+                        android:text=""
+                        android:layout_margin="2dip"
+                        android:textColor="#ffffff"
+                        flatui:fl_customBackgroundColor="#BF55EC"
+                        android:orientation="vertical"
+                        flatui:fl_fontFamily="ThaiSansNeue"
+                        flatui:fl_fontWeight="light"
+                        flatui:fl_fontExtension="ttf"/>
 
-                <com.cengalabs.flatui.views.FlatTextView
-                    android:id="@+id/type_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:background="#0000"
-                    android:textSize="25dp"
-                    android:text=""
-                    android:layout_margin="2dip"
-                    flatui:fl_size="30dip"
-                    flatui:fl_theme="@array/dark"
-                    android:orientation="vertical"
-                    flatui:fl_fontFamily="ThaiSansNeue"
-                    flatui:fl_fontWeight="light"
-                    flatui:fl_fontExtension="ttf"/>
-                <com.cengalabs.flatui.views.FlatTextView
-                    android:id="@+id/voc_des"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:background="#0000"
-                    android:textSize="25dp"
-                    android:text=""
-                    android:layout_margin="2dip"
-                    flatui:fl_size="30dip"
-                    flatui:fl_theme="@array/dark"
-                    android:orientation="vertical"
-                    flatui:fl_fontFamily="ThaiSansNeue"
-                    flatui:fl_fontWeight="light"
-                    flatui:fl_fontExtension="ttf"/>
+                    <com.cengalabs.flatui.views.FlatTextView
+                        android:id="@+id/type_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:layout_gravity="left"
+                        android:background="#0000"
+                        android:textSize="25dp"
+                        android:text=""
+                        android:layout_margin="2dip"
+                        android:textColor="#ffffff"
+                        flatui:fl_customBackgroundColor="#19B5FE"
+                        android:orientation="vertical"
+                        flatui:fl_fontFamily="ThaiSansNeue"
+                        flatui:fl_fontWeight="light"
+                        flatui:fl_fontExtension="ttf"/>
+                    <com.cengalabs.flatui.views.FlatTextView
+                        android:id="@+id/voc_des"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:layout_gravity="left"
+                        android:background="#0000"
+                        android:textSize="25dp"
+                        android:text=""
+                        android:layout_margin="2dip"
+                        android:textColor="#ffffff"
+                        flatui:fl_customBackgroundColor="#E08283"
+                        android:orientation="vertical"
+                        flatui:fl_fontFamily="ThaiSansNeue"
+                        flatui:fl_fontWeight="light"
+                        flatui:fl_fontExtension="ttf"/>
 
-                <com.cengalabs.flatui.views.FlatTextView
-                    android:id="@+id/voc_exam"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:background="#0000"
-                    android:textSize="25dp"
-                    android:text=""
-                    android:layout_margin="2dip"
-                    flatui:fl_size="30dip"
-                    flatui:fl_theme="@array/dark"
-                    android:orientation="vertical"
-                    flatui:fl_fontFamily="ThaiSansNeue"
-                    flatui:fl_fontWeight="light"
-                    flatui:fl_fontExtension="ttf"/>
+                    <com.cengalabs.flatui.views.FlatTextView
+                        android:id="@+id/voc_exam"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:layout_gravity="left"
+                        android:background="#0000"
+                        android:textSize="25dp"
+                        android:text=""
+                        android:layout_margin="2dip"
+                        android:textColor="#ffffff"
+                        flatui:fl_customBackgroundColor="#00B16A"
+                        android:orientation="vertical"
+                        flatui:fl_fontFamily="ThaiSansNeue"
+                        flatui:fl_fontWeight="light"
+                        flatui:fl_fontExtension="ttf"/>
 
+
+
+                </LinearLayout>
 
 
             </LinearLayout>
-
-
         </LinearLayout>
+
+
+
+
     </LinearLayout>
-
-
-
-
-</LinearLayout>
 </com.github.ksoichiro.android.observablescrollview.ObservableScrollView>

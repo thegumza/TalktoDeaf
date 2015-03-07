@@ -14,6 +14,7 @@ import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.cengalabs.flatui.views.FlatTextView;
+import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
 import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
 import com.github.ksoichiro.android.observablescrollview.ScrollState;
 import com.google.gson.GsonBuilder;
@@ -44,6 +45,8 @@ public class SpeakVocabularyDetail extends ActionBarActivity implements Observab
         super.onCreate(savedInstanceState);
         //getSupportActionBar().hide();
         setContentView(R.layout.activity_speak_vocabulary_detail);
+        ObservableScrollView scrollView = (ObservableScrollView) findViewById(R.id.scroll);
+        scrollView.setScrollViewCallbacks(this);
         final File speakdirectory = new File(Environment.getExternalStorageDirectory() +File.separator+ "speak");
         vocTitle = (FlatTextView) findViewById(R.id.voc_title);
         videoView = (VideoView) findViewById(R.id.videoView);
@@ -83,7 +86,7 @@ public class SpeakVocabularyDetail extends ActionBarActivity implements Observab
 
                 vocTitle.setText("" + VocName);
                 vocName.setText("คำศัพท์: " + VocName);
-                vocDes.setText("รายละเอียด: " + DesName);
+                vocDes.setText("ความหมาย: " + DesName);
                 catName.setText("หมวด: " + CatName);
                 typeName.setText("ประเภท: " + TypeName);
                 vocExam.setText("ตัวอย่าง: " + VocExam);
@@ -113,6 +116,7 @@ public class SpeakVocabularyDetail extends ActionBarActivity implements Observab
                     }
                     else{
                         Uri video = Uri.parse(speakdirectory+"/"+VidName+".mp4");
+                        videoView.setMediaController(mediacontroller);
                         videoView.setVideoURI(video);
                         videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                             // Close the progress bar and play the video

@@ -10,25 +10,21 @@
         android:layout_height="fill_parent">
 
         <com.cengalabs.flatui.views.FlatTextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="5dp"
             android:layout_gravity="center"
-            android:gravity="center"
+            android:gravity="left"
             android:text="Vocabulary"
             android:textSize="30dp"
             android:id="@+id/vocName"
+            android:drawableRight="@drawable/ic_file_download_black_36dp"
             flatui:fl_fontFamily="ThaiSansNeue"
             flatui:fl_fontWeight="light"
             flatui:fl_fontExtension="ttf"
             flatui:fl_theme="@array/dark"
             flatui:fl_textColor="fl_darker"/>
 
-        <com.gc.materialdesign.views.ProgressBarDeterminate
-            android:id="@+id/progressDeterminate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="#1E88E5" />
 
     </LinearLayout>
 
