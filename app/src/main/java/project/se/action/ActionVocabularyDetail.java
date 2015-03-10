@@ -97,12 +97,13 @@ public class ActionVocabularyDetail extends ActionBarActivity implements Observa
                         // Start the MediaController
                         MediaController mediacontroller = new MediaController(
                                 ActionVocabularyDetail.this);
-                        mediacontroller.setAnchorView(videoView);
+
                         // Get the URL from String VideoURL
                         File vid1 = new File(actiondirectory+"/"+VidName+".mp4");
                         if(!vid1.exists()){
                             pDialog.show();
                             Uri video = Uri.parse("https://talktodeafphp-talktodeaf.rhcloud.com/talktodeaf_web/action_video/" + VidName + "");
+                            mediacontroller.setAnchorView(videoView);
                             videoView.setMediaController(mediacontroller);
                             videoView.setVideoURI(video);
                             videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
@@ -117,6 +118,7 @@ public class ActionVocabularyDetail extends ActionBarActivity implements Observa
                         }
                         else{
                             Uri video = Uri.parse(actiondirectory+"/"+VidName+".mp4");
+                            mediacontroller.setAnchorView(videoView);
                             videoView.setMediaController(mediacontroller);
                             videoView.setVideoURI(video);
                             videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {

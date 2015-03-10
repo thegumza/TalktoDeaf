@@ -6,8 +6,8 @@ import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +19,7 @@ import android.widget.VideoView;
 import com.cengalabs.flatui.views.FlatRadioButton;
 import com.google.gson.GsonBuilder;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -60,6 +61,7 @@ public class GameNo4 extends Fragment{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        final File actiondirectory = new File(Environment.getExternalStorageDirectory() +File.separator+ "action");
         sp = getActivity().getSharedPreferences("PREF_NAME", Context.MODE_PRIVATE);
         editor = sp.edit();
         editor.putString("Answer4", "");
@@ -151,19 +153,37 @@ public class GameNo4 extends Fragment{
                     VidName = gm.getVid_name();
 
                     MediaController mediacontroller = new MediaController(getActivity());
-                    mediacontroller.setAnchorView(videoView);
 
-                    Uri video = null;
-                    try {
-                        video = Uri.parse("https://talktodeafphp-talktodeaf.rhcloud.com/talktodeaf_web/action_video/" + VidName + "");
-                        Log.d("Video1 Url", "" + video);
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                    final File actiondirectory = new File(Environment.getExternalStorageDirectory() +File.separator+ "action");
+                    File vid1 = new File(actiondirectory+"/"+VidName+".mp4");
+                    if(!vid1.exists()){
+                        pDialog.show();
+                        Uri videoUri = Uri.parse("https://talktodeafphp-talktodeaf.rhcloud.com/talktodeaf_web/action_video/" + VidName + "");
+                        mediacontroller.setAnchorView(videoView);
+                        videoView.setMediaController(mediacontroller);
+                        videoView.setVideoURI(videoUri);
+                        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                            // Close the progress bar and play the video
+                            public void onPrepared(MediaPlayer mp) {
+                                //pDialog.dismiss();
+                                //wheel.stopSpinning();
+                                pDialog.dismiss();
+                                videoView.start();
+                            }
+                        });
                     }
-
-                    videoView.setMediaController(mediacontroller);
-                    videoView.setVideoURI(video);
-                    videoView.requestFocus();
+                    else {
+                        Uri videoUri = Uri.parse(actiondirectory + "/" + VidName + ".mp4");
+                        mediacontroller.setAnchorView(videoView);
+                        videoView.setMediaController(mediacontroller);
+                        videoView.setVideoURI(videoUri);
+                        videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                            // Close the progress bar and play the video
+                            public void onPrepared(MediaPlayer mp) {
+                                videoView.start();
+                            }
+                        });
+                    }
 
                     shufflelist = new ArrayList<String>();
                     correct = gm.getCorrect();
