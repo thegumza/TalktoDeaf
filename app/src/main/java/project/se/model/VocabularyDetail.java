@@ -5,14 +5,17 @@ package project.se.model;
  */
 public class VocabularyDetail {
     String voc_name;
+    String voc_engname;
     String des_name;
     String vid_name;
     String type_name;
     String img_name;
     String exam;
     String cat_name;
-    public VocabularyDetail(String voc_name, String des_name, String vid_name, String type_name, String img_name, String exam, String cat_name) {
+
+    public VocabularyDetail(String voc_name, String voc_engname, String des_name, String vid_name, String type_name, String img_name, String exam, String cat_name) {
         this.voc_name = voc_name;
+        this.voc_engname = voc_engname;
         this.des_name = des_name;
         this.vid_name = vid_name;
         this.type_name = type_name;
@@ -39,6 +42,10 @@ public class VocabularyDetail {
 
     public String getImg_name() {
         return img_name;
+    }
+
+    public String getVoc_engname() {
+        return voc_engname;
     }
 
     public String getExam() {

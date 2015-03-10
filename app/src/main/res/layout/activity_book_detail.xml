@@ -25,14 +25,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text=""
-            android:textSize="40dp"
+            android:textSize="30dp"
             android:gravity="center"
             android:layout_marginBottom="10dp"
             flatui:fl_fontFamily="ThaiSansNeue"
             flatui:fl_fontWeight="light"
             flatui:fl_fontExtension="ttf"
             android:textColor="#ffffff"
-            flatui:fl_customBackgroundColor="#3F51B5"
+            flatui:fl_customBackgroundColor="#673AB7"
             flatui:fl_textColor="fl_darker" />
 
         <LinearLayout

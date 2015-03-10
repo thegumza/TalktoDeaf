@@ -75,6 +75,7 @@ tools:context="project.se.information.place.PlaceDetail">
                 android:text=""
                 android:layout_margin="2dip"
                 android:textColor="#ffffff"
+                android:drawableLeft="@drawable/ic_phone_white_24dp"
                 flatui:fl_customBackgroundColor="#19B5FE"
                 android:orientation="vertical"
                 flatui:fl_fontFamily="ThaiSansNeue"

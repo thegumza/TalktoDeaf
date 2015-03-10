@@ -81,7 +81,9 @@ public class ActionCategory extends ActionBarActivity implements SearchView.OnQu
                 .setEndpoint(url)
                 .setConverter(new GsonConverter(builder.create()))
                 .build();
+
         ApiService retrofit = restAdapter.create(ApiService.class);
+
         retrofit.getCategoryByMethodWithCallback(new Callback<List<Category>>() {
             @Override
             public void success(List<Category> category, Response response) {

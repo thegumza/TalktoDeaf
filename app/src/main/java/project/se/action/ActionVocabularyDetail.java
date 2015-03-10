@@ -34,7 +34,7 @@ import retrofit.converter.GsonConverter;
 public class ActionVocabularyDetail extends ActionBarActivity implements ObservableScrollViewCallbacks {
         FlatTextView vocName,vocDes,vocExam,catName,typeName,vocTitle;
         VideoView videoView;
-        String VocName,DesName,VocExam,CatName,TypeName,VidName;
+        String VocName,DesName,VocExam,CatName,TypeName,VidName,VocEngName;
         String voc_name;
         ImageView imageView;
         SweetAlertDialog pDialog;
@@ -84,9 +84,10 @@ public class ActionVocabularyDetail extends ActionBarActivity implements Observa
                     TypeName = vocDetail.getType_name();
                     VocExam = vocDetail.getExam();
                     VidName = vocDetail.getVid_name();
+                    VocEngName = vocDetail.getVoc_engname();
 
                     vocTitle.setText("" + VocName);
-                    vocName.setText("คำศัพท์: " + VocName);
+                    vocName.setText("คำศัพท์: " + VocName+" ("+VocEngName+")");
                     vocDes.setText("ความหมาย: " + DesName);
                     catName.setText("หมวด: " + CatName);
                     typeName.setText("ประเภท: " + TypeName);
@@ -101,7 +102,7 @@ public class ActionVocabularyDetail extends ActionBarActivity implements Observa
                         File vid1 = new File(actiondirectory+"/"+VidName+".mp4");
                         if(!vid1.exists()){
                             pDialog.show();
-                            Uri video = Uri.parse("http://talktodeafphp-talktodeaf.rhcloud.com/action_video/" + VidName + ".mp4");
+                            Uri video = Uri.parse("https://talktodeafphp-talktodeaf.rhcloud.com/talktodeaf_web/action_video/" + VidName + "");
                             videoView.setMediaController(mediacontroller);
                             videoView.setVideoURI(video);
                             videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {

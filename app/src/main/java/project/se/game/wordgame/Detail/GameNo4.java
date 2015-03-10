@@ -155,7 +155,7 @@ public class GameNo4 extends Fragment{
 
                     Uri video = null;
                     try {
-                        video = Uri.parse("http://talktodeafphp-talktodeaf.rhcloud.com/action_video/" + VidName + ".mp4");
+                        video = Uri.parse("https://talktodeafphp-talktodeaf.rhcloud.com/talktodeaf_web/action_video/" + VidName + "");
                         Log.d("Video1 Url", "" + video);
                     } catch (Exception e) {
                         e.printStackTrace();

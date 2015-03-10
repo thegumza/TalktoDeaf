@@ -92,8 +92,8 @@ public class VocabularyDownload extends ActionBarActivity  {
                 listposition = position;
                 voc_name = vocName.getVoc_name();
                 vid_name = vocName.getVid_name();
-                String video1 = ("http://talktodeafphp-talktodeaf.rhcloud.com/action_video/" + vid_name+".mp4");
-                String video2 = ("http://talktodeafphp-talktodeaf.rhcloud.com/speak_video/" + vid_name+".mp4");
+                String video1 = ("https://talktodeafphp-talktodeaf.rhcloud.com/talktodeaf_web/action_video/" + vid_name+"");
+                String video2 = ("https://talktodeafphp-talktodeaf.rhcloud.com/talktodeaf_web/speak_video/" + vid_name+"");
 
                 Uri downloadUri1 = Uri.parse(video1);
                 Uri downloadUri2 = Uri.parse(video2);
