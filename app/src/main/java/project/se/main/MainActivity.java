@@ -49,9 +49,9 @@ public class MainActivity extends ActionBarActivity implements OnMenuItemClickLi
 
         ArrayList<MenuObject> menuObjects = new ArrayList<>();
         menuObjects.add(new MenuObject(R.drawable.ic_highlight_remove_black_36dp,"ปิดหน้าต่าง"));
-       // menuObjects.add(new MenuObject(R.drawable.ic_settings_black_36dp, "ตั้งค่า"));
         menuObjects.add(new MenuObject(R.drawable.ic_file_download_black_24dp, "ดาว์นโหลด"));
         menuObjects.add(new MenuObject(R.drawable.ic_info_outline_black_36dp, "เกี่ยวกับ"));
+        menuObjects.add(new MenuObject(R.drawable.ic_settings_black_36dp, "ตั้งค่า"));
 
         fragmentManager = getSupportFragmentManager();
         mMenuDialogFragment = ContextMenuDialogFragment.newInstance((int) getResources().getDimension(R.dimen.tool_bar_height), menuObjects);
@@ -146,10 +146,7 @@ public class MainActivity extends ActionBarActivity implements OnMenuItemClickLi
     @Override
     public void onMenuItemClick(View view, int i) {
         switch(i) {
-            /*case 1:
-                Intent setting = new Intent(MainActivity.this, Setting.class);
-                startActivity(setting);
-                break;*/
+
             case 1:
                 Intent download = new Intent(MainActivity.this, CategoryDownload.class);
                 startActivity(download);
@@ -165,6 +162,10 @@ public class MainActivity extends ActionBarActivity implements OnMenuItemClickLi
                         .withAboutVersionShownCode(true)
                         .withAboutDescription("แอพพลิเคชั่น TalktoDeaf พูดผ่านภาษามือ <br />พัฒนาโดยนักศึกษาวิศวกรรมซอฟต์แวร์<br /><b>มหาวิทยาลัยสงขลานครินทร์ วิทยาเขตภูเก็ต</b>")
                         .start(this);
+                break;
+            case 3:
+                Intent setting = new Intent(MainActivity.this, Setting.class);
+                startActivity(setting);
                 break;
         }
 

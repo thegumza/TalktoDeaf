@@ -32,31 +32,50 @@
             android:layout_height="wrap_content"
             android:gravity="left"
             android:orientation="horizontal">
-        <com.cengalabs.flatui.views.FlatToggleButton
-            android:id="@+id/offline"
-            android:text="ออฟไลน์โหมด"
-            android:layout_gravity="left"
-            android:layout_marginLeft="20dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            flatui:fl_space="14dp"
-            flatui:fl_cornerRadius="18dp" />
+
 
 
             <com.cengalabs.flatui.views.FlatTextView
-                android:id="@+id/modetitle"
+                android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:layout_gravity="center"
                 android:background="#0000"
                 android:textSize="25dp"
-                android:text="ออฟไลน์โหมด"
+                android:text="ภาษา"
                 flatui:fl_size="30dp"
                 flatui:fl_theme="@array/dark"
                 flatui:fl_fontFamily="ThaiSansNeue"
                 flatui:fl_fontWeight="light"
                 flatui:fl_fontExtension="ttf"/>
+
+            <info.hoang8f.android.segmented.SegmentedGroup
+                android:id="@+id/segmented2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:layout_margin="10dp"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/button21"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/thailand"
+                    android:drawablePadding="5dp"
+                    android:text="ไทย"
+                    style="@style/RadioButton" />
+
+                <RadioButton
+                    android:id="@+id/button22"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/united_kingdom"
+                    android:drawablePadding="5dp"
+                    android:text="อังกฤษ"
+                    style="@style/RadioButton" />
+            </info.hoang8f.android.segmented.SegmentedGroup>
         </LinearLayout>
 </LinearLayout>
 </LinearLayout>

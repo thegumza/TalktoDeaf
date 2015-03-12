@@ -70,7 +70,8 @@ public class BookDetail extends ActionBarActivity implements ObservableScrollVie
                 bookAuthor.setText("ชื่อผู้แต่ง: " + BookAuthor);
                 bookPublisher.setText("สำนักพิมพ์: " + BookPublisher);
                 bookPrice.setText("ราคา: " + BookPrice + " บาท");
-                Picasso.with(BookDetail.this).load("http://talktodeafphp-talktodeaf.rhcloud.com" + BookImage).into(bookImage);
+
+                Picasso.with(BookDetail.this).load("http://talktodeafphp-talktodeaf.rhcloud.com/talktodeaf_web/images/" + BookImage).into(bookImage);
 
             }
 
