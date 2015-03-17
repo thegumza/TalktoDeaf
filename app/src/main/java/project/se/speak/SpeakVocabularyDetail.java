@@ -8,6 +8,7 @@ import android.os.Environment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.Toast;
@@ -63,6 +64,9 @@ public class SpeakVocabularyDetail extends ActionBarActivity implements Observab
         pDialog.setTitleText("กำลังดาวน์โหลด");
         pDialog.setCancelable(true);
         pDialog.setCanceledOnTouchOutside(true);
+
+
+
         GsonBuilder builder = new GsonBuilder();
         RestAdapter restAdapter = new RestAdapter.Builder()
                 .setLogLevel(RestAdapter.LogLevel.FULL)
@@ -86,7 +90,7 @@ public class SpeakVocabularyDetail extends ActionBarActivity implements Observab
                 VocEngName = vocDetail.getVoc_engname();
 
                 vocTitle.setText("" + VocName+" ("+VocEngName+")");
-                vocName.setText("คำศัพท์: " + VocName);
+                vocName.setText("คำศัพท์: " + VocName+" ("+VocEngName+")");
                 vocDes.setText("ความหมาย: " + DesName);
                 catName.setText("หมวด: " + CatName);
                 typeName.setText("ประเภท: " + TypeName);

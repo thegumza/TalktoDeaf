@@ -24,7 +24,7 @@ import com.yalantis.contextmenu.lib.interfaces.OnMenuItemClickListener;
 import java.util.ArrayList;
 
 import project.se.action.ActionCategory;
-import project.se.download.CategoryDownload;
+import project.se.download.Download;
 import project.se.game.wordgame.WordGame;
 import project.se.information.Information;
 import project.se.speak.SpeakCategory;
@@ -51,7 +51,7 @@ public class MainActivity extends ActionBarActivity implements OnMenuItemClickLi
         menuObjects.add(new MenuObject(R.drawable.ic_highlight_remove_black_36dp,"ปิดหน้าต่าง"));
         menuObjects.add(new MenuObject(R.drawable.ic_file_download_black_24dp, "ดาว์นโหลด"));
         menuObjects.add(new MenuObject(R.drawable.ic_info_outline_black_36dp, "เกี่ยวกับ"));
-        menuObjects.add(new MenuObject(R.drawable.ic_settings_black_36dp, "ตั้งค่า"));
+        //menuObjects.add(new MenuObject(R.drawable.ic_settings_black_36dp, "ตั้งค่า"));
 
         fragmentManager = getSupportFragmentManager();
         mMenuDialogFragment = ContextMenuDialogFragment.newInstance((int) getResources().getDimension(R.dimen.tool_bar_height), menuObjects);
@@ -148,7 +148,7 @@ public class MainActivity extends ActionBarActivity implements OnMenuItemClickLi
         switch(i) {
 
             case 1:
-                Intent download = new Intent(MainActivity.this, CategoryDownload.class);
+                Intent download = new Intent(MainActivity.this, Download.class);
                 startActivity(download);
                 break;
             case 2:
@@ -163,10 +163,10 @@ public class MainActivity extends ActionBarActivity implements OnMenuItemClickLi
                         .withAboutDescription("แอพพลิเคชั่น TalktoDeaf พูดผ่านภาษามือ <br />พัฒนาโดยนักศึกษาวิศวกรรมซอฟต์แวร์<br /><b>มหาวิทยาลัยสงขลานครินทร์ วิทยาเขตภูเก็ต</b>")
                         .start(this);
                 break;
-            case 3:
+            /*case 3:
                 Intent setting = new Intent(MainActivity.this, Setting.class);
                 startActivity(setting);
-                break;
+                break;*/
         }
 
 

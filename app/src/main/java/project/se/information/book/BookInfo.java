@@ -10,11 +10,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.cengalabs.flatui.views.FlatTextView;
 import com.google.gson.GsonBuilder;
+import com.nirhart.parallaxscroll.views.ParallaxListView;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 import com.squareup.picasso.Picasso;
@@ -31,17 +31,17 @@ import retrofit.client.Response;
 import retrofit.converter.GsonConverter;
 
 public class BookInfo extends ActionBarActivity {
-    private ListView listView;
+    private ParallaxListView listView;
     public static String book_name;
     private SwipyRefreshLayout mSwipyRefreshLayout;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        /*getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
+        getSupportActionBar().hide();*/
         setContentView(R.layout.activity_book_info);
 
         mSwipyRefreshLayout = (SwipyRefreshLayout) findViewById(R.id.swipyrefreshlayout);
-
         mSwipyRefreshLayout.setOnRefreshListener(new SwipyRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh(SwipyRefreshLayoutDirection swipyRefreshLayoutDirection) {
@@ -50,15 +50,25 @@ public class BookInfo extends ActionBarActivity {
 
             }
         });
-        listView = (ListView) findViewById(R.id.listView);
+        listView = (ParallaxListView)findViewById(R.id.listView);
+        View v = new View(this);
+        v.setBackgroundResource(R.drawable.header_listview_book);
+        listView.addParallaxedHeaderView(v);
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            if(position != 0){
                 Book bookName = (Book) parent.getItemAtPosition(position);
                 book_name = bookName.getBook_name();
                 Intent bookDetail = new Intent(BookInfo.this, BookDetail.class);
                 startActivity(bookDetail);
             }
+            else{
+
+                }
+            }
+
         });
         getBookInfo();
     }
@@ -160,7 +170,6 @@ public class BookInfo extends ActionBarActivity {
 
         private class ViewHolder {
             FlatTextView bookName;
-            FlatTextView position;
             ImageView image;
         }
 
@@ -172,7 +181,6 @@ public class BookInfo extends ActionBarActivity {
             if (convertView == null) {
                 convertView = inflater.inflate(R.layout.activity_book_info_column, parent, false);
                 holder = new ViewHolder();
-                holder.position = (FlatTextView) convertView.findViewById(R.id.position);
                 holder.bookName = (FlatTextView) convertView.findViewById(R.id.bookName);
                 holder.image = (ImageView) convertView.findViewById(R.id.img);
                 convertView.setTag(holder);
@@ -180,7 +188,6 @@ public class BookInfo extends ActionBarActivity {
                 holder = (ViewHolder) convertView.getTag();
             }
             Book bk = Book.get(position);
-            holder.position.setText("" + (position + 1));
             holder.bookName.setText("" + bk.getBook_name());
             Picasso.with(BookInfo.this).load("http://talktodeafphp-talktodeaf.rhcloud.com/talktodeaf_web/images/" + bk.getBook_image()).resize(100, 150).into(holder.image);
 

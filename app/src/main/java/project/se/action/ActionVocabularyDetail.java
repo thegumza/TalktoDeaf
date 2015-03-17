@@ -60,6 +60,7 @@ public class ActionVocabularyDetail extends ActionBarActivity implements Observa
             pDialog.setTitleText("กำลังดาวน์โหลด");
             pDialog.setCancelable(true);
             pDialog.setCanceledOnTouchOutside(true);
+
             final File actiondirectory = new File(Environment.getExternalStorageDirectory() +File.separator+ "action");
             //wheel = (ProgressWheel) findViewById(R.id.progress_wheel);
             //wheel.setBarColor(Color.rgb(25, 181, 254));

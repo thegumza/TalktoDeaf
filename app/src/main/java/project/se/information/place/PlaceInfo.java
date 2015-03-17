@@ -9,17 +9,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import com.cengalabs.flatui.views.FlatTextView;
 import com.google.gson.GsonBuilder;
+import com.nirhart.parallaxscroll.views.ParallaxListView;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 
 import java.util.List;
 
-import project.se.information.book.BookInfo;
 import project.se.model.Place;
 import project.se.rest.ApiService;
 import project.se.talktodeaf.R;
@@ -30,7 +29,7 @@ import retrofit.client.Response;
 import retrofit.converter.GsonConverter;
 
 public class PlaceInfo extends ActionBarActivity {
-    private ListView listView;
+    private ParallaxListView listView;
     public static String place_name;
     private SwipyRefreshLayout mSwipyRefreshLayout;
 
@@ -48,14 +47,21 @@ public class PlaceInfo extends ActionBarActivity {
 
             }
         });
-        listView = (ListView)findViewById(R.id.listView);
+        listView = (ParallaxListView)findViewById(R.id.listView);
+        View v = new View(this);
+        v.setBackgroundResource(R.drawable.header_listview_place);
+        listView.addParallaxedHeaderView(v);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(position!=0){
                 Place placeName = (Place) parent.getItemAtPosition(position);
                 place_name = placeName.getPlace_name();
                 Intent bookDetail = new Intent(PlaceInfo.this, PlaceDetail.class);
-                startActivity(bookDetail);
+                startActivity(bookDetail);}
+                else{
+
+                }
             }
         });
         getPlaceInfo();

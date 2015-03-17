@@ -3,6 +3,7 @@
     xmlns:flatui="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffffff"
     android:padding="5dp"
     android:layout_marginLeft="5dp"
     android:layout_marginRight="5dp">
@@ -15,7 +16,7 @@
         android:text="No."
         android:textSize="25dp"
         android:id="@+id/position"
-        android:drawableRight="@drawable/ic_home_black_36dp"
+        android:drawableRight="@drawable/ic_home_grey_36dp"
         android:drawablePadding="5dp"
         flatui:fl_fontFamily="ThaiSansNeue"
         flatui:fl_fontWeight="light"

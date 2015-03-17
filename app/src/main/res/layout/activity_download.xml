@@ -1,40 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:flatui="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="1">
 
-    <TextView
-        style="@android:style/TextAppearance.Large"
-        android:layout_gravity="center"
-        android:text="File Download"
+    <com.cengalabs.flatui.views.FlatTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        />
+        android:text="ดาว์นโหลดวิดีโอคำศัพท์"
+        android:id="@+id/textView"
+        android:layout_margin="20dp"
+        android:padding="20dp"
+        android:textSize="30dp"
+        android:singleLine="true"
+        android:layout_gravity="center_horizontal"
+        flatui:fl_theme="@array/sea"
+        flatui:fl_fontFamily="ThaiSansNeue"
+        flatui:fl_fontWeight="light"
+        flatui:fl_fontExtension="ttf"
+        flatui:fl_textColor="fl_darker" />
 
-    <ProgressBar
-        android:minHeight="20dp"
-        android:maxHeight="20dp"
-        android:id="@+id/progress"
-        style="?android:attr/progressBarStyleHorizontal"
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_margin="20dp"
+        android:layout_gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"/>
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:layout_gravity="center"
-        android:id="@+id/download_count"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />
+        <com.cengalabs.flatui.views.FlatButton
+            android:id="@+id/btn_book"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center|center_horizontal"
+            android:padding="40dp"
+            android:layout_margin="20dp"
+            android:text="วิดีโอฝึกท่าทาง"
+            android:textSize="30dp"
+            android:singleLine="true"
+            android:drawableLeft="@drawable/ic_accessibility_black_36dp"
+            flatui:fl_theme="@array/orange"
+            flatui:fl_textAppearance="fl_light"
+            flatui:fl_blockButtonEffectHeight="3dp"
+            flatui:fl_fontFamily="ThaiSansNeue"
+            flatui:fl_fontWeight="light"
+            flatui:fl_fontExtension="ttf"/>
 
-    <Button
-        android:layout_gravity="center"
-        android:id="@+id/download"
-        android:text="Download"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />
+        <com.cengalabs.flatui.views.FlatButton
+            android:id="@+id/btn_place"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center|center_horizontal"
+            android:padding="40dp"
+            android:layout_margin="20dp"
+            android:text="วิดีโอฝึกพูด"
+            android:textSize="30dp"
+            android:singleLine="true"
+            android:drawableLeft="@drawable/ic_tag_faces_black_36dp"
+            flatui:fl_theme="@array/sky"
+            flatui:fl_textAppearance="fl_light"
+            flatui:fl_blockButtonEffectHeight="3dp"
+            flatui:fl_fontFamily="ThaiSansNeue"
+            flatui:fl_fontWeight="light"
+            flatui:fl_fontExtension="ttf"/>
+    </LinearLayout>
 </LinearLayout>

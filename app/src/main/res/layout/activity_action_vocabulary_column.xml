@@ -1,12 +1,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:flatui="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
     android:layout_width="match_parent" android:layout_height="wrap_content">
 
 
 
     <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="fill_parent">
         <com.cengalabs.flatui.views.FlatTextView
             android:layout_width="wrap_content"
@@ -42,5 +42,18 @@
             flatui:fl_fontExtension="ttf"
             flatui:fl_theme="@array/dark"
             flatui:fl_textColor="fl_darker"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:gravity="right">
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:id="@+id/downloadView"
+            android:padding="5dp"
+            android:layout_margin="5dp"/>
+
     </LinearLayout>
 </LinearLayout>

@@ -3,37 +3,28 @@ package project.se.action;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.SearchView;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.amulyakhare.textdrawable.TextDrawable;
-import com.cengalabs.flatui.views.FlatTextView;
 import com.google.gson.GsonBuilder;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.List;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import project.se.model.Vocabulary;
 import project.se.rest.ApiService;
 import project.se.talktodeaf.R;
+import project.se.ui.VocabularyListAdapter;
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
@@ -91,7 +82,7 @@ public class ActionVocabulary extends ActionBarActivity implements SearchView.On
                 List<Vocabulary> vc = voc;
                 /*Example[] array = ep.toArray(new Example[ep.size()]);
                 List<Example> listsample = ep.getSaleDate();*/
-                listView.setAdapter(new vocListAdapter(vc));
+                listView.setAdapter(new VocabularyListAdapter(ActionVocabulary.this,vc));
 
             }
 
@@ -123,15 +114,19 @@ public class ActionVocabulary extends ActionBarActivity implements SearchView.On
         ApiService retrofit = restAdapter.create(ApiService.class);
         cat_name = ActionCategory.getCat_name();
         Log.d("Category Name", "" + cat_name);
+
         retrofit.getVocabularyByMethodWithCallback(cat_name,new Callback<List<Vocabulary>>() {
             @Override
             public void success(List<Vocabulary> voc, Response response) {
                 // accecss the items from you shop list here
 
                 List<Vocabulary> vc = voc;
+                /*if(vc.isEmpty()){
+                    Toast.makeText(ActionVocabulary.this, "ไม่พบคำศัพท์ในหมวดนี้", Toast.LENGTH_SHORT).show();
+                }else*/
                 /*Example[] array = ep.toArray(new Example[ep.size()]);
                 List<Example> listsample = ep.getSaleDate();*/
-                listView.setAdapter(new vocListAdapter(vc));
+                listView.setAdapter(new VocabularyListAdapter(ActionVocabulary.this,vc));
 
             }
 
@@ -170,7 +165,7 @@ public class ActionVocabulary extends ActionBarActivity implements SearchView.On
                                 .show();
                     }
                     else {
-                        listView.setAdapter(new vocListAdapter(vc));
+                        listView.setAdapter(new VocabularyListAdapter(ActionVocabulary.this,vc));
                     }
                 } catch (Exception e) {
                     new SweetAlertDialog(ActionVocabulary.this, SweetAlertDialog.ERROR_TYPE)
@@ -194,67 +189,7 @@ public class ActionVocabulary extends ActionBarActivity implements SearchView.On
         return false;
     }
 
-    public class vocListAdapter extends BaseAdapter {
 
-        List<Vocabulary> Vocabulary;
-        public vocListAdapter(List<Vocabulary> sd) {
-            Vocabulary = sd;
-        }
-        @Override
-        public int getCount() {
-            return Vocabulary.size();
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return Vocabulary.get(position);
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        private class ViewHolder {
-            FlatTextView vocName;
-            FlatTextView position;
-            ImageView imageview;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            ViewHolder  holder;
-            LayoutInflater inflater = getLayoutInflater();
-            if(convertView == null){
-                convertView = inflater.inflate(R.layout.activity_action_vocabulary_column, parent,false);
-                holder = new ViewHolder();
-                holder.position=(FlatTextView)convertView.findViewById(R.id.position);
-                holder.imageview=(ImageView)convertView.findViewById(R.id.imageView);
-                holder.vocName=(FlatTextView)convertView.findViewById(R.id.vocName);
-                convertView.setTag(holder);
-            }else{
-                holder=(ViewHolder)convertView.getTag();
-            }
-            Vocabulary bk = Vocabulary.get(position);
-            String FirstVoc = bk.getVoc_name().substring(0, 1);
-            Typeface type = Typeface.createFromAsset(getAssets(), "fonts/ThaiSansNeue_regular.ttf");
-            TextDrawable drawable = TextDrawable.builder()
-                    .beginConfig()
-                    .useFont(type)
-                    .bold()
-                    .toUpperCase()
-                    .endConfig()
-                    .buildRound("" + FirstVoc, Color.DKGRAY);
-            NumberFormat f = new DecimalFormat("00");
-            String vidname = bk.getVid_name();
-            String video = ("http://talktodeafphp-talktodeaf.rhcloud.com/video/" + vidname+".mp4");
-            holder.position.setText(""+f.format(position + 1));
-            holder.vocName.setText("" + bk.getVoc_name());
-            holder.imageview.setImageDrawable(drawable);
-
-            return convertView;
-        }
-    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

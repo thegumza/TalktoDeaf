@@ -23,7 +23,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
-    android:background="#ff33b5e5"
+    android:background="#00C853"
     android:padding="10dp">
 
     <ImageView

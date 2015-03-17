@@ -1,17 +1,20 @@
 <com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout
     android:id="@+id/swipyrefreshlayout"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:background="#ffffff"
     app:direction="top"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+
     xmlns:tools="http://schemas.android.com/tools">
 
-    <ListView
+    <com.nirhart.parallaxscroll.views.ParallaxListView
+        android:id="@+id/listView"
+        android:divider="#E0E0E0"
+        android:dividerHeight="1dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/listView"
-        android:layout_centerVertical="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        app:parallax_factor="1.9"
+         />
 </com.orangegangsters.github.swipyrefreshlayout.library.SwipyRefreshLayout>
