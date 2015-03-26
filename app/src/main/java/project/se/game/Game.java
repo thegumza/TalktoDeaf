@@ -7,7 +7,7 @@ import android.view.View;
 
 import com.cengalabs.flatui.views.FlatButton;
 
-import project.se.game.videogame.VideoGame;
+import project.se.game.wordgames.WordsGame;
 import project.se.game.wordgame.WordGame;
 import project.se.talktodeaf.R;
 
@@ -30,7 +30,7 @@ public class Game extends ActionBarActivity {
         btnVideoGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent videoGame = new Intent(Game.this, VideoGame.class);
+                Intent videoGame = new Intent(Game.this, WordsGame.class);
                 startActivity(videoGame);
             }
         });

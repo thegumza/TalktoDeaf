@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import project.se.action.ActionCategory;
 import project.se.download.Download;
 import project.se.game.wordgame.WordGame;
+import project.se.game.wordgames.WordsGame;
 import project.se.information.Information;
 import project.se.speak.SpeakCategory;
 import project.se.talktodeaf.R;
@@ -78,7 +79,7 @@ public class MainActivity extends ActionBarActivity implements OnMenuItemClickLi
         btnGame.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent game = new Intent(MainActivity.this, WordGame.class);
+                Intent game = new Intent(MainActivity.this, WordsGame.class);
                 startActivity(game);
             }
         });

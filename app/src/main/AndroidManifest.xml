@@ -61,7 +61,7 @@
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name="project.se.game.videogame.VideoGame"
+            android:name="project.se.game.wordgames.WordsGame"
             android:label="@string/title_activity_video_game" >
         </activity>
         <activity
