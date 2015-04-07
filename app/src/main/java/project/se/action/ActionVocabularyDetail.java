@@ -8,8 +8,10 @@ import android.os.Environment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.MediaController;
+import android.widget.RadioButton;
 import android.widget.Toast;
 import android.widget.VideoView;
 
@@ -22,6 +24,7 @@ import com.google.gson.GsonBuilder;
 import java.io.File;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
+import info.hoang8f.android.segmented.SegmentedGroup;
 import project.se.model.VocabularyDetail;
 import project.se.rest.ApiService;
 import project.se.talktodeaf.R;
@@ -31,22 +34,33 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 import retrofit.converter.GsonConverter;
 
-public class ActionVocabularyDetail extends ActionBarActivity implements ObservableScrollViewCallbacks {
+public class ActionVocabularyDetail extends ActionBarActivity  {
         FlatTextView vocName,vocDes,vocExam,catName,typeName,vocTitle;
         VideoView videoView;
         String VocName,DesName,VocExam,CatName,TypeName,VidName,VocEngName;
         String voc_name;
         ImageView imageView;
         SweetAlertDialog pDialog;
-        //ProgressWheel wheel;
+        SegmentedGroup segmented;
+        File actiondirectory;
+        VocabularyDetail vocDetail;
+        Uri video;
+        MediaController mediacontroller;
+        ApiService retrofit;
+        GsonBuilder builder;
+        RestAdapter restAdapter;
+        RadioButton btnTH,btnEN;
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             //getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
             super.onCreate(savedInstanceState);
             //getSupportActionBar().hide();
             setContentView(R.layout.activity_action_vocabulary_detail);
-            ObservableScrollView scrollView = (ObservableScrollView) findViewById(R.id.scroll);
-            scrollView.setScrollViewCallbacks(this);
+            //ObservableScrollView scrollView = (ObservableScrollView) findViewById(R.id.scroll);
+            //scrollView.setScrollViewCallbacks(this);
+            segmented = (SegmentedGroup) findViewById(R.id.segmented);
+            btnTH = (RadioButton)findViewById(R.id.btnTH);
+            btnEN = (RadioButton)findViewById(R.id.btnEN);
             vocTitle = (FlatTextView) findViewById(R.id.voc_title);
             videoView = (VideoView) findViewById(R.id.videoView);
             vocName = (FlatTextView) findViewById(R.id.voc_name);
@@ -55,30 +69,43 @@ public class ActionVocabularyDetail extends ActionBarActivity implements Observa
             vocExam = (FlatTextView) findViewById(R.id.voc_exam);
             catName = (FlatTextView) findViewById(R.id.cat_name);
             imageView = (ImageView) findViewById(R.id.imageView);
+
+            btnTH.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                }
+            });
+            btnTH.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                }
+            });
             pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
             pDialog.getProgressHelper().setBarColor(Color.parseColor("#303F9F"));
             pDialog.setTitleText("กำลังดาวน์โหลด");
             pDialog.setCancelable(true);
             pDialog.setCanceledOnTouchOutside(true);
 
-            final File actiondirectory = new File(Environment.getExternalStorageDirectory() +File.separator+ "action");
+            actiondirectory = new File(Environment.getExternalStorageDirectory() +File.separator+ "action");
             //wheel = (ProgressWheel) findViewById(R.id.progress_wheel);
             //wheel.setBarColor(Color.rgb(25, 181, 254));
 
-            GsonBuilder builder = new GsonBuilder();
-            RestAdapter restAdapter = new RestAdapter.Builder()
+            builder = new GsonBuilder();
+            restAdapter = new RestAdapter.Builder()
                     .setLogLevel(RestAdapter.LogLevel.FULL)
                     .setEndpoint("http://talktodeafphp-talktodeaf.rhcloud.com")
                     .setConverter(new GsonConverter(builder.create()))
                     .build();
-            ApiService retrofit = restAdapter.create(ApiService.class);
+            retrofit = restAdapter.create(ApiService.class);
             voc_name = ActionVocabulary.getVoc_name();
             Log.d("vocabulary Name", "" + voc_name);
             retrofit.getVocabularyDetailByNameWithCallback(voc_name, new Callback<VocabularyDetail>() {
 
                 @Override
                 public void success(VocabularyDetail listVocDetail, Response response) {
-                    VocabularyDetail vocDetail = listVocDetail;
+                    vocDetail = listVocDetail;
                     VocName = vocDetail.getVoc_name();
                     DesName = vocDetail.getDes_name();
                     CatName = vocDetail.getCat_name();
@@ -96,8 +123,7 @@ public class ActionVocabularyDetail extends ActionBarActivity implements Observa
                     //wheel.spin();
                     try {
                         // Start the MediaController
-                        MediaController mediacontroller = new MediaController(
-                                ActionVocabularyDetail.this);
+                        mediacontroller = new MediaController(ActionVocabularyDetail.this);
 
                         // Get the URL from String VideoURL
                         File vid1 = new File(actiondirectory+"/"+VidName+".mp4");
@@ -118,7 +144,7 @@ public class ActionVocabularyDetail extends ActionBarActivity implements Observa
                             });
                         }
                         else{
-                            Uri video = Uri.parse(actiondirectory+"/"+VidName+".mp4");
+                            video = Uri.parse(actiondirectory+"/"+VidName+".mp4");
                             mediacontroller.setAnchorView(videoView);
                             videoView.setMediaController(mediacontroller);
                             videoView.setVideoURI(video);
@@ -147,27 +173,6 @@ public class ActionVocabularyDetail extends ActionBarActivity implements Observa
         }
 
 
-    @Override
-    public void onScrollChanged(int i, boolean b, boolean b2) {
 
-    }
 
-    @Override
-    public void onDownMotionEvent() {
-
-    }
-
-    @Override
-    public void onUpOrCancelMotionEvent(ScrollState scrollState) {
-        ActionBar ab = getSupportActionBar();
-        if (scrollState == ScrollState.UP) {
-            if (ab.isShowing()) {
-                ab.hide();
-            }
-        } else if (scrollState == ScrollState.DOWN) {
-            if (!ab.isShowing()) {
-                ab.show();
-            }
-        }
-    }
 }

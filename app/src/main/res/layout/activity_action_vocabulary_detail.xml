@@ -1,4 +1,4 @@
-<com.github.ksoichiro.android.observablescrollview.ObservableScrollView
+<ScrollView
     android:id="@+id/scroll"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:flatui="http://schemas.android.com/apk/res-auto"
@@ -69,15 +69,15 @@ android:orientation="vertical">
 
 
             </FrameLayout>
-           <!-- <info.hoang8f.android.segmented.SegmentedGroup
-                android:id="@+id/segmented2"
+            <info.hoang8f.android.segmented.SegmentedGroup
+                android:id="@+id/segmented"
                 android:layout_gravity="right"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
                 <RadioButton
-                    android:id="@+id/button21"
+                    android:id="@+id/btnTH"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/thailand"
@@ -90,7 +90,7 @@ android:orientation="vertical">
                     style="@style/RadioButton" />
 
                 <RadioButton
-                    android:id="@+id/button22"
+                    android:id="@+id/btnEN"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:drawableLeft="@drawable/united_kingdom"
@@ -100,7 +100,8 @@ android:orientation="vertical">
                     flatui:fl_fontWeight="light"
                     flatui:fl_fontExtension="ttf"
                     style="@style/RadioButton" />
-            </info.hoang8f.android.segmented.SegmentedGroup>-->
+
+            </info.hoang8f.android.segmented.SegmentedGroup>
             <com.cengalabs.flatui.views.FlatTextView
                 android:id="@+id/voc_name"
                 android:layout_width="match_parent"
@@ -202,4 +203,4 @@ android:orientation="vertical">
 
 
 </LinearLayout>
-    </com.github.ksoichiro.android.observablescrollview.ObservableScrollView>
+    </ScrollView>

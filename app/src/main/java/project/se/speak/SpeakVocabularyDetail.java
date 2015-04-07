@@ -32,7 +32,7 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 import retrofit.converter.GsonConverter;
 
-public class SpeakVocabularyDetail extends ActionBarActivity implements ObservableScrollViewCallbacks {
+public class SpeakVocabularyDetail extends ActionBarActivity  {
     FlatTextView vocName,vocDes,vocExam,catName,typeName,vocTitle;
     VideoView videoView;
     String VocName,DesName,VocExam,CatName,TypeName,VidName,VocEngName;
@@ -46,8 +46,8 @@ public class SpeakVocabularyDetail extends ActionBarActivity implements Observab
         super.onCreate(savedInstanceState);
         //getSupportActionBar().hide();
         setContentView(R.layout.activity_speak_vocabulary_detail);
-        ObservableScrollView scrollView = (ObservableScrollView) findViewById(R.id.scroll);
-        scrollView.setScrollViewCallbacks(this);
+        //ObservableScrollView scrollView = (ObservableScrollView) findViewById(R.id.scroll);
+        //scrollView.setScrollViewCallbacks(this);
         final File speakdirectory = new File(Environment.getExternalStorageDirectory() +File.separator+ "speak");
         vocTitle = (FlatTextView) findViewById(R.id.voc_title);
         videoView = (VideoView) findViewById(R.id.videoView);
@@ -146,27 +146,5 @@ public class SpeakVocabularyDetail extends ActionBarActivity implements Observab
         });
     }
 
-    @Override
-    public void onScrollChanged(int i, boolean b, boolean b2) {
 
-    }
-
-    @Override
-    public void onDownMotionEvent() {
-
-    }
-
-    @Override
-    public void onUpOrCancelMotionEvent(ScrollState scrollState) {
-        ActionBar ab = getSupportActionBar();
-        if (scrollState == ScrollState.UP) {
-            if (ab.isShowing()) {
-                ab.hide();
-            }
-        } else if (scrollState == ScrollState.DOWN) {
-            if (!ab.isShowing()) {
-                ab.show();
-            }
-        }
-    }
 }

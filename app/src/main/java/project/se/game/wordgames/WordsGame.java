@@ -43,7 +43,7 @@ public class WordsGame extends ActionBarActivity {
     private ArrayList<String> shufflelist;
     private SharedPreferences sp;
     private SharedPreferences.Editor editor;
-    private SweetAlertDialog pDialog;
+    private SweetAlertDialog pDialog,pDialogSuccess;
     private  String txtFirstChoice,txtSecondChoice;
     private String TOP_SCORE = "TopScore";
     private int score,topScore;
@@ -53,6 +53,7 @@ public class WordsGame extends ActionBarActivity {
     private RestAdapter restAdapter;
     private MediaController mediacontroller;
     private File vid1;
+    private SweetAlertDialog swdialog;
     Game gm;
     FlatTextView txtTopScore;
     FlatRadioButton firstchoice,secondchoice;
@@ -80,18 +81,60 @@ public class WordsGame extends ActionBarActivity {
                     txtFirstChoice = firstchoice.getText().toString();
                     if(txtFirstChoice.equals(correct)){
                         score++;
-                        getApi();
+                        pDialogSuccess = new SweetAlertDialog(WordsGame.this, SweetAlertDialog.SUCCESS_TYPE);
+                        pDialogSuccess.getProgressHelper().setBarColor(Color.parseColor("#303F9F"));
+                        pDialogSuccess.setTitleText("คุณตอบถูก");
+                        pDialogSuccess.setConfirmText("ข้อต่อไป");
+                        pDialogSuccess.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                pDialogSuccess.dismiss();
+                                getApi();
+                            }
+                        });
+                        pDialogSuccess.show();
+
+
 
                     }
                     else {
-                        Toast.makeText(WordsGame.this, "คุณตอบผิด", Toast.LENGTH_SHORT).show();
 
-                        if (score > topScore) {
-                            editor = sp.edit();
-                            editor.putInt(TOP_SCORE, score);
-                            editor.commit();
+                        swdialog = new SweetAlertDialog(WordsGame.this, SweetAlertDialog.ERROR_TYPE);
+                        swdialog.setTitleText("คุณตอบถูก "+score+" ข้อ");
+                        swdialog.setContentText("คุณต้องการลองอีกครั้งหรือไม่");
+                        swdialog.setConfirmText("ใช่");
+                        swdialog.setCancelText("ไม่");
+                        swdialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sDialog) {
+                                if (score > topScore) {
+                                    editor = sp.edit();
+                                    editor.putInt(TOP_SCORE, score);
+                                    editor.commit();
 
-                        }
+                                }
+                                score = 0;
+                                getApi();
+                                swdialog.dismiss();
+
+
+                            }
+                        });
+                        swdialog.setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                if (score > topScore) {
+                                    editor = sp.edit();
+                                    editor.putInt(TOP_SCORE, score);
+                                    editor.commit();
+
+                                }
+                                finish();
+                            }
+                        })
+                                .show();
+
+
 
 
                     }
@@ -101,20 +144,60 @@ public class WordsGame extends ActionBarActivity {
                     txtSecondChoice = secondchoice.getText().toString();
                     if(txtSecondChoice.equals(correct)){
                         score++;
-                        getApi();
+                        pDialogSuccess = new SweetAlertDialog(WordsGame.this, SweetAlertDialog.SUCCESS_TYPE);
+                        pDialogSuccess.getProgressHelper().setBarColor(Color.parseColor("#303F9F"));
+                        pDialogSuccess.setTitleText("คุณตอบถูก");
+                        pDialogSuccess.setConfirmText("ข้อต่อไป");
+                        pDialogSuccess.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                pDialogSuccess.dismiss();
+                                getApi();
+                            }
+                        });
+                        pDialogSuccess.show();
 
                     }
                     else{
-                        Toast.makeText(WordsGame.this, "คุณตอบผิด", Toast.LENGTH_SHORT).show();
-                        if(score > topScore)
-                        {
-                            editor = sp.edit();
-                            editor.putInt(TOP_SCORE,score);
-                            editor.commit();
+                        swdialog = new SweetAlertDialog(WordsGame.this, SweetAlertDialog.ERROR_TYPE);
+                        swdialog.setTitleText("คุณตอบถูก "+score+" ข้อ");
+                        swdialog.setContentText("คุณต้องการลองอีกครั้งหรือไม่");
+                        swdialog.setConfirmText("ใช่");
+                        swdialog.setCancelText("ไม่");
+                        swdialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                    @Override
+                                    public void onClick(SweetAlertDialog sDialog) {
+                                        if (score > topScore) {
+                                            editor = sp.edit();
+                                            editor.putInt(TOP_SCORE, score);
+                                            editor.commit();
 
-                        }
+                                        }
+                                        score = 0;
+                                        getApi();
+                                        swdialog.dismiss();
+                                        topScore = sp.getInt(TOP_SCORE, 0);
+                                        txtTopScore.setText("คะแนนสูงสุด "+topScore+" คะแนน" );
+                                        videoView.start();
+
+                                    }
+                                });
+                        swdialog.setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                    @Override
+                                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                        if (score > topScore) {
+                                            editor = sp.edit();
+                                            editor.putInt(TOP_SCORE, score);
+                                            editor.commit();
+
+                                        }
+                                        finish();
+                                    }
+                                })
+                                .show();
                     }
                 }
+
                 topScore = sp.getInt(TOP_SCORE, 0);
                 txtTopScore.setText("คะแนนสูงสุด "+topScore+" คะแนน" );
                 firstchoice.setChecked(false);
@@ -133,7 +216,6 @@ public class WordsGame extends ActionBarActivity {
         pDialog.setTitleText("กำลังดาวน์โหลด");
         pDialog.setCancelable(true);
         pDialog.setCanceledOnTouchOutside(true);
-        pDialog.show();
         builder = new GsonBuilder();
         restAdapter = new RestAdapter.Builder()
                 .setLogLevel(RestAdapter.LogLevel.FULL)
