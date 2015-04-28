@@ -14,8 +14,6 @@ import android.widget.Toast;
 
 import com.cengalabs.flatui.views.FlatButton;
 import com.github.amlcurran.showcaseview.ShowcaseView;
-import com.github.amlcurran.showcaseview.targets.Target;
-import com.github.amlcurran.showcaseview.targets.ViewTarget;
 import com.mikepenz.aboutlibraries.Libs;
 import com.yalantis.contextmenu.lib.ContextMenuDialogFragment;
 import com.yalantis.contextmenu.lib.MenuObject;
@@ -25,14 +23,13 @@ import java.util.ArrayList;
 
 import project.se.action.ActionCategory;
 import project.se.download.Download;
-import project.se.game.wordgame.WordGame;
 import project.se.game.wordgames.WordsGame;
 import project.se.information.Information;
 import project.se.speak.SpeakCategory;
 import project.se.talktodeaf.R;
 
 
-public class MainActivity extends ActionBarActivity implements OnMenuItemClickListener,View.OnClickListener {
+public class MainActivity extends ActionBarActivity implements OnMenuItemClickListener {
     private static final int TIME_INTERVAL = 2000;
     private long mBackPressed;
     FlatButton btnAction,btnSpeak,btnGame,btnInfo;
@@ -95,7 +92,7 @@ public class MainActivity extends ActionBarActivity implements OnMenuItemClickLi
     }
 
 
-    @Override
+    /*@Override
     protected void onResume() {
         super.onResume();
 
@@ -113,7 +110,7 @@ public class MainActivity extends ActionBarActivity implements OnMenuItemClickLi
 
             prefs.edit().putBoolean("firstrun", false).commit();
         }
-    }
+    }*/
 
     @Override
     public void onBackPressed()
@@ -173,49 +170,7 @@ public class MainActivity extends ActionBarActivity implements OnMenuItemClickLi
 
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (counter) {
-            case 0:
-                showcaseView.setShowcase(new ViewTarget(btnSpeak), true);
-                showcaseView.setContentTitle("การพูด");
-                showcaseView.setContentText("คุณสามารถฝึกการพูดจากปุ่มนี้");
-                showcaseView.setStyle(R.style.CustomShowcaseTheme2);
-                showcaseView.setButtonText("ต่อไป");
-                break;
 
-            case 1:
-                showcaseView.setShowcase(new ViewTarget(btnInfo), true);
-                showcaseView.setContentTitle("ข้อมูล");
-                showcaseView.setContentText("ข้อมูลหนังสือเกี่ยวกับภาษามือและสถานที่");
-                showcaseView.setStyle(R.style.CustomShowcaseTheme2);
-                showcaseView.setButtonText("ต่อไป");
-                break;
-
-            case 2:
-                showcaseView.setShowcase(new ViewTarget(btnGame), true);
-                showcaseView.setContentTitle("เกม");
-                showcaseView.setContentText("มีเกมทายปริศนารอคุณอยู่");
-                showcaseView.setStyle(R.style.CustomShowcaseTheme2);
-                showcaseView.setButtonText("ต่อไป");
-                break;
-
-
-            case 3:
-                showcaseView.setTarget(Target.NONE);
-                showcaseView.setContentTitle("ขอบคุณ");
-                showcaseView.setContentText("คุณสามารถเริ่มใช้งานแอพพลเคชั่นได้แล้ว");
-                showcaseView.setButtonText("ปิด");
-                setAlpha(0.4f, btnAction, btnSpeak, btnInfo,btnGame);
-                break;
-
-            case 4:
-                showcaseView.hide();
-                setAlpha(1.0f, btnAction, btnSpeak, btnInfo,btnGame);
-                break;
-        }
-        counter++;
-    }
     private void setAlpha(float alpha, View... views) {
          {
             for (View view : views) {

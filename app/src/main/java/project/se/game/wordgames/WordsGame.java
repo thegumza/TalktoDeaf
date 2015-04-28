@@ -5,11 +5,9 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.MediaController;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -44,7 +42,7 @@ public class WordsGame extends ActionBarActivity {
     private SharedPreferences sp;
     private SharedPreferences.Editor editor;
     private SweetAlertDialog pDialog,pDialogSuccess;
-    private  String txtFirstChoice,txtSecondChoice;
+    private String txtFirstChoice,txtSecondChoice;
     private String TOP_SCORE = "TopScore";
     private int score,topScore;
     private File actionDirectory;
@@ -57,12 +55,10 @@ public class WordsGame extends ActionBarActivity {
     Game gm;
     FlatTextView txtTopScore;
     FlatRadioButton firstchoice,secondchoice;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_words_game);
-
         txtTopScore = (FlatTextView)findViewById(R.id.topscore);
         videoView = (VideoView)findViewById(R.id.videoView);
         radioGroup = (RadioGroup) findViewById(R.id.myRadioGroup);
@@ -72,6 +68,7 @@ public class WordsGame extends ActionBarActivity {
         //editor = sp.edit();
         topScore = sp.getInt(TOP_SCORE, 0);
         //editor.commit();
+
         txtTopScore.setText("คะแนนสูงสุด "+topScore+" คะแนน" );
         getApi();
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -100,7 +97,7 @@ public class WordsGame extends ActionBarActivity {
                     else {
 
                         swdialog = new SweetAlertDialog(WordsGame.this, SweetAlertDialog.ERROR_TYPE);
-                        swdialog.setTitleText("คุณตอบถูก "+score+" ข้อ");
+                        swdialog.setTitleText("คุณตอบถูกผิด");
                         swdialog.setContentText("คุณต้องการลองอีกครั้งหรือไม่");
                         swdialog.setConfirmText("ใช่");
                         swdialog.setCancelText("ไม่");
@@ -160,8 +157,8 @@ public class WordsGame extends ActionBarActivity {
                     }
                     else{
                         swdialog = new SweetAlertDialog(WordsGame.this, SweetAlertDialog.ERROR_TYPE);
-                        swdialog.setTitleText("คุณตอบถูก "+score+" ข้อ");
-                        swdialog.setContentText("คุณต้องการลองอีกครั้งหรือไม่");
+                        swdialog.setTitleText("คุณตอบผิด");
+                        swdialog.setContentText("คุณต้องการเล่นอีกครั้งหรือไม่");
                         swdialog.setConfirmText("ใช่");
                         swdialog.setCancelText("ไม่");
                         swdialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {

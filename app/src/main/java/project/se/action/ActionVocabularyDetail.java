@@ -1,11 +1,11 @@
 package project.se.action;
 
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.widget.CompoundButton;
@@ -16,9 +16,6 @@ import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.cengalabs.flatui.views.FlatTextView;
-import com.github.ksoichiro.android.observablescrollview.ObservableScrollView;
-import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
-import com.github.ksoichiro.android.observablescrollview.ScrollState;
 import com.google.gson.GsonBuilder;
 
 import java.io.File;
@@ -37,12 +34,12 @@ import retrofit.converter.GsonConverter;
 public class ActionVocabularyDetail extends ActionBarActivity  {
         FlatTextView vocName,vocDes,vocExam,catName,typeName,vocTitle;
         VideoView videoView;
-        String VocName,DesName,VocExam,CatName,TypeName,VidName,VocEngName;
+        String VocName,DesName,VocExam,CatName,TypeName,VidName,VocEngName,EngCatName,EngTypeName,EngDesName,EngVocExam;
         String voc_name;
         ImageView imageView;
         SweetAlertDialog pDialog;
-        SegmentedGroup segmented;
         File actiondirectory;
+        SegmentedGroup segmented;
         VocabularyDetail vocDetail;
         Uri video;
         MediaController mediacontroller;
@@ -50,6 +47,7 @@ public class ActionVocabularyDetail extends ActionBarActivity  {
         GsonBuilder builder;
         RestAdapter restAdapter;
         RadioButton btnTH,btnEN;
+        private Typeface typeface;
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             //getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
@@ -69,18 +67,33 @@ public class ActionVocabularyDetail extends ActionBarActivity  {
             vocExam = (FlatTextView) findViewById(R.id.voc_exam);
             catName = (FlatTextView) findViewById(R.id.cat_name);
             imageView = (ImageView) findViewById(R.id.imageView);
-
+            typeface = Typeface.createFromAsset(getAssets(), "fonts/ThaiSansNeue_regular.ttf");
+            btnTH.setTypeface(typeface);
+            btnEN.setTypeface(typeface);
             btnTH.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    if(btnTH.isChecked()){
+                        vocTitle.setText("" + VocName);
+                        vocName.setText("คำศัพท์: " + VocName);
+                        vocDes.setText("ความหมาย: " + DesName);
+                        catName.setText("หมวด: " + CatName);
+                        typeName.setText("ประเภท: " + TypeName);
+                        vocExam.setText("ตัวอย่าง: " + VocExam);
+                    }}
 
-                }
             });
-            btnTH.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            btnEN.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-                }
+                    if(btnEN.isChecked()){
+                    vocTitle.setText("" + VocEngName);
+                    vocName.setText("Name: " + VocEngName);
+                    vocDes.setText("Description: " + EngDesName);
+                    catName.setText("Category: " + EngCatName);
+                    typeName.setText("Type: " + EngTypeName);
+                    vocExam.setText("Example: " + EngVocExam);
+                }}
             });
             pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
             pDialog.getProgressHelper().setBarColor(Color.parseColor("#303F9F"));
@@ -112,10 +125,14 @@ public class ActionVocabularyDetail extends ActionBarActivity  {
                     TypeName = vocDetail.getType_name();
                     VocExam = vocDetail.getExam();
                     VidName = vocDetail.getVid_name();
-                    VocEngName = vocDetail.getVoc_engname();
+                    VocEngName = vocDetail.getEng_voc_name();
+                    EngCatName = vocDetail.getEng_cat_name();
+                    EngTypeName = vocDetail.getEng_type_name();
+                    EngDesName = vocDetail.getEng_des_name();
+                    EngVocExam = vocDetail.getEng_exam();
 
                     vocTitle.setText("" + VocName);
-                    vocName.setText("คำศัพท์: " + VocName+" ("+VocEngName+")");
+                    vocName.setText("คำศัพท์: " + VocName+"");
                     vocDes.setText("ความหมาย: " + DesName);
                     catName.setText("หมวด: " + CatName);
                     typeName.setText("ประเภท: " + TypeName);
