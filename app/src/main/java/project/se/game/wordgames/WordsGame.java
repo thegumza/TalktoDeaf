@@ -104,15 +104,11 @@ public class WordsGame extends ActionBarActivity {
                         swdialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                             @Override
                             public void onClick(SweetAlertDialog sDialog) {
-                                if (score > topScore) {
-                                    editor = sp.edit();
-                                    editor.putInt(TOP_SCORE, score);
-                                    editor.commit();
-
-                                }
+                                putTopScore();
                                 score = 0;
                                 getApi();
                                 swdialog.dismiss();
+                                videoView.start();
 
 
                             }
@@ -120,12 +116,7 @@ public class WordsGame extends ActionBarActivity {
                         swdialog.setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
                             @Override
                             public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                if (score > topScore) {
-                                    editor = sp.edit();
-                                    editor.putInt(TOP_SCORE, score);
-                                    editor.commit();
-
-                                }
+                                putTopScore();
                                 finish();
                             }
                         })
@@ -164,12 +155,7 @@ public class WordsGame extends ActionBarActivity {
                         swdialog.setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                                     @Override
                                     public void onClick(SweetAlertDialog sDialog) {
-                                        if (score > topScore) {
-                                            editor = sp.edit();
-                                            editor.putInt(TOP_SCORE, score);
-                                            editor.commit();
-
-                                        }
+                                        putTopScore();
                                         score = 0;
                                         getApi();
                                         swdialog.dismiss();
@@ -182,12 +168,7 @@ public class WordsGame extends ActionBarActivity {
                         swdialog.setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
                                     @Override
                                     public void onClick(SweetAlertDialog sweetAlertDialog) {
-                                        if (score > topScore) {
-                                            editor = sp.edit();
-                                            editor.putInt(TOP_SCORE, score);
-                                            editor.commit();
-
-                                        }
+                                        putTopScore();
                                         finish();
                                     }
                                 })
@@ -205,6 +186,15 @@ public class WordsGame extends ActionBarActivity {
 
 
         }
+
+    private void putTopScore() {
+        if (score > topScore) {
+            editor = sp.edit();
+            editor.putInt(TOP_SCORE, score);
+            editor.commit();
+
+        }
+    }
 
 
     private void getApi() {
@@ -282,6 +272,7 @@ public class WordsGame extends ActionBarActivity {
                 videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                     public void onPrepared(MediaPlayer mp) {
                         pDialog.dismiss();
+                        videoView.start();
                     }
                 });
 
@@ -293,6 +284,36 @@ public class WordsGame extends ActionBarActivity {
                 Toast.makeText(WordsGame.this, "Connection fail please try again", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+    @Override
+    public void onBackPressed()
+    {
+        new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+                .setTitleText("ออกจากเกมส์")
+                .setContentText("คุณต้องการออกจากเกมส์ใช่หรือไม่?")
+                .setConfirmText("ใช่")
+                .setCancelText("ไม่")
+                .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        putTopScore();
+                        topScore = sp.getInt(TOP_SCORE, 0);
+                        txtTopScore.setText("คะแนนสูงสุด "+topScore+" คะแนน" );
+                        getApi();
+                    }
+                })
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                        putTopScore();
+                        topScore = sp.getInt(TOP_SCORE, 0);
+                        txtTopScore.setText("คะแนนสูงสุด "+topScore+" คะแนน" );
+                        sDialog.dismissWithAnimation();
+                        finish();
+                    }
+                })
+                .show();
+
     }
 
 }
